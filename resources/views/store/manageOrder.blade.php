@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="formOrder.html"><button type="button" class="btn btn-primary">สั่งซื้อ</button></a>
+                                <a href="{{ action('UserController@viewFormOrder')}}"><button type="button" class="btn btn-primary">สั่งซื้อ</button></a>
                             </div>
                         </div>
                         <!-- /.col-lg-5 (nested) -->

@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="formMaterial.html"><button type="button" class="btn btn-primary">เพิ่มวัสดุ</button></a>
+                                <a href="{{ action('UserController@viewFormMaterial')}}"><button type="button" class="btn btn-primary">เพิ่มวัสดุ</button></a>
                             </div>
                         </div>
                         <!-- /.col-lg-5 (nested) -->

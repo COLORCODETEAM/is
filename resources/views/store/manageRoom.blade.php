@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="formRoom.html"><button type="button" class="btn btn-primary">เพิ่มห้องแลป</button></a>
+                                <a href="{{ action('UserController@viewFormRoom')}}"><button type="button" class="btn btn-primary">เพิ่มห้องแลป</button></a>
                             </div>
                         </div>
                         <!-- /.col-lg-5 (nested) -->

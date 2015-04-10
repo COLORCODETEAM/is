@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="formRepair.html"><button type="button" class="btn btn-primary">แจ้งซ่อม</button></a>
+                                <a href="{{ action('UserController@viewFormRepair')}}"><button type="button" class="btn btn-primary">แจ้งซ่อม</button></a>
                             </div>
                         </div>
                         <!-- /.col-lg-5 (nested) -->

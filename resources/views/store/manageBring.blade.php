@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="formBring.html"><button type="button" class="btn btn-primary">เบิกวัสดุ</button></a>
+                                <a href="{{ action('UserController@viewFormBring')}}"><button type="button" class="btn btn-primary">เบิกวัสดุ</button></a>
                             </div>
                         </div>
                         <!-- /.col-lg-5 (nested) -->

@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="formStock.html"><button type="button" class="btn btn-primary">เพิ่มคลัง</button></a>
+                                <a href="{{ action('UserController@viewFormStock')}}"><button type="button" class="btn btn-primary">เพิ่มคลัง</button></a>
                             </div>
                         </div>
                         <!-- /.col-lg-5 (nested) -->
