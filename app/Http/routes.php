@@ -13,15 +13,24 @@
 
 
 Route::get('/', 'UserController@index');
-Route::get('/viewStock', 'UserController@viewStock');
-Route::get('/viewMaterial', 'UserController@viewMaterial');
-Route::get('/viewDevice', 'UserController@viewDevice');
-Route::get('/viewRoom', 'UserController@viewRoom');
-Route::get('/viewOrder', 'UserController@viewOrder');
-Route::get('/viewRoomBooking', 'UserController@viewRoomBooking');
-Route::get('/viewLend', 'UserController@viewLend');
-Route::get('/viewBring', 'UserController@viewBring');
-Route::get('/viewRepair', 'UserController@viewRepair');
+Route::get('/viewManageStock', 'UserController@viewManageStock');
+Route::get('/viewManageMaterial', 'UserController@viewManageMaterial');
+Route::get('/viewManageDevice', 'UserController@viewManageDevice');
+Route::get('/viewManageRoom', 'UserController@viewManageRoom');
+Route::get('/viewManageOrder', 'UserController@viewManageOrder');
+Route::get('/viewManageRoomBooking', 'UserController@viewManageRoomBooking');
+Route::get('/viewManageLend', 'UserController@viewManageLend');
+Route::get('/viewManageBring', 'UserController@viewManageBring');
+Route::get('/viewManageRepair', 'UserController@viewManageRepair');
+Route::get('/viewFormStock', 'UserController@viewFormStock');
+Route::get('/viewFormMaterial', 'UserController@viewFormMaterial');
+Route::get('/viewFormDevice', 'UserController@viewFormDevice');
+Route::get('/viewFormRoom', 'UserController@viewFormRoom');
+Route::get('/viewFormOrder', 'UserController@viewFormOrder');
+Route::get('/viewFormRoomBooking', 'UserController@viewFormRoomBooking');
+Route::get('/viewFormLend', 'UserController@viewFormLend');
+Route::get('/viewFormBring', 'UserController@viewFormBring');
+Route::get('/viewFormRepair', 'UserController@viewFormRepair');
 
 Route::get('home', 'HomeController@index');
 

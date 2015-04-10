@@ -16,31 +16,58 @@ class UserController extends Controller {
 	public function index() {
 		return view ( 'store.home' );
 	}
-	public function viewStock() {
+        public function viewManageStock() {
+		return view ( 'store.manageStock' );
+	}
+        public function viewManageMaterial() {
+		return view ( 'store.manageMaterial' );
+	}
+	public function viewManageDevice() {
+		return view ( 'store.manageDevice' );
+	}
+	public function viewManageRoom() {
+		return view ( 'store.manageRoom' );
+	}
+	public function viewManageOrder() {
+		return view ( 'store.manageOrder' );
+	}
+	public function viewManageRoomBooking() {
+		return view ( 'store.manageRoomBooking' );
+	}
+	public function viewManageLend() {
+		return view ( 'store.manageLend' );
+	}
+	public function viewManageBring() {
+		return view ( 'store.manageBring' );
+	}
+	public function viewManageRepair() {
+		return view ( 'store.manageRepair' );
+	}
+	public function viewFormStock() {
 		return view ( 'store.formStock' );
 	}
-	public function viewMaterial() {
+	public function viewFormMaterial() {
 		return view ( 'store.formMaterial' );
 	}
-	public function viewDevice() {
+	public function viewFormDevice() {
 		return view ( 'store.formDevice' );
 	}
-	public function viewRoom() {
+	public function viewFormRoom() {
 		return view ( 'store.formRoom' );
 	}
-	public function viewOrder() {
+	public function viewFormOrder() {
 		return view ( 'store.formOrder' );
 	}
-	public function viewRoomBooking() {
+	public function viewFormRoomBooking() {
 		return view ( 'store.formRoomBooking' );
 	}
-	public function viewLend() {
+	public function viewFormLend() {
 		return view ( 'store.formLend' );
 	}
-	public function viewBring() {
+	public function viewFormBring() {
 		return view ( 'store.formBring' );
 	}
-	public function viewRepair() {
+	public function viewFormRepair() {
 		return view ( 'store.formRepair' );
 	}
 }
