@@ -15,99 +15,68 @@
                     ฟอร์มจองห้อง และอุปกรณ์
                 </div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>เลขที่ใบจอง : </label>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Order No : </label>
+                            <div class="col-lg-3">
+                                <input class="form-control"/>
+                            </div>
+                            <label class="control-label col-lg-2 col-lg-offset-3">วันที่ : </label>
+                            <div class="col-lg-2">
+                                <input class="form-control"/>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
-                        <div class="col-lg-4 col-lg-offset-4">
-                            <div class="form-group">
-                                <label>วันที่ : </label>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Events : </label>
+                            <div class="col-lg-6">
+                                <input class="form-control"/>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
-                    </div>
-                    <!-- /.row (nested) -->
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>Events : </label>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Purpose of use : </label>
+                            <div class="col-lg-6">
+                                <input class="form-control"/>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
-                    </div>
-                    <!-- /.row (nested) -->
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>Purpose of use : </label>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Description : </label>
+                            <div class="col-lg-6">
+                                <textarea class="form-control" rows="3"></textarea>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
-                    </div>
-                    <!-- /.row (nested) -->
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>Description </label>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Contact person : </label>
+                            <div class="col-lg-3">
+                                <input class="form-control"/>
+                            </div>
+                            <label class="control-label col-lg-2 col-lg-offset-1">Email address : </label>
+                            <div class="col-lg-3">
+                                <input class="form-control"/>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
-                    </div>
-                    <!-- /.row (nested) -->
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>Contact person : </label>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Date of Event : </label>
+                            <div class="col-lg-2">
+                                <input class="form-control"/>
+                            </div>
+                            <label class="control-label col-lg-2">Start time : </label>
+                            <div class="col-lg-2">
+                                <input class="form-control"/>
+                            </div>
+                            <label class="control-label col-lg-2">Finish time : </label>
+                            <div class="col-lg-2">
+                                <input class="form-control"/>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
-                        <div class="col-lg-4 col-lg-offset-2">
-                            <div class="form-group">
-                                <label>Email address : </label>
-                            </div>
-                        </div>
-                        <!-- /.col-lg-4 (nested) -->
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>Date of Event : </label>
-                            </div>
-                        </div>
-                        <!-- /.col-lg-4 (nested) -->
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>Start time : </label>
-                            </div>
-                        </div>
-                        <!-- /.col-lg-4 (nested) -->
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>Finish time : </label>
-                            </div>
-                        </div>
-                        <!-- /.col-lg-4 (nested) -->
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">                                    
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label>Space needed (please select) : </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <select class="form-control">
+                        <div class="form-group">
+                            <label class="control-label col-lg-3">Space needed (please select) : </label>
+                            <div class="col-lg-2">
+                                <select class="form-control">
                                         <option>ห้องแลป 1 </option>
                                         <option>ห้องแลป 2</option>
                                     </select>
-                                </div>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
                     </div>
                     <!-- /.row (nested) -->
                     <div class="row">

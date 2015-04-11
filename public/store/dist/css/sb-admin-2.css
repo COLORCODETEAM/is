@@ -9,9 +9,9 @@ body {
 }
 
 #page-banner {
-	width: 100%;
-    height: 250px;
-	background-color: #2D80AC;
+    width: 100%;
+    height: 198px;
+    background-image: url("../../images/header.jpg");
 }
 
 #wrapper {
@@ -138,7 +138,7 @@ body {
         z-index: 1;
         position: absolute;
         width: 250px;
-        margin-top: 301px;
+        margin-top: 249px;
     }
 
     .navbar-top-links .dropdown-messages,

@@ -15,30 +15,24 @@
                     ฟอร์มแจ้งซ่อมอุปกรณ์
                 </div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>เลขที่ใบแจ้งซ่อม : </label>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Repair No : </label>
+                            <div class="col-lg-3">
+                                <input class="form-control"/>
+                            </div>
+                            <label class="control-label col-lg-2 col-lg-offset-3">Date : </label>
+                            <div class="col-lg-2">
+                                <input class="form-control"/>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
-                        <div class="col-lg-4 col-lg-offset-4">
-                            <div class="form-group">
-                                <label>วันที่ : </label>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Repair person : </label>
+                            <div class="col-lg-3">
+                                <input class="form-control"/>
                             </div>
-                        </div>
-                        <!-- /.col-lg-4 (nested) -->
+                        </div>                        
                     </div>
-                    <!-- /.row (nested) -->
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>ผู้ส่งซ่อม : </label>
-                            </div>
-                        </div>
-                        <!-- /.col-lg-4 (nested) -->
-                    </div>
-                    <!-- /.row (nested) -->
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">
@@ -74,48 +68,31 @@
                         </div>
                     </div>
                     <!-- /.row (nested) -->
-                    <div class="row">
-                        <div class="col-lg-5">                                    
-                            <div class="row">
-                                <div class="form-group form-horizontal">
-                                    <label class="control-label col-lg-4">Approvement : </label>
-                                    <div class="col-lg-6">
-                                        <select class="form-control col-lg-4">
-                                            <option>OK</option>
-                                            <option>CANCEL</option>
-                                        </select>
-                                    </div>
-                                </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Approvement : </label>
+                            <div class="col-lg-2">
+                                <select class="form-control">
+                                    <option>OK</option>
+                                    <option>CANCEL</option>
+                                </select>
+                            </div>
+                            <label class="control-label col-lg-2 col-lg-offset-1">Date of Approved : </label>
+                            <div class="col-lg-2">
+                                <input class="form-control"/>
                             </div>
                         </div>
-                        <!-- /.col-lg-5 (nested) -->
-                        <div class="col-lg-5">
-                            <div class="row">
-                                <div class="form-group form-horizontal">
-                                    <label class="control-label col-lg-5">Date of Approved : </label>
-                                </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Received by : </label>
+                            <div class="col-lg-2">
+                                <input class="form-control"/>
+                            </div>
+                            <label class="control-label col-lg-2 col-lg-offset-1">Date of Received : </label>
+                            <div class="col-lg-2">
+                                <input class="form-control"/>
                             </div>
                         </div>
-                        <!-- /.col-lg-5 (nested) -->
-                    </div>
-                    <!-- /.row (nested) -->
-                    <div class="row">
-                        <div class="col-lg-5">
-                            <div class="row">
-                                <div class="form-group form-horizontal">
-                                    <label class="control-label col-lg-4">Received by : </label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.col-lg-5 (nested) -->
-                        <div class="col-lg-5">
-                            <div class="row">
-                                <div class="form-group form-horizontal">
-                                    <label class="control-label col-lg-5">Date of Received : </label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.col-lg-5 (nested) -->
+                        <!-- /.col-lg-4 (nested) -->
                     </div>
                     <!-- /.row (nested) -->
                     <div class="row">

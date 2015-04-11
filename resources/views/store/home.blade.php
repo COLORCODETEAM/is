@@ -2,7 +2,7 @@
 @section('content')
 <div class="row" style="margin-bottom: 20px;"></div>
 <!-- /.row -->
-<div class="row">
+<!-- div class="row">
     <div class="col-lg-3 col-md-6">
         <div class="panel panel-green">
             <div class="panel-heading">
@@ -69,7 +69,7 @@
             </a>
         </div>
     </div>
-</div>
+</div -->
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-12">

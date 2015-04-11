@@ -15,52 +15,39 @@
                     ฟอร์มเบิก-จ่ายวัสดุ
                 </div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>เลขที่ใบเบิก : </label>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Withdraw No : </label>
+                            <div class="col-lg-3">
+                                <input class="form-control"/>
+                            </div>
+                            <label class="control-label col-lg-2 col-lg-offset-3">Date : </label>
+                            <div class="col-lg-2">
+                                <input class="form-control"/>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
-                        <div class="col-lg-4 col-lg-offset-4">
-                            <div class="form-group">
-                                <label>วันที่ : </label>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Purpose of use : </label>
+                            <div class="col-lg-6">
+                                <textarea class="form-control" rows="3"></textarea>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
-                    </div>
-                    <!-- /.row (nested) -->
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>Purpose of use : </label>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Description : </label>
+                            <div class="col-lg-6">
+                                <textarea class="form-control" rows="3"></textarea>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
-                    </div>
-                    <!-- /.row (nested) -->
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>Description : </label>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Withdraw person : </label>
+                            <div class="col-lg-3">
+                                <input class="form-control"/>
                             </div>
-                        </div>
-                        <!-- /.col-lg-4 (nested) -->
-                    </div>
-                    <!-- /.row (nested) -->
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>Withdraw person : </label>
+                            <label class="control-label col-lg-2 col-lg-offset-1">Email address : </label>
+                            <div class="col-lg-3">
+                                <input class="form-control"/>
                             </div>
-                        </div>
-                        <!-- /.col-lg-4 (nested) -->
-                        <div class="col-lg-4 col-lg-offset-2">
-                            <div class="form-group">
-                                <label>Email address : </label>
-                            </div>
-                        </div>
-                        <!-- /.col-lg-4 (nested) -->
+                        </div>                        
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -101,32 +88,21 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /.row (nested) -->
-                    <div class="row">
-                        <div class="col-lg-5">                                    
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <div class="form-group">
-                                        <label>Approvement : </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <select class="form-control">
-                                        <option>OK</option>
-                                        <option>CANCEL</option>
-                                    </select>
-                                </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Approvement : </label>
+                            <div class="col-lg-2">
+                                <select class="form-control">
+                                    <option>OK</option>
+                                    <option>CANCEL</option>
+                                </select>
+                            </div>
+                            <label class="control-label col-lg-2 col-lg-offset-1">Rmark : </label>
+                            <div class="col-lg-4">
+                                <textarea class="form-control" rows="3"></textarea>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
-                        <div class="col-lg-5">
-                            <div class="form-group">
-                                <label>Remark : </label>
-                            </div>
-                        </div>
-                        <!-- /.col-lg-4 (nested) -->
                     </div>
-                    <!-- /.row (nested) -->
                     <div class="row">
                         <div class="col-lg-offset-11">
                             <button type="button" class="btn btn-primary">OK</button>
