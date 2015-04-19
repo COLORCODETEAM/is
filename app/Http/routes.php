@@ -16,7 +16,7 @@ Route::get('/', 'UserController@index');
 Route::get('/viewManageStock', 'UserController@viewManageStock');
 Route::get('/viewManageMaterial', 'UserController@viewManageMaterial');
 Route::get('/viewManageDevice', 'UserController@viewManageDevice');
-Route::get('/viewManageRoom', 'UserController@viewManageRoom');
+
 Route::get('/viewManageOrder', 'UserController@viewManageOrder');
 Route::get('/viewManageRoomBooking', 'UserController@viewManageRoomBooking');
 Route::get('/viewManageLend', 'UserController@viewManageLend');
@@ -25,16 +25,29 @@ Route::get('/viewManageRepair', 'UserController@viewManageRepair');
 Route::get('/viewFormStock', 'UserController@viewFormStock');
 Route::get('/viewFormMaterial', 'UserController@viewFormMaterial');
 Route::get('/viewFormDevice', 'UserController@viewFormDevice');
-Route::get('/viewFormRoom', 'UserController@viewFormRoom');
+
 Route::get('/viewFormOrder', 'UserController@viewFormOrder');
 Route::get('/viewFormRoomBooking', 'UserController@viewFormRoomBooking');
 Route::get('/viewFormLend', 'UserController@viewFormLend');
 Route::get('/viewFormBring', 'UserController@viewFormBring');
 Route::get('/viewFormRepair', 'UserController@viewFormRepair');
 
+//RoomLab
+Route::get('/viewManageRoom', 'RoomLabController@index');
+Route::get('/viewFormRoom', 'RoomLabController@create');
+Route::post('/addRoomLab','RoomLabController@store');
+Route::get('/delRoomLab/{id}',['as'=>'delRoom','uses'=>'RoomLabController@destroy']
+);
+Route::get('/editRoomLab/{id}',['as'=>'editRoom','uses'=>'RoomLabController@edit']
+);
+Route::any('/updateRoomLab/{id}',['as'=>'updateRoom','uses'=>'RoomLabController@update']);
+
+//
 Route::get('home', 'HomeController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+

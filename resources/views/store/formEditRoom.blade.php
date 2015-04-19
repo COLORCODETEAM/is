@@ -1,7 +1,8 @@
 @extends('store.app')
 @section('content')
-{!! Form::open(array('url'=>'addRoomLab')) !!}
-<!-- <form role="form" action="RoomLabController@create">  -->
+{!! Form::open( ['route'=>['updateRoom',$room['id'] ]])  !!}
+
+
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">จัดการห้อง และอุปกรณ์ </h1>
@@ -21,26 +22,26 @@
                         
                             <label class="control-label col-lg-2">Room No : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="roomNo"/>
+                                <input class="form-control" name="roomNo" value="{{$room['roomNo']}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Name : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="name"/>
+                                <input class="form-control" name="name" value="{{$room['roomName']}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Description : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3" name="des"></textarea>
+                                <textarea class="form-control" rows="3" name="des" >{{$room['roomDes']}}</textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-offset-11">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">OK</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </div>
                         <!-- /.col-lg-4 (nested) -->

@@ -16,17 +16,14 @@ class UserController extends Controller {
 	public function index() {
 		return view ( 'store.home' );
 	}
-        public function viewManageStock() {
+	public function viewManageStock() {
 		return view ( 'store.manageStock' );
 	}
-        public function viewManageMaterial() {
+	public function viewManageMaterial() {
 		return view ( 'store.manageMaterial' );
 	}
 	public function viewManageDevice() {
 		return view ( 'store.manageDevice' );
-	}
-	public function viewManageRoom() {
-		return view ( 'store.manageRoom' );
 	}
 	public function viewManageOrder() {
 		return view ( 'store.manageOrder' );
@@ -51,9 +48,6 @@ class UserController extends Controller {
 	}
 	public function viewFormDevice() {
 		return view ( 'store.formDevice' );
-	}
-	public function viewFormRoom() {
-		return view ( 'store.formRoom' );
 	}
 	public function viewFormOrder() {
 		return view ( 'store.formOrder' );
