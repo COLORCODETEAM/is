@@ -10,7 +10,7 @@ use App\RoomLabs;
 use Symfony\Component\VarDumper\VarDumper;
 
 class RoomLabController extends Controller {
-	private $rooms;
+	
 	
 	/**
 	 * Display a listing of the resource.
@@ -18,8 +18,8 @@ class RoomLabController extends Controller {
 	 * @return Response
 	 */
 	public function index() {
-		$this->rooms = new RoomLabs ();
-		$data = $this->rooms->all ()->toArray ();
+		$room = new RoomLabs ();
+		$data = $room->all ()->toArray ();
 		// var_dump($data);
 		return view ( 'store.manageRoom' )->with ( 'rooms', $data );
 		// return "index";
@@ -42,7 +42,7 @@ class RoomLabController extends Controller {
 	 */
 	public function store() {
 		$input = Request::all ();
-		$this->rooms = new RoomLabs ();
+		$room = new RoomLabs ();
 		$room->roomNo = $input ['roomNo'];
 		$room->roomName = $input ['name'];
 		$room->roomDes = $input ['des'];
