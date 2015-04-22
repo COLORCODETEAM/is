@@ -1,15 +1,15 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+  |--------------------------------------------------------------------------
+  | Application Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register all of the routes for an application.
+  | It's a breeze. Simply tell Laravel the URIs it should respond to
+  | and give it the controller to call when that URI is requested.
+  |
+ */
 
 
 Route::get('/', 'UserController@index');
@@ -32,22 +32,28 @@ Route::get('/viewFormLend', 'UserController@viewFormLend');
 Route::get('/viewFormBring', 'UserController@viewFormBring');
 Route::get('/viewFormRepair', 'UserController@viewFormRepair');
 
-//RoomLab
-Route::get('/viewManageRoom', 'RoomLabController@index');
-Route::get('/viewFormRoom', 'RoomLabController@create');
-Route::post('/addRoomLab','RoomLabController@store');
-Route::get('/delRoomLab/{id}',['as'=>'delRoom','uses'=>'RoomLabController@destroy']
-);
-Route::get('/editRoomLab/{id}',['as'=>'editRoom','uses'=>'RoomLabController@edit']
-);
-Route::any('/updateRoomLab/{id}',['as'=>'updateRoom','uses'=>'RoomLabController@update']);
+//Room
+Route::get('/viewManageRoom', 'RoomController@index');
+Route::get('/viewFormRoom', 'RoomController@create');
+Route::post('/addRoom', 'RoomController@store');
+Route::get('/delRoom/{id}', ['as' => 'delRoom', 'uses' => 'RoomController@destroy']);
+Route::get('/editRoom/{id}', ['as' => 'editRoom', 'uses' => 'RoomController@edit']);
+Route::any('/updateRoom/{id}', ['as' => 'updateRoom', 'uses' => 'RoomController@update']);
 
-//
+// Stock
+Route::get('/viewManageStock', 'StockController@index');
+Route::get('/viewFormStock', 'StockController@create');
+Route::post('/addStock', 'StockController@store');
+Route::get('/delStock/{id}', ['as' => 'delStock', 'uses' => 'StockController@destroy']);
+Route::get('/editStock/{id}', ['as' => 'editStock', 'uses' => 'StockController@edit']);
+Route::any('/updateStock/{id}', ['as' => 'updateStock', 'uses' => 'StockController@update']);
+
+// Home
 Route::get('home', 'HomeController@index');
 
 Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
 ]);
 
 

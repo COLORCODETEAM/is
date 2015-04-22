@@ -1,7 +1,7 @@
 @extends('store.app')
 @section('content')
-{!! Form::open(array('url'=>'addRoomLab')) !!}
-<!-- <form role="form" action="RoomLabController@create">  -->
+{!! Form::open(array('url'=>'addRoom')) !!}
+<!-- <form role="form" action="RoomController@create">  -->
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">จัดการห้อง และอุปกรณ์ </h1>
@@ -27,13 +27,13 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Name : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="name"/>
+                                <input class="form-control" name="roomName"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Description : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3" name="des"></textarea>
+                                <textarea class="form-control" rows="3" name="description"></textarea>
                             </div>
                         </div>
                     </div>

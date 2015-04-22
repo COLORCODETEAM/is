@@ -93,11 +93,11 @@
 								class="fa fa-folder-open fa-fw"></i> จัดการคลัง<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="{{ action('UserController@viewManageStock')}}">จัดการคลัง</a></li>
+								<li><a href="{{ action('StockController@index')}}">จัดการคลัง</a></li>
 								<li><a href="{{ action('UserController@viewManageMaterial')}}">จัดการวัสดุ</a></li>
 								<li><a href="{{ action('UserController@viewManageDevice')}}">จัดการอุปกรณ์</a></li>
 							</ul></li>
-						<li><a href="{{ action('RoomLabController@index') }}"><i
+						<li><a href="{{ action('RoomController@index') }}"><i
 								class="fa fa-home fa-fw"></i> จัดการห้องแลป</a></li>
 						<li><a href="{{ action('UserController@viewManageOrder') }}"><i
 								class="fa fa-shopping-cart fa-fw"></i> สั่งซื้อวัสดุ-อุปกรณ์</a></li>

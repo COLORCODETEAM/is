@@ -1,5 +1,6 @@
 @extends('store.app')
 @section('content')
+
 <form role="form">
     <div class="row">
         <div class="col-lg-12">

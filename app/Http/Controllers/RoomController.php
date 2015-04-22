@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Request;
-use App\RoomLab;
-use App\RoomLabs;
-use Symfony\Component\VarDumper\VarDumper;
+use App\Room;
 
-class RoomLabController extends Controller {
-	
+class RoomController extends Controller {
 	
 	/**
 	 * Display a listing of the resource.
@@ -18,7 +14,7 @@ class RoomLabController extends Controller {
 	 * @return Response
 	 */
 	public function index() {
-		$room = new RoomLabs ();
+		$room = new Room ();
 		$data = $room->all ()->toArray ();
 		// var_dump($data);
 		return view ( 'store.manageRoom' )->with ( 'rooms', $data );
@@ -42,10 +38,10 @@ class RoomLabController extends Controller {
 	 */
 	public function store() {
 		$input = Request::all ();
-		$room = new RoomLabs ();
-		$room->roomNo = $input ['roomNo'];
-		$room->roomName = $input ['name'];
-		$room->roomDes = $input ['des'];
+		$room = new Room ();
+		$room->room_no = $input ['roomNo'];
+		$room->name = $input ['roomName'];
+		$room->description = $input ['description'];
 		$room->save ();
 		return redirect ( 'viewManageRoom' );
 	}
@@ -67,7 +63,7 @@ class RoomLabController extends Controller {
 	 * @return Response
 	 */
 	public function edit($id) {
-		$room = RoomLabs::find ( $id );
+		$room = Room::find ( $id );
 		$data = $room;
 		return view ( 'store.formEditRoom' )->with ( 'room', $data );
 	}
@@ -80,10 +76,10 @@ class RoomLabController extends Controller {
 	 */
 	public function update($id) {
 		$input = Request::all ();
-		$room = RoomLabs::find ( $id );
-		$room->roomNo = $input ['roomNo'];
-		$room->roomName = $input ['name'];
-		$room->roomDes = $input ['des'];
+		$room = Room::find ( $id );
+		$room->room_no = $input ['roomNo'];
+		$room->name = $input ['roomNname'];
+		$room->description = $input ['description'];
 		$room->save ();
 		return redirect ( 'viewManageRoom' );
 	}
@@ -95,7 +91,7 @@ class RoomLabController extends Controller {
 	 * @return Response
 	 */
 	public function destroy($id) {
-		$room = RoomLabs::find ( $id );
+		$room = Room::find ( $id );
 		$room->delete ();
 		return redirect ( 'viewManageRoom' );
 	}
