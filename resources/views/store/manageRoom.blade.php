@@ -59,9 +59,9 @@
 															</div>
 														</div>
 													</td>
-													<td>{{$room['roomNo']}}</td>
-													<td>{{$room['roomName']}}</td>
-													<td>{{$room['roomDes']}}</td>
+													<td>{{$room['room_no']}}</td>
+													<td>{{$room['name']}}</td>
+													<td>{{$room['description']}}</td>
 												</tr>
 												@endforeach
 											</tbody>

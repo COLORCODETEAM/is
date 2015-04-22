@@ -11,7 +11,6 @@ use Symfony\Component\VarDumper\VarDumper;
 
 class RoomLabController extends Controller {
 	
-	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -43,9 +42,11 @@ class RoomLabController extends Controller {
 	public function store() {
 		$input = Request::all ();
 		$room = new RoomLabs ();
-		$room->roomNo = $input ['roomNo'];
-		$room->roomName = $input ['name'];
-		$room->roomDes = $input ['des'];
+		$room->room_no = $input ['roomNo'];
+		$room->name = $input ['name'];
+		$room->description = $input ['des'];
+		$room->create_date = date ( 'Y-m-d' );
+		$room->update_date = date ( 'Y-m-d' );
 		$room->save ();
 		return redirect ( 'viewManageRoom' );
 	}
@@ -81,9 +82,10 @@ class RoomLabController extends Controller {
 	public function update($id) {
 		$input = Request::all ();
 		$room = RoomLabs::find ( $id );
-		$room->roomNo = $input ['roomNo'];
-		$room->roomName = $input ['name'];
-		$room->roomDes = $input ['des'];
+		$room->room_no = $input ['roomNo'];
+		$room->name = $input ['name'];
+		$room->description = $input ['des'];
+		$room->update_date = date ( 'Y-m-d' );
 		$room->save ();
 		return redirect ( 'viewManageRoom' );
 	}

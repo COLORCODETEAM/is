@@ -1,10 +1,11 @@
-<?php namespace App;
+<?php
+
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 class RoomLabs extends Model {
-
-	//
-	protected $table = 'roomlabs';
-
+	public  $timestamps = false;
+	protected $table = 'room';
 }
