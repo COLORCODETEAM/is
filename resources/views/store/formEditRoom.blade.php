@@ -22,19 +22,19 @@
                         
                             <label class="control-label col-lg-2">Room No : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="roomNo" value="{{$room['roomNo']}}"/>
+                                <input class="form-control" name="roomNo" value="{{$room['room_no']}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Name : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="name" value="{{$room['roomName']}}"/>
+                                <input class="form-control" name="roomName" value="{{$room['name']}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Description : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3" name="des" >{{$room['roomDes']}}</textarea>
+                                <textarea class="form-control" rows="3" name="description" >{{$room['description']}}</textarea>
                             </div>
                         </div>
                     </div>

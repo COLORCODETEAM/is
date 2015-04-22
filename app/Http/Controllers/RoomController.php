@@ -78,7 +78,7 @@ class RoomController extends Controller {
 		$input = Request::all ();
 		$room = Room::find ( $id );
 		$room->room_no = $input ['roomNo'];
-		$room->name = $input ['roomNname'];
+		$room->name = $input ['roomName'];
 		$room->description = $input ['description'];
 		$room->save ();
 		return redirect ( 'viewManageRoom' );
