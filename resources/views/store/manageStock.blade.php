@@ -41,51 +41,23 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+											@foreach($stocks as $stock)
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
+                                                                    <a href="{{ route('editStock',$stock['id']) }}"><button type="button" class="form-control btn btn-default">แก้ไข</button></a>
+                                                                    <a href="{{route('delStock',$stock['id'])}}"><button type="button" class="form-control btn btn-danger">ลบ</button></a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>Stock-No 1</td>
-                                                    <td>Stock-Name 1</td>
-                                                    <td>Stock-Description 1</td>
+                                                    <td>{{$stock['stock_no']}}</td>
+                                                    <td>{{$stock['name']}}</td>
+                                                    <td>{{$stock['description']}}</td>
                                                 </tr>
-                                                <tr class="even gradeC">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Stock-No 2</td>
-                                                    <td>Stock-Name 2</td>
-                                                    <td>Stock-Description 2</td>
-                                                </tr>
-                                                <tr class="odd gradeA">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Stock-No 3</td>
-                                                    <td>Stock-Name 3</td>
-                                                    <td>Stock-Description 3</td>
-                                                </tr>
+                                              @endforeach
                                             </tbody>
                                         </table>
                                     </div>

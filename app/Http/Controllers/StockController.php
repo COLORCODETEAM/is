@@ -42,6 +42,8 @@ class StockController extends Controller {
 		$stock->stock_no = $input ['stockNo'];
 		$stock->name = $input ['stockName'];
 		$stock->description = $input ['description'];
+		$stock->create_date = date('Y-m-d');
+		$stock->update_date = date('Y-m-d');
 		$stock->save ();
 		return redirect ( 'viewManageStock' );
 	}
@@ -80,6 +82,7 @@ class StockController extends Controller {
 		$stock->stock_no = $input ['stockNo'];
 		$stock->name = $input ['stockName'];
 		$stock->description = $input ['description'];
+		$stock->update_date = date('Y-m-d');
 		$stock->save ();
 		return redirect ( 'viewManageStock' );
 	}

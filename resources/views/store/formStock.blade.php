@@ -1,6 +1,6 @@
 @extends('store.app')
 @section('content')
-<form role="form">
+{!! Form::open(array('url'=>'addStock')) !!}
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">จัดการคลัง </h1>
@@ -18,27 +18,27 @@
                     <div class="form-horizontal">      
                         <div class="form-group">
                             <label class="control-label col-lg-2">Stock No : </label>
-                            <div class="col-lg-3">
-                                <input class="form-control"/>
+                            <div class="col-lg-3"> 
+                                <input class="form-control" name="stockNo"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Name : </label>
                             <div class="col-lg-3">
-                                <input class="form-control"/>
+                                <input class="form-control" name="stockName"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Description : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3"></textarea>
+                                <textarea class="form-control" rows="3" name="description"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-offset-11">
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary">OK</button>
+                                <button type="submit" class="btn btn-primary">OK</button>
                             </div>
                         </div>
                         <!-- /.col-lg-4 (nested) -->
@@ -52,5 +52,5 @@
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
-</form>
+{!! Form::close() !!}
 @stop
