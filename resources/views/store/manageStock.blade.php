@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('UserController@viewFormStock')}}"><button type="button" class="btn btn-primary">เพิ่มคลัง</button></a>
+                                <a href="{{ action('StockController@create')}}"><button type="button" class="btn btn-primary">เพิ่มคลัง</button></a>
                             </div>
                         </div>
                         <!-- /.col-lg-5 (nested) -->
@@ -41,7 +41,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-											@foreach($stocks as $stock)
+                                                @foreach($stocks as $stock)
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
@@ -57,7 +57,7 @@
                                                     <td>{{$stock['name']}}</td>
                                                     <td>{{$stock['description']}}</td>
                                                 </tr>
-                                              @endforeach
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

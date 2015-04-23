@@ -1,5 +1,10 @@
 @extends('store.app')
 @section('content')
+<?php
+    $device = $compact['data'];
+    $stocks = $compact['stocks'];
+    $deviceTypes = $compact['deviceTypes'];
+?>
 {!! Form::open( ['route'=>['updateDevice',$device['id'] ]])  !!}
 <!--form role="form"-->
     <div class="row">
@@ -21,8 +26,9 @@
                             <label class="control-label col-lg-2">Stock : </label>
                             <div class="col-lg-3">
                                 <select class="form-control" name="stockId">
-                                    <option>OK</option>
-                                    <option>CANCEL</option>
+                                    @foreach($stocks as $stock)
+                                    <option value="{{$stock['id']}}" {{$stock['selected']}}>{{$stock['name']}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -30,8 +36,9 @@
                             <label class="control-label col-lg-2">Device Type : </label>
                             <div class="col-lg-3">
                                 <select class="form-control" name="deviceTypeId">
-                                    <option>OK</option>
-                                    <option>CANCEL</option>
+                                    @foreach($deviceTypes as $deviceType)
+                                    <option value="{{$deviceType['id']}}" {{$deviceType['selected']}}>{{$deviceType['name']}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -60,6 +67,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-lg-2">Warranty : </label>
+                            <div class="col-lg-3">
+                                <input class="form-control" name="warranty" value="{{$device['warranty']}}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col-lg-2">Description : </label>
                             <div class="col-lg-6">
                                 <textarea class="form-control" rows="3" name="description">{{$device['description']}}</textarea>
@@ -81,7 +94,7 @@
                     <div class="row">
                         <div class="col-lg-offset-11">
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary">OK</button>
+                                <button type="submit" class="btn btn-primary">OK</button>
                             </div>
                         </div>
                         <!-- /.col-lg-4 (nested) -->

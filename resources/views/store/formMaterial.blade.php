@@ -61,7 +61,7 @@
                     <div class="row">
                         <div class="col-lg-offset-11">
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary">OK</button>
+                                <button type="submit" class="btn btn-primary">OK</button>
                             </div>
                         </div>
                         <!-- /.col-lg-4 (nested) -->

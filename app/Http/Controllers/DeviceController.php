@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Request;
 use App\Device;
+use App\DeviceType;
+use App\Stock;
 
 class DeviceController extends Controller {
 
@@ -27,8 +29,13 @@ class DeviceController extends Controller {
      * @return Response
      */
     public function create() {
-        return view('store.formDevice');
-        // return "create";
+        $stock = new Stock();
+        $stocks = $stock->all()->toArray();
+        
+        $deviceType = new DeviceType();
+        $deviceTypes = $deviceType->all()->toArray();
+        
+        return view('store.formDevice')->with('compact', compact('stocks', 'deviceTypes'));
     }
 
     /**
@@ -45,10 +52,10 @@ class DeviceController extends Controller {
         $device->brand = $input ['brand'];
         $device->model = $input ['model'];
         $device->ip_address = $input ['ipAddress'];
-        $device->description = date('description');
-        $device->serial_no = date('serialNo');
-        $device->warranty = date('warranty');
-        $device->amount = date('amount');
+        $device->description = $input ['description'];
+        $device->serial_no = $input ['serialNo'];
+        $device->warranty = $input ['warranty'];
+        $device->amount = $input ['amount'];
         $device->save();
         return redirect('viewManageDevice');
     }
@@ -72,7 +79,30 @@ class DeviceController extends Controller {
     public function edit($id) {
         $device = Device::find($id);
         $data = $device;
-        return view('store.formEditDevice')->with('device', $data);
+        
+        $stock = new Stock();
+        $stocks = $stock->all()->toArray();
+        
+        $deviceType = new DeviceType();
+        $deviceTypes = $deviceType->all()->toArray();
+        
+        foreach ( $stocks as &$tmp ) {
+            if ($data['stock_id']==$tmp['id']) {
+                $tmp['selected'] = 'selected';
+            } else {
+                $tmp['selected'] = '';
+            }
+        }
+        
+        foreach ( $deviceTypes as &$tmp ) {
+            if ($data['device_type_id']==$tmp['id']) {
+                $tmp['selected'] = 'selected';
+            } else {
+                $tmp['selected'] = '';
+            }
+        }
+        
+        return view('store.formEditDevice')->with('compact', compact('data', 'stocks', 'deviceTypes'));
     }
 
     /**
@@ -90,10 +120,10 @@ class DeviceController extends Controller {
         $device->brand = $input ['brand'];
         $device->model = $input ['model'];
         $device->ip_address = $input ['ipAddress'];
-        $device->description = date('description');
-        $device->serial_no = date('serialNo');
-        $device->warranty = date('warranty');
-        $device->amount = date('amount');
+        $device->description = $input ['description'];
+        $device->serial_no = $input ['serialNo'];
+        $device->warranty = $input ['warranty'];
+        $device->amount = $input ['amount'];
         $device->save();
         return redirect('viewManageDevice');
     }
@@ -106,7 +136,7 @@ class DeviceController extends Controller {
      */
     public function destroy($id) {
         $device = Device::find($id);
-        $device->Device();
+        $device->delete();
         return redirect('viewManageDevice');
     }
 

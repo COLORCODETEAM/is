@@ -76,15 +76,15 @@ class MaterialController extends Controller {
         $stock = new Stock();
         $stocks = $stock->all()->toArray();
         
-        foreach ( $stocks as &$stock ) {
-            if ($data['stock_id']==$stock['id']) {
-                $stock['selected'] = 'selected';
+        foreach ( $stocks as &$tmp ) {
+            if ($data['stock_id']==$tmp['id']) {
+                $tmp['selected'] = 'selected';
             } else {
-                $stock['selected'] = '';
+                $tmp['selected'] = '';
             }
         }
-        
-        return view('store.formEditMaterial')->with('compact', compact($data, $stocks));
+                            
+        return view('store.formEditMaterial')->with('compact', compact('data', 'stocks'));
     }
 
     /**

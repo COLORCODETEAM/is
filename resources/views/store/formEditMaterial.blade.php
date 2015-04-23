@@ -1,9 +1,9 @@
 @extends('store.app')
 @section('content')
-{{
-    $material = $compact[0];
-    $stocks = $compact[1];
-}}
+<?php 
+    $material = $compact['data'];
+    $stocks = $compact['stocks'];
+?>
 {!! Form::open( ['route'=>['updateMaterial',$material['id'] ]])  !!}
 <!--form role="form"-->
     <div class="row">
@@ -26,7 +26,7 @@
                             <div class="col-lg-3">
                                 <select class="form-control" name="stockId">
                                     @foreach($stocks as $stock)
-                                    <option value="{{$stock['id']}}" selected="{{$stock['selected']}}">{{$stock['name']}}</option>
+                                    <option value="{{$stock['id']}}" {{$stock['selected']}}>{{$stock['name']}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -65,7 +65,7 @@
                     <div class="row">
                         <div class="col-lg-offset-11">
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary">OK</button>
+                                <button type="submit" class="btn btn-primary">OK</button>
                             </div>
                         </div>
                         <!-- /.col-lg-4 (nested) -->

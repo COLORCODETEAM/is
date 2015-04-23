@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('MaterialController@create')}}"><button type="button" class="btn btn-primary">เพิ่มอุปกรณ์</button></a>
+                                <a href="{{ action('DeviceController@create')}}"><button type="button" class="btn btn-primary">เพิ่มอุปกรณ์</button></a>
                             </div>
                         </div>
                         <!-- /.col-lg-5 (nested) -->
