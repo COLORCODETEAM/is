@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Room extends Model {
+class LendDevice extends Model {
 
-    protected $table = 'room';
+    protected $table = 'lend_device';
     public $timestamps = false;
 
 }

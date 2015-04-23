@@ -1,10 +1,14 @@
 @extends('store.app')
 @section('content')
-{!! Form::open(array('url'=>'addDevice')) !!}
+{{
+    $material = $compact[0];
+    $stocks = $compact[1];
+}}
+{!! Form::open( ['route'=>['updateMaterial',$material['id'] ]])  !!}
 <!--form role="form"-->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">จัดการอุปกรณ์ </h1>
+            <h1 class="page-header">จัดการวัสดุ </h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -13,68 +17,48 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    จัดการอุปกรณ์
+                    จัดการวัสดุ
                 </div>
                 <div class="panel-body">
-                    <div class="form-horizontal">
+                    <div class="form-horizontal">    
                         <div class="form-group">
                             <label class="control-label col-lg-2">Stock : </label>
                             <div class="col-lg-3">
                                 <select class="form-control" name="stockId">
-                                    <option>OK</option>
-                                    <option>CANCEL</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Device Type : </label>
-                            <div class="col-lg-3">
-                                <select class="form-control" name="deviceTypeId">
-                                    <option>OK</option>
-                                    <option>CANCEL</option>
+                                    @foreach($stocks as $stock)
+                                    <option value="{{$stock['id']}}" selected="{{$stock['selected']}}">{{$stock['name']}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Item No : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="deviceNo"/>
+                                <input class="form-control" name="materialNo" value="{{$material['material_no']}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Brand : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="brand"/>
+                                <input class="form-control" name="brand" value="{{$material['brand']}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Model : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="model"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Serial No. : </label>
-                            <div class="col-lg-3">
-                                <input class="form-control" name="serialNo"/>
+                                <input class="form-control" name="model" value="{{$material['model']}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Description : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3" name="description"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">IP. : </label>
-                            <div class="col-lg-3">
-                                <input class="form-control" name="ipAddress"/>
+                                <textarea class="form-control" rows="3" name="description">{{$material['description']}}</textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Amount : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="amount"/>
+                                <input class="form-control" name="amount" value="{{$material['amount']}}"/>
                             </div>
                         </div>
                     </div>
@@ -97,4 +81,4 @@
     <!-- /.row -->
     {!! Form::close()!!}
 <!--/form-->
-@stop 
+@stop  

@@ -55,7 +55,6 @@
                                                                         <button type="button"
                                                                                 class="form-control btn btn-danger">ลบ</button>
                                                                     </a>
-
                                                                 </div>
                                                             </div>
                                                         </div>

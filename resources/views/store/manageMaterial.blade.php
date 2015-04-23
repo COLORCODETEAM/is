@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('UserController@viewFormMaterial')}}"><button type="button" class="btn btn-primary">เพิ่มวัสดุ</button></a>
+                                <a href="{{ action('MaterialController@create')}}"><button type="button" class="btn btn-primary">เพิ่มวัสดุ</button></a>
                             </div>
                         </div>
                         <!-- /.col-lg-5 (nested) -->
@@ -35,56 +35,38 @@
                                                 <tr>
                                                     <th></th>
                                                     <th>Item No.</th>
-                                                    <th>Item Name</th>
+                                                    <th>Item Brand</th>
+                                                    <th>Item Model</th>
                                                     <th>Item Description</th>
+                                                    <th>Amount</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach($materials as $material)
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
+                                                                   <a href="{{route('editMaterial',$material['id'])}}">
+                                                                        <button type="button"
+                                                                                class="form-control btn btn-default">แก้ไข</button>
+                                                                    </a>
+                                                                    <a href="{{route('delMaterial',$material['id'])}}">
+                                                                        <button type="button"
+                                                                                class="form-control btn btn-danger">ลบ</button>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>Item-No 1</td>
-                                                    <td>Item-Name 1</td>
-                                                    <td>Item-Description 1</td>
+                                                    <td>{{$material['material_no']}}</td>
+                                                    <td>{{$material['brand']}}</td>
+                                                    <td>{{$material['model']}}</td>
+                                                    <td>{{$material['description']}}</td>
+                                                    <td>{{$material['amount']}}</td>
                                                 </tr>
-                                                <tr class="even gradeC">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Item-No 2</td>
-                                                    <td>Item-Name 2</td>
-                                                    <td>Item-Description 2</td>
-                                                </tr>
-                                                <tr class="odd gradeA">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Item-No 3</td>
-                                                    <td>Item-Name 3</td>
-                                                    <td>Item-Description 3</td>
-                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

@@ -1,36 +1,35 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 class HomepageController extends Controller {
+    /*
+      |--------------------------------------------------------------------------
+      | HomePage Controller
+      |--------------------------------------------------------------------------
+      |
+      |
+      |
+      |
+      |
+     */
 
-	/*
-	|--------------------------------------------------------------------------
-	| HomePage Controller
-	|--------------------------------------------------------------------------
-	|
-	| 
-	| 
-	| 
-	|
-	*/
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        
+    }
 
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		
-	}
-
-	/**
-	 * Show the application dashboard to the user.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		return view('store.app');
-	}
+    /**
+     * Show the application dashboard to the user.
+     *
+     * @return Response
+     */
+    public function index() {
+        return view('store.app');
+    }
 
 }

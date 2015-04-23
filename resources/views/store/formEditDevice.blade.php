@@ -1,6 +1,6 @@
 @extends('store.app')
 @section('content')
-{!! Form::open(array('url'=>'addDevice')) !!}
+{!! Form::open( ['route'=>['updateDevice',$device['id'] ]])  !!}
 <!--form role="form"-->
     <div class="row">
         <div class="col-lg-12">
@@ -38,43 +38,43 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Item No : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="deviceNo"/>
+                                <input class="form-control" name="deviceNo" value="{{$device['device_no']}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Brand : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="brand"/>
+                                <input class="form-control" name="brand" value="{{$device['brand']}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Model : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="model"/>
+                                <input class="form-control" name="model" value="{{$device['model']}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Serial No. : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="serialNo"/>
+                                <input class="form-control" name="serialNo" value="{{$device['serial_no']}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Description : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3" name="description"></textarea>
+                                <textarea class="form-control" rows="3" name="description">{{$device['description']}}</textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">IP. : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="ipAddress"/>
+                                <input class="form-control" name="ipAddress" value="{{$device['ip_address']}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Amount : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="amount"/>
+                                <input class="form-control" name="amount" value="{{$device['amount']}}"/>
                             </div>
                         </div>
                     </div>

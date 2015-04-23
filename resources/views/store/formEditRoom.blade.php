@@ -1,8 +1,6 @@
 @extends('store.app')
 @section('content')
 {!! Form::open( ['route'=>['updateRoom',$room['id'] ]])  !!}
-
-
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">จัดการห้อง และอุปกรณ์ </h1>
