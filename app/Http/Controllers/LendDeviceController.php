@@ -17,7 +17,10 @@ class LendDeviceController extends Controller {
      * @return Response
      */
     public function index() {
+        $lendDevice = new LendDevice ();
+        $data = $lendDevice->all()->toArray();
         
+        return view('store.manageLendDevice')->with('lendDevices', $data);
     }
 
     /**
@@ -26,6 +29,7 @@ class LendDeviceController extends Controller {
      * @return Response
      */
     public function create() {
+        return view('store.formLendDevice');
     }
 
     /**

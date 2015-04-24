@@ -23,13 +23,13 @@
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-3">วันที่ : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
+                                <input class="form-control" disabled name="documentDate" value="{{date('d/m/yy')}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Purpose of request : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3"></textarea>
+                                <textarea class="form-control" rows="3" name="purpose"></textarea>
                             </div>
                         </div>
                     </div>
@@ -77,44 +77,64 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Order by : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
+                                <input class="form-control" name="orderBy"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Order : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
+                                <div class=" input-group">
+                                    <input class="form-control datepicker" name="orderDate"/>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Approvement : </label>
                             <div class="col-lg-2">
-                                <select class="form-control">
+                                <select class="form-control" name="approvement">
                                     <option>OK</option>
                                     <option>CANCEL</option>
                                 </select>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Approved : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
+                                <div class=" input-group">
+                                    <input class="form-control datepicker" name="receivedDate"/>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Received by : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
+                                <input class="form-control" name="receivedBy"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Received : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
+                                <div class=" input-group">
+                                    <input class="form-control datepicker" name="receivedDate"/>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Checked by : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
-                            </div>
+                                <input class="form-control" name="checkBy"/>
+                            </div>                            
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Checked : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
+                                <div class=" input-group">
+                                    <input class="form-control datepicker" name="checkedDate"/>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <!-- /.col-lg-4 (nested) -->

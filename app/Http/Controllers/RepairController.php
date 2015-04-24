@@ -16,7 +16,10 @@ class RepairController extends Controller {
      * @return Response
      */
     public function index() {
+        $repairDevice = new RepairDevice ();
+        $data = $repairDevice->all()->toArray();
         
+        return view('store.manageRepair')->with('repairDevices', $data);
     }
 
     /**
@@ -25,7 +28,7 @@ class RepairController extends Controller {
      * @return Response
      */
     public function create() {
-        
+        return view('store.formRepair');
     }
 
     /**

@@ -8,7 +8,7 @@ use App\Material;
 use App\BringMaterial;
 use App\BringMaterialDetail;
 
-class LendDeviceController extends Controller {
+class BringMaterialController extends Controller {
 
     /**
      * Display a listing of the resource.
@@ -16,7 +16,10 @@ class LendDeviceController extends Controller {
      * @return Response
      */
     public function index() {
+        $bringMaterial = new BringMaterial ();
+        $data = $bringMaterial->all()->toArray();
         
+        return view('store.manageBringMaterial')->with('bringMaterials', $data);
     }
 
     /**
@@ -25,6 +28,7 @@ class LendDeviceController extends Controller {
      * @return Response
      */
     public function create() {
+        return view('store.formBringMaterial');
     }
 
     /**

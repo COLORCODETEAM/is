@@ -16,7 +16,10 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function index() {
+        $bookingRoom = new BookingRoom ();
+        $data = $bookingRoom->all()->toArray();
         
+        return view('store.manageRoomBooking')->with('bookingRooms', $data);
     }
 
     /**
@@ -25,7 +28,10 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function create() {
+        $room = new Room();
+        $rooms = $room->all()->toArray();
         
+        return view('store.formRoomBooking')->with('rooms', $rooms);
     }
 
     /**
@@ -34,7 +40,24 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function store() {
-        
+        $input = Request::all();
+        $bookingRoom = new BookingRoom ();
+        $bookingRoom->room_id = $input ['roomId'];
+        $bookingRoom->booking_no = $input ['bookingNo'];
+        $bookingRoom->event = $input ['events'];
+        $bookingRoom->purpose = $input ['purpose'];
+        $bookingRoom->description = $input ['description'];
+        $bookingRoom->contact_person = $input ['contactPerson'];
+        $bookingRoom->email = $input ['email'];  
+//        eventDate
+        $bookingRoom->start_time = $input ['startTime'];
+        $bookingRoom->end_time = $input ['endTime'];
+//        $bookingRoom->create_user = '';
+//        $bookingRoom->create_date = '';
+//        $bookingRoom->update_user = '';
+//        $bookingRoom->update_date = '';
+        $bookingRoom->save();
+        return redirect('viewManageRoom');
     }
 
     /**
@@ -54,7 +77,9 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        
+        $room = Room::find($id);
+        $data = $room;
+        return view('store.formEditRoom')->with('room', $data);
     }
 
     /**
@@ -64,7 +89,22 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function update($id) {
-        
+        $input = Request::all();
+        $bookingRoom = BookingRoom::find($id);
+        $bookingRoom->room_id = $input ['roomId'];
+        $bookingRoom->booking_no = $input ['bookingNo'];
+        $bookingRoom->event = $input ['event'];
+        $bookingRoom->purpose = $input ['purpose'];
+        $bookingRoom->description = $input ['description'];
+        $bookingRoom->contact_person = $input ['contactPerson'];
+        $bookingRoom->start_time = $input ['startTime'];
+        $bookingRoom->end_time = $input ['endTime'];
+//        $bookingRoom->create_user = '';
+//        $bookingRoom->create_date = '';
+//        $bookingRoom->update_user = '';
+//        $bookingRoom->update_date = '';
+        $bookingRoom->save();
+        return redirect('viewManageRoom');
     }
 
     /**
@@ -74,7 +114,9 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        
+        $bookingRoom = BookingRoom::find($id);
+        $bookingRoom->delete();
+        return redirect('viewManageRoom');
     }
 
 }

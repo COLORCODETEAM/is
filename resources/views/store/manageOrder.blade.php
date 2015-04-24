@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('UserController@viewFormOrder')}}"><button type="button" class="btn btn-primary">สั่งซื้อ</button></a>
+                                <a href="{{ action('OrderController@create')}}"><button type="button" class="btn btn-primary">สั่งซื้อ</button></a>
                             </div>
                         </div>
                         <!-- /.col-lg-5 (nested) -->
@@ -57,42 +57,6 @@
                                                     <td>Purchase-No 1</td>
                                                     <td>11/04/2015</td>
                                                     <td>Purchase-Purpose 1</td>
-                                                    <td>Staff-1</td>
-                                                    <td>Staff-2</td>
-                                                    <td>Staff-3</td>
-                                                </tr>
-                                                <tr class="even gradeC">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Purchase-No 2</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>Purchase-Purpose 2</td>
-                                                    <td>Staff-1</td>
-                                                    <td>Staff-2</td>
-                                                    <td>Staff-3</td>
-                                                </tr>
-                                                <tr class="odd gradeA">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Purchase-No 31</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>Purchase-Purpose 3</td>
                                                     <td>Staff-1</td>
                                                     <td>Staff-2</td>
                                                     <td>Staff-3</td>

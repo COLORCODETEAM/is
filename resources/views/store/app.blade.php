@@ -15,6 +15,16 @@
             href="{{ asset('store/components/bootstrap/dist/css/bootstrap.min.css')}}"
             rel="stylesheet">
 
+        <!-- Datepicker 1.4.0 -->
+        <link
+            href="{{ asset('store/components/bootstrap-datepicker-1.4.0/css/bootstrap-datepicker3.min.css')}}"
+            rel='stylesheet' />
+        
+        <!-- Timepicker -->
+        <link
+            href="{{ asset('store/components/bootstrap-timepicker/css/bootstrap-timepicker.min.css')}}"
+            rel='stylesheet' />
+        
         <!-- MetisMenu CSS -->
         <link
             href="{{ asset('store/components/metisMenu/dist/metisMenu.min.css')}}"
@@ -102,10 +112,10 @@
                                         class="fa fa-shopping-cart fa-fw"></i> สั่งซื้อวัสดุ-อุปกรณ์</a></li>
                             <li><a href="{{ action('RoomBookingController@index')}}"><i
                                         class="fa fa-calendar fa-fw"></i> จองห้องแลป และอุปกรณ์</a></li>
-                            <li><a href="{{ action('LendDeviceController@index')}}"><i
-                                        class="fa fa-edit fa-fw"></i> ยืม-คืนอุปกรณ์</a></li>
                             <li><a href="{{ action('BringMaterialController@index')}}"><i
                                         class="fa fa-list-alt fa-fw"></i> เบิก-จ่ายวัสดุ</a></li>
+                            <li><a href="{{ action('LendDeviceController@index')}}"><i
+                                        class="fa fa-edit fa-fw"></i> ยืม-คืนอุปกรณ์</a></li>
                             <li><a href="{{ action('RepairController@index')}}"><i
                                         class="fa fa-wrench fa-fw"></i> แจ้งซ่อมอุปกรณ์</a></li>
                         </ul>
@@ -128,6 +138,14 @@
         <script
         src="{{ asset('store/components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
+        <!-- Datepicker 1.4.0 -->
+        <script
+        src="{{ asset('store/components/bootstrap-datepicker-1.4.0/js/bootstrap-datepicker.min.js')}}"></script>
+        
+        <!-- Timepicker -->
+        <script
+        src="{{ asset('store/components/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}"></script>
+        
         <!-- Metis Menu Plugin JavaScript -->
         <script
         src="{{ asset('store/components/metisMenu/dist/metisMenu.min.js')}}"></script>
@@ -148,74 +166,80 @@
         src="{{ asset('store/components/fullcalendar/fullcalendar.min.js')}}"></script>
 
         <script>
-$(document).ready(function () {
+            $(document).ready(function () {
 
-    $('#event_calendar').fullCalendar({
-        defaultDate: '2015-03-12',
-        editable: true,
-        eventLimit: true, // allow "more" link when too many events
-        events: [
-            {
-                title: 'All Day Event',
-                start: '2015-03-01'
-            },
-            {
-                title: 'Long Event',
-                start: '2015-02-20',
-                end: '2015-03-03'
-            },
-            {
-                id: 999,
-                title: 'Repeating Event',
-                start: '2015-03-09T16:00:00'
-            },
-            {
-                id: 999,
-                title: 'Repeating Event',
-                start: '2015-03-16T16:00:00'
-            },
-            {
-                title: 'Conference',
-                start: '2015-03-11',
-                end: '2015-03-13'
-            },
-            {
-                title: 'Meeting',
-                start: '2015-03-28T10:30:00',
-                end: '2015-04-12T12:30:00'
-            },
-            {
-                title: 'Lunch',
-                start: '2015-04-12T12:00:00'
-            },
-            {
-                title: 'Meeting',
-                start: '2015-03-12T14:30:00'
-            },
-            {
-                title: 'Happy Hour',
-                start: '2015-03-12T17:30:00'
-            },
-            {
-                title: 'Dinner',
-                start: '2015-04-12T20:00:00'
-            },
-            {
-                title: 'Birthday Party',
-                start: '2015-02-13T07:00:00'
-            },
-            {
-                title: 'Click for Google',
-                url: 'http://google.com/',
-                start: '2015-02-28'
-            }
-        ]
-    });
+                $('#event_calendar').fullCalendar({
+                    defaultDate: '2015-03-12',
+                    editable: true,
+                    eventLimit: true, // allow "more" link when too many events
+                    events: [
+                        {
+                            title: 'All Day Event',
+                            start: '2015-03-01'
+                        },
+                        {
+                            title: 'Long Event',
+                            start: '2015-02-20',
+                            end: '2015-03-03'
+                        },
+                        {
+                            id: 999,
+                            title: 'Repeating Event',
+                            start: '2015-03-09T16:00:00'
+                        },
+                        {
+                            id: 999,
+                            title: 'Repeating Event',
+                            start: '2015-03-16T16:00:00'
+                        },
+                        {
+                            title: 'Conference',
+                            start: '2015-03-11',
+                            end: '2015-03-13'
+                        },
+                        {
+                            title: 'Meeting',
+                            start: '2015-03-28T10:30:00',
+                            end: '2015-04-12T12:30:00'
+                        },
+                        {
+                            title: 'Lunch',
+                            start: '2015-04-12T12:00:00'
+                        },
+                        {
+                            title: 'Meeting',
+                            start: '2015-03-12T14:30:00'
+                        },
+                        {
+                            title: 'Happy Hour',
+                            start: '2015-03-12T17:30:00'
+                        },
+                        {
+                            title: 'Dinner',
+                            start: '2015-04-12T20:00:00'
+                        },
+                        {
+                            title: 'Birthday Party',
+                            start: '2015-02-13T07:00:00'
+                        },
+                        {
+                            title: 'Click for Google',
+                            url: 'http://google.com/',
+                            start: '2015-02-28'
+                        }
+                    ]
+                });
 
-    $('#dataTables-example').DataTable({
-        responsive: true
-    });
-});
+                $('#dataTables-example').DataTable({
+                    responsive: true
+                });
+                
+                $('.datepicker').datepicker({
+                    format: 'dd/mm/yyyy'
+                });
+                
+                $('.timepicker').timepicker();
+            });
         </script>
 
     </body>

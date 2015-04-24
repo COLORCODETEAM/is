@@ -1,5 +1,6 @@
 @extends('store.app')
 @section('content')
+
 <form role="form">
     <div class="row">
         <div class="col-lg-12">
@@ -15,7 +16,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('UserController@viewFormRoomBooking')}}"><button type="button" class="btn btn-primary">จองห้องแลป</button></a>
+                                <a href="{{ action('RoomBookingController@create')}}"><button type="button" class="btn btn-primary">จองห้องแลป</button></a>
                             </div>
                         </div>
                         <!-- /.col-lg-5 (nested) -->
@@ -43,60 +44,32 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach($bookingRooms as $bookingRoom)
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
+                                                                    <a href="{{route('editRoomBooking',$roomBooking['id'])}}">
+                                                                        <button type="button"
+                                                                                class="form-control btn btn-default">แก้ไข</button>
+                                                                    </a>
+                                                                    <a href="{{route('delRoomBooking',$roomBooking['id'])}}">
+                                                                        <button type="button"
+                                                                                class="form-control btn btn-danger">ลบ</button>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>Booking-No 1</td>
-                                                    <td>Room-No ROOM1</td>
-                                                    <td>Purpose 1</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>10.00</td>
-                                                    <td>17.00</td>
+                                                    <td>{{$bookingRoom['booking_no']}}</td>
+                                                    <td>{{$bookingRoom['room_no']}}</td>
+                                                    <td>{{$bookingRoom['purpose']}}</td>
+                                                    <td>{{$bookingRoom['start_time']}}</td>
+                                                    <td>{{$bookingRoom['start_time']}}</td>
+                                                    <td>{{$bookingRoom['end_time']}}</td>
                                                 </tr>
-                                                <tr class="even gradeC">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Booking-No 2</td>
-                                                    <td>Room-No ROOM2</td>
-                                                    <td>Purpose 2</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>10.00</td>
-                                                    <td>17.00</td>
-                                                </tr>
-                                                <tr class="odd gradeA">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Booking-No 3</td>
-                                                    <td>Room-No ROOM3</td>
-                                                    <td>Purpose 3</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>10.00</td>
-                                                    <td>17.00</td>
-                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
