@@ -43,13 +43,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($orders as $order)
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
+                                                                    <a href="{{route('editOrder',$order['id'])}}">
+                                                                        <button type="button"
+                                                                                class="form-control btn btn-default">แก้ไข</button>
+                                                                    </a>
+                                                                    <a href="{{route('delOrder',$order['id'])}}">
+                                                                        <button type="button"
+                                                                                class="form-control btn btn-danger">ลบ</button>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -61,6 +68,7 @@
                                                     <td>Staff-2</td>
                                                     <td>Staff-3</td>
                                                 </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

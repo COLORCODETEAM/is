@@ -24,7 +24,7 @@
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-3">วันที่ : </label>
                             <div class="col-lg-2">
-                                <input class="form-control" disabled name="documentDate" value="{{date('d/m/yy')}}"/>
+                                <input class="form-control" disabled name="documentDate" value="{{date('d/m/Y')}}"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -59,7 +59,7 @@
                             <label class="control-label col-lg-2">Date of Event : </label>
                             <div class="col-lg-2">
                                 <div class="input-group">
-                                    <input class="form-control datepicker" name="eventDate"/>
+                                    <input class="form-control datepicker" name="eventDate" value="{{date('d/m/Y')}}"/>
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>

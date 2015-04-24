@@ -42,8 +42,10 @@ class StockController extends Controller {
         $stock->stock_no = $input ['stockNo'];
         $stock->name = $input ['stockName'];
         $stock->description = $input ['description'];
-        $stock->create_date = date('Y-m-d');
-        $stock->update_date = date('Y-m-d');
+        $stock->create_user = '1';
+        $stock->create_date = DateUtils::getDBDateTime();
+        $stock->update_user = '1';
+        $stock->update_date = DateUtils::getDBDateTime();
         $stock->save();
         return redirect('viewManageStock');
     }
@@ -82,7 +84,8 @@ class StockController extends Controller {
         $stock->stock_no = $input ['stockNo'];
         $stock->name = $input ['stockName'];
         $stock->description = $input ['description'];
-        $stock->update_date = date('Y-m-d');
+        $stock->update_user = '1';
+        $stock->update_date = DateUtils::getDBDateTime();
         $stock->save();
         return redirect('viewManageStock');
     }

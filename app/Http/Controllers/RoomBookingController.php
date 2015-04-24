@@ -48,14 +48,13 @@ class RoomBookingController extends Controller {
         $bookingRoom->purpose = $input ['purpose'];
         $bookingRoom->description = $input ['description'];
         $bookingRoom->contact_person = $input ['contactPerson'];
-        $bookingRoom->email = $input ['email'];  
-//        eventDate
+        $bookingRoom->email = $input ['email'];
         $bookingRoom->start_time = $input ['startTime'];
         $bookingRoom->end_time = $input ['endTime'];
-//        $bookingRoom->create_user = '';
-//        $bookingRoom->create_date = '';
-//        $bookingRoom->update_user = '';
-//        $bookingRoom->update_date = '';
+        $bookingRoom->create_user = '1';
+        $bookingRoom->create_date = DateUtils::getDBDate();
+        $bookingRoom->update_user = '1';
+        $bookingRoom->update_date = DateUtils::getDBDate();
         $bookingRoom->save();
         return redirect('viewManageRoom');
     }
@@ -99,10 +98,8 @@ class RoomBookingController extends Controller {
         $bookingRoom->contact_person = $input ['contactPerson'];
         $bookingRoom->start_time = $input ['startTime'];
         $bookingRoom->end_time = $input ['endTime'];
-//        $bookingRoom->create_user = '';
-//        $bookingRoom->create_date = '';
-//        $bookingRoom->update_user = '';
-//        $bookingRoom->update_date = '';
+        $bookingRoom->update_user = '1';
+        $bookingRoom->update_date = DateUtils::getDBDate();
         $bookingRoom->save();
         return redirect('viewManageRoom');
     }

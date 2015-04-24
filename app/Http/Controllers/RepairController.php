@@ -7,6 +7,7 @@ use Request;
 use App\Device;
 use App\RepairDevice;
 use App\RepairDeviceDetail;
+use DateUtils;
 
 class RepairController extends Controller {
 
@@ -37,7 +38,20 @@ class RepairController extends Controller {
      * @return Response
      */
     public function store() {
-        
+        $input = Request::all();
+        $repairDevice = new RepairDevice ();
+        $repairDevice->repair_no = $input ['repairNo'];
+        $repairDevice->person = $input ['person'];
+        $repairDevice->approvement = $input ['approvement'];
+        $repairDevice->approve_date = DateUtils::getDBDateFromStr($input ['approvedDate']);
+        $repairDevice->received_by = $input ['receivedBy'];
+        $repairDevice->received_date = DateUtils::getDBDateFromStr($input ['receivedDate']);
+        $repairDevice->create_user = '1';
+        $repairDevice->create_date = DateUtils::getDBDate();
+        $repairDevice->update_user = '1';
+        $repairDevice->update_date = DateUtils::getDBDate();
+        $repairDevice->save();
+        return redirect('viewManageRepair');
     }
 
     /**
@@ -57,7 +71,9 @@ class RepairController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        
+        $repairDevice = RepairDevice::find($id);
+        $data = $repairDevice;
+        return view('store.formEditRepair')->with('repairDevice', $data);
     }
 
     /**
@@ -67,7 +83,18 @@ class RepairController extends Controller {
      * @return Response
      */
     public function update($id) {
-        
+        $input = Request::all();
+        $repairDevice = RepairDevice::find($id);
+        $repairDevice->repair_no = $input ['repairNo'];
+        $repairDevice->person = $input ['person'];
+        $repairDevice->approvement = $input ['approvement'];
+        $repairDevice->approve_date = DateUtils::getDBDateFromStr($input ['approvedDate']);
+        $repairDevice->received_by = $input ['receivedBy'];
+        $repairDevice->received_date = DateUtils::getDBDateFromStr($input ['receivedDate']);
+        $repairDevice->update_user = '1';
+        $repairDevice->update_date = DateUtils::getDBDate();
+        $repairDevice->save();
+        return redirect('viewManageRepair');
     }
 
     /**
@@ -77,7 +104,9 @@ class RepairController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        
+        $repairDevice = RepairDevice::find($id);
+        $repairDevice->delete();
+        return redirect('viewManageRepair');
     }
 
 }

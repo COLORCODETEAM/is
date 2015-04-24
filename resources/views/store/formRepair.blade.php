@@ -1,6 +1,6 @@
 @extends('store.app')
 @section('content')
-<form role="form">
+{!! Form::open(array('url'=>'addRepair')) !!}
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">แจ้งซ่อมอุปกรณ์</h1>
@@ -19,17 +19,17 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Repair No : </label>
                             <div class="col-lg-3">
-                                <input class="form-control"/>
+                                <input class="form-control" name="repairNo"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-3">Date : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
+                                <input class="form-control" disabled value="{{date('d/m/Y')}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Repair person : </label>
                             <div class="col-lg-3">
-                                <input class="form-control"/>
+                                <input class="form-control" name="person"/>
                             </div>
                         </div>                        
                     </div>
@@ -72,24 +72,24 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Approvement : </label>
                             <div class="col-lg-2">
-                                <select class="form-control">
-                                    <option>OK</option>
-                                    <option>CANCEL</option>
+                                <select class="form-control" name="approvement">
+                                    <option value="1">OK</option>
+                                    <option value="0">CANCEL</option>
                                 </select>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Approved : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
+                                <input class="form-control" name="approvedDate"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Received by : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
+                                <input class="form-control" name="receivedBy"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Received : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
+                                <input class="form-control" name="receivedDate"/>
                             </div>
                         </div>
                         <!-- /.col-lg-4 (nested) -->
@@ -98,7 +98,7 @@
                     <div class="row">
                         <div class="col-lg-offset-11">
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary">OK</button>
+                                <button type="submit" class="btn btn-primary">OK</button>
                             </div>
                         </div>
                         <!-- /.col-lg-5 (nested) -->
@@ -112,5 +112,5 @@
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
-</form>
+{!! Form::close() !!}
 @stop

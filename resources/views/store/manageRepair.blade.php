@@ -42,57 +42,31 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($repairDevices as $repairDevice)
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
+                                                                    <a href="{{route('editRepair',$repairDevice['id'])}}">
+                                                                        <button type="button"
+                                                                                class="form-control btn btn-default">แก้ไข</button>
+                                                                    </a>
+                                                                    <a href="{{route('delRepair',$repairDevice['id'])}}">
+                                                                        <button type="button"
+                                                                                class="form-control btn btn-danger">ลบ</button>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>Repair-No 1</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>Staff-1</td>
-                                                    <td>OK</td>
-                                                    <td>Staff-2</td>
+                                                    <td>{{$repairDevice['repair_no']}}</td>
+                                                    <td>{{date('d/m/Y', strtotime($repairDevice['create_date']))}}</td>
+                                                    <td>{{$repairDevice['person']}}</td>
+                                                    <td>{{$repairDevice['approvement']}}</td>
+                                                    <td>{{$repairDevice['received_by']}}</td>
                                                 </tr>
-                                                <tr class="even gradeC">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Repair-No 2</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>Staff-2</td>
-                                                    <td>OK</td>
-                                                    <td>Staff-3</td>
-                                                </tr>
-                                                <tr class="odd gradeA">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Repair-No 3</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>Staff-3</td>
-                                                    <td>OK</td>
-                                                    <td>Staff-4</td>
-                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
