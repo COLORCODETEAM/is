@@ -42,57 +42,31 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($bringMaterials as $bringMaterial)
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
+                                                                    <a href="{{route('editBringMaterial',$bringMaterial['id'])}}">
+                                                                        <button type="button"
+                                                                                class="form-control btn btn-default">แก้ไข</button>
+                                                                    </a>
+                                                                    <a href="{{route('delBringMaterial',$bringMaterial['id'])}}">
+                                                                        <button type="button"
+                                                                                class="form-control btn btn-danger">ลบ</button>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>Withdraw-No 1</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>Staff-1</td>
-                                                    <td>Withdraw-Purpose 1</td>
-                                                    <td>OK</td>
+                                                    <td>{{$bringMaterial['bring_no']}}</td>
+                                                    <td>{{DateUtils::getDateFromStr($bringMaterial['create_date'])}}</td>
+                                                    <td>{{$bringMaterial['withdraw_person']}}</td>
+                                                    <td>{{$bringMaterial['purpose']}}</td>
+                                                    <td>{{($bringMaterial['approvement']=='1' ? 'OK':'CANCEL')}}</td>
                                                 </tr>
-                                                <tr class="even gradeC">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Withdraw-No 2</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>Staff-2</td>
-                                                    <td>Withdraw-Purpose 2</td>
-                                                    <td>OK</td>
-                                                </tr>
-                                                <tr class="odd gradeA">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Withdraw-No 3</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>Staff-3</td>
-                                                    <td>Withdraw-Purpose 3</td>
-                                                    <td>OK</td>
-                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

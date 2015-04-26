@@ -19,13 +19,13 @@ class RoomBookingController extends Controller {
     public function index() {
         $bookingRoom = new BookingRoom ();
         $data = $bookingRoom->all()->toArray();
-        $data2 = $bookingRoom->all();
-        
-        
-        foreach ($data2 as $x)
-        {
-            echo $x->room->room_no;
-        }
+//        $data2 = $bookingRoom->all();
+//        
+//        
+//        foreach ($data2 as $x)
+//        {
+//            echo $x->room->room_no;
+//        }
 
         return view('store.manageRoomBooking')->with('bookingRooms', $data);
     }

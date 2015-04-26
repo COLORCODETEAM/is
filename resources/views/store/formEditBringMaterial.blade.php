@@ -1,9 +1,9 @@
 @extends('store.app')
 @section('content')
-{!! Form::open(array('url'=>'addLendDevice')) !!}
+{!! Form::open( ['route'=>['updateBringMaterial',$bringMaterial['id'] ]])  !!}
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">ยืม-คืนอุปกรณ์ </h1>
+            <h1 class="page-header">เบิก-จ่ายวัสดุ </h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -12,42 +12,48 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    ฟอร์มยืม-คืนอุปกรณ์
+                    ฟอร์มเบิก-จ่ายวัสดุ
                 </div>
                 <div class="panel-body">
                     <div class="form-horizontal">
                         <div class="form-group">
-                            <label class="control-label col-lg-2">Rent No : </label>
+                            <label class="control-label col-lg-2">Withdraw No : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="lendNo"/>
+                                <input class="form-control" name="bringNo" value="{{$bringMaterial['bring_no']}}"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-3">Date : </label>
                             <div class="col-lg-2">
-                                <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDate()}}"/>
+                                <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDateFromStr($bringMaterial['create_date'])}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Purpose of use : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3" name="purpose"></textarea>
+                                <textarea class="form-control" rows="3" name="purpose">{{$bringMaterial['purpose']}}</textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-lg-2">Rent person : </label>
+                            <label class="control-label col-lg-2">Description : </label>
+                            <div class="col-lg-6">
+                                <textarea class="form-control" rows="3" name="description">{{$bringMaterial['description']}}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Withdraw person : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="rentPerson"/>
+                                <input class="form-control" name="withdrawPerson" value="{{$bringMaterial['withdraw_person']}}"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Email address : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="email"/>
+                                <input class="form-control" name="email" value="{{$bringMaterial['email']}}"/>
                             </div>
-                        </div>
+                        </div>                        
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    List of rent
+                                    List of Withdraw
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
@@ -57,14 +63,21 @@
                                                 <tr>
                                                     <th>Item No.</th>
                                                     <th>Items</th>
-                                                    <th>Date/Time</th>
+                                                    <th>Amount</th>
+                                                    <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>123</td>
                                                     <td>อุปกรณ์ 123</td>
-                                                    <td>25/02/2015 - 29/02/2015</td>
+                                                    <td>1</td>
+                                                    <td>
+                                                        <select class="form-control">
+                                                            <option>ยืนยัน</option>
+                                                            <option>ยกเลิก</option>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -75,32 +88,27 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /.row (nested) -->
                     <div class="form-horizontal">
                         <div class="form-group">
                             <label class="control-label col-lg-2">Approvement : </label>
                             <div class="col-lg-2">
                                 <select class="form-control" name="approvement">
-                                    <option value="1">OK</option>
-                                    <option value="0">CANCEL</option>
+                                    <option value="1" {{ ($bringMaterial['approvement']=='1' ? 'selected' : '') }}>OK</option>
+                                    <option value="0" {{ ($bringMaterial['approvement']=='0' ? 'selected' : '') }}>CANCEL</option>
                                 </select>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Rmark : </label>
                             <div class="col-lg-4">
-                                <textarea class="form-control" rows="3" name="remark"></textarea>
+                                <textarea class="form-control" rows="3" name="remark">{{$bringMaterial['remark']}}</textarea>
                             </div>
                         </div>
                     </div>
-                    <!-- /.row (nested) -->
                     <div class="row">
                         <div class="col-lg-offset-11">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">OK</button>
-                            </div>
+                            <button type="submit" class="btn btn-primary">OK</button>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
                     </div>
-                    <!-- /.row (nested) -->
+                    <!-- /.col-lg-4 (nested) -->
                 </div>
                 <!-- /.panel-body -->
             </div>
@@ -110,4 +118,4 @@
     </div>
     <!-- /.row -->
 {!! Form::close()!!}
-@stop 
+@stop       

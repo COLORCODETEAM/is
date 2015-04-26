@@ -1,6 +1,6 @@
 @extends('store.app')
 @section('content')
-{!! Form::open(array('url'=>'addLendDevice')) !!}
+{!! Form::open( ['route'=>['updateLendDevice',$lendDevice['id'] ]])  !!}
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">ยืม-คืนอุปกรณ์ </h1>
@@ -19,27 +19,27 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Rent No : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="lendNo"/>
+                                <input class="form-control" name="lendNo" value="{{$lendDevice['lend_no']}}"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-3">Date : </label>
                             <div class="col-lg-2">
-                                <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDate()}}"/>
+                                <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDateFromStr($lendDevice['create_date'])}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Purpose of use : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3" name="purpose"></textarea>
+                                <textarea class="form-control" rows="3" name="purpose">{{$lendDevice['purpose']}}</textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Rent person : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="rentPerson"/>
+                                <input class="form-control" name="rentPerson" value="{{$lendDevice['rent_person']}}"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Email address : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="email"/>
+                                <input class="form-control" name="email" value="{{$lendDevice['email']}}"/>
                             </div>
                         </div>
                     </div>
@@ -81,13 +81,13 @@
                             <label class="control-label col-lg-2">Approvement : </label>
                             <div class="col-lg-2">
                                 <select class="form-control" name="approvement">
-                                    <option value="1">OK</option>
-                                    <option value="0">CANCEL</option>
+                                    <option value="1" {{ ($lendDevice['approvement']=='1' ? 'selected' : '') }}>OK</option>
+                                    <option value="0" {{ ($lendDevice['approvement']=='0' ? 'selected' : '') }}>CANCEL</option>
                                 </select>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Rmark : </label>
                             <div class="col-lg-4">
-                                <textarea class="form-control" rows="3" name="remark"></textarea>
+                                <textarea class="form-control" rows="3" name="remark">{{$lendDevice['remark']}}</textarea>
                             </div>
                         </div>
                     </div>

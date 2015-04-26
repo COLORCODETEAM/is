@@ -3,9 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database;
 
-class BookingRoom extends Eloquent {
+class BookingRoom extends Model {
 
     protected $table = 'booking_room';
     public $timestamps = false;

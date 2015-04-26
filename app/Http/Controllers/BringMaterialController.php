@@ -7,6 +7,7 @@ use Request;
 use App\Material;
 use App\BringMaterial;
 use App\BringMaterialDetail;
+use DateUtils;
 
 class BringMaterialController extends Controller {
 
@@ -37,7 +38,21 @@ class BringMaterialController extends Controller {
      * @return Response
      */
     public function store() {
-        
+        $input = Request::all();
+        $bringMaterial = new BringMaterial ();
+        $bringMaterial->bring_no = $input ['bringNo'];
+        $bringMaterial->purpose = $input ['purpose'];
+        $bringMaterial->description = $input ['description'];
+        $bringMaterial->withdraw_person = $input ['withdrawPerson'];
+        $bringMaterial->email = $input ['email'];
+        $bringMaterial->approvement = $input ['approvement'];
+        $bringMaterial->remark = $input ['remark'];
+        $bringMaterial->create_user = '1';
+        $bringMaterial->create_date = DateUtils::getDBDateTime();
+        $bringMaterial->update_user = '1';
+        $bringMaterial->update_date = DateUtils::getDBDateTime();
+        $bringMaterial->save();
+        return redirect('viewManageBringMaterial');
     }
 
     /**
@@ -57,7 +72,9 @@ class BringMaterialController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        
+        $bringMaterial = BringMaterial::find($id);
+        $data = $bringMaterial;
+        return view('store.formEditBringMaterial')->with('bringMaterial', $data);
     }
 
     /**
@@ -67,7 +84,19 @@ class BringMaterialController extends Controller {
      * @return Response
      */
     public function update($id) {
-        
+        $input = Request::all();
+        $bringMaterial = BringMaterial::find($id);
+        $bringMaterial->bring_no = $input ['bringNo'];
+        $bringMaterial->purpose = $input ['purpose'];
+        $bringMaterial->description = $input ['description'];
+        $bringMaterial->withdraw_person = $input ['withdrawPerson'];
+        $bringMaterial->email = $input ['email'];
+        $bringMaterial->approvement = $input ['approvement'];
+        $bringMaterial->remark = $input ['remark'];
+        $bringMaterial->update_user = '1';
+        $bringMaterial->update_date = DateUtils::getDBDateTime();
+        $bringMaterial->save();
+        return redirect('viewManageBringMaterial');
     }
 
     /**
@@ -77,7 +106,9 @@ class BringMaterialController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        
+        $bringMaterial = BringMaterial::find($id);
+        $bringMaterial->delete();
+        return redirect('viewManageBringMaterial');
     }
 
 }

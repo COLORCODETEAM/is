@@ -42,57 +42,31 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($lendDevices as $lendDevice)
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
+                                                                    <a href="{{route('editLendDevice',$lendDevice['id'])}}">
+                                                                        <button type="button"
+                                                                                class="form-control btn btn-default">แก้ไข</button>
+                                                                    </a>
+                                                                    <a href="{{route('delLendDevice',$lendDevice['id'])}}">
+                                                                        <button type="button"
+                                                                                class="form-control btn btn-danger">ลบ</button>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>Rent-No 1</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>Staff-1</td>
-                                                    <td>Rent-Purpose 1</td>
-                                                    <td>OK</td>
+                                                    <td>{{$lendDevice['lend_no']}}</td>
+                                                    <td>{{$lendDevice['create_date']}}</td>
+                                                    <td>{{$lendDevice['rent_person']}}</td>
+                                                    <td>{{$lendDevice['purpose']}}</td>
+                                                    <td>{{($lendDevice['approvement']=='1' ? 'OK':'CANCEL')}}</td>
                                                 </tr>
-                                                <tr class="even gradeC">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Rent-No 2</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>Staff-2</td>
-                                                    <td>Rent-Purpose 2</td>
-                                                    <td>OK</td>
-                                                </tr>
-                                                <tr class="odd gradeA">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <button type="button" class="form-control btn btn-default">แก้ไข</button>
-                                                                    <button type="button" class="form-control btn btn-danger">ลบ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Rent-No 3</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>Staff-3</td>
-                                                    <td>Rent-Purpose 3</td>
-                                                    <td>OK</td>
-                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

@@ -63,7 +63,7 @@ Route::get('/editRoomBooking/{id}', ['as' => 'editRoomBooking', 'uses' => 'RoomB
 Route::any('/updateRoomBooking/{id}', ['as' => 'updateRoomBooking', 'uses' => 'RoomBookingController@update']);
 
 // Lend Device
-Route::get('/viewLendDevice', 'LendDeviceController@index');
+Route::get('/viewManageLendDevice', 'LendDeviceController@index');
 Route::get('/viewFormLendDevice', 'LendDeviceController@create');
 Route::post('/addLendDevice', 'LendDeviceController@store');
 Route::get('/delLendDevice/{id}', ['as' => 'delLendDevice', 'uses' => 'LendDeviceController@destroy']);

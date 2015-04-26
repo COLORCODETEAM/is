@@ -1,6 +1,6 @@
 @extends('store.app')
 @section('content')
-<form role="form">
+{!! Form::open(array('url'=>'addBringMaterial')) !!}
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">เบิก-จ่ายวัสดุ </h1>
@@ -19,33 +19,33 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Withdraw No : </label>
                             <div class="col-lg-3">
-                                <input class="form-control"/>
+                                <input class="form-control" name="bringNo"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-3">Date : </label>
                             <div class="col-lg-2">
-                                <input class="form-control"/>
+                                <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDate()}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Purpose of use : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3"></textarea>
+                                <textarea class="form-control" rows="3" name="purpose"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Description : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3"></textarea>
+                                <textarea class="form-control" rows="3" name="description"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Withdraw person : </label>
                             <div class="col-lg-3">
-                                <input class="form-control"/>
+                                <input class="form-control" name="withdrawPerson"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Email address : </label>
                             <div class="col-lg-3">
-                                <input class="form-control"/>
+                                <input class="form-control" name="email"/>
                             </div>
                         </div>                        
                     </div>
@@ -92,20 +92,20 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Approvement : </label>
                             <div class="col-lg-2">
-                                <select class="form-control">
-                                    <option>OK</option>
-                                    <option>CANCEL</option>
+                                <select class="form-control" name="approvement">
+                                    <option value="1">OK</option>
+                                    <option value="0">CANCEL</option>
                                 </select>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Rmark : </label>
                             <div class="col-lg-4">
-                                <textarea class="form-control" rows="3"></textarea>
+                                <textarea class="form-control" rows="3" name="remark"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-offset-11">
-                            <button type="button" class="btn btn-primary">OK</button>
+                            <button type="submit" class="btn btn-primary">OK</button>
                         </div>
                     </div>
                     <!-- /.col-lg-4 (nested) -->
@@ -117,5 +117,5 @@
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
-</form>
+{!! Form::close()!!}
 @stop       

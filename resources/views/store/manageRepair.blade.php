@@ -63,7 +63,7 @@
                                                     <td>{{$repairDevice['repair_no']}}</td>
                                                     <td>{{date('d/m/Y', strtotime($repairDevice['create_date']))}}</td>
                                                     <td>{{$repairDevice['person']}}</td>
-                                                    <td>{{$repairDevice['approvement']}}</td>
+                                                    <td>{{($repairDevice['approvement']=='1' ? 'OK':'CANCEL')}}</td>
                                                     <td>{{$repairDevice['received_by']}}</td>
                                                 </tr>
                                                 @endforeach
