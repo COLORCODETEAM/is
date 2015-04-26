@@ -7,6 +7,7 @@ use Request;
 use App\Room;
 use App\BookingRoom;
 use App\BookingRoomDetail;
+use DateUtils;
 
 class RoomBookingController extends Controller {
 
@@ -18,7 +19,14 @@ class RoomBookingController extends Controller {
     public function index() {
         $bookingRoom = new BookingRoom ();
         $data = $bookingRoom->all()->toArray();
+        $data2 = $bookingRoom->all();
         
+        
+        foreach ($data2 as $x)
+        {
+            echo $x->room->room_no;
+        }
+
         return view('store.manageRoomBooking')->with('bookingRooms', $data);
     }
 
@@ -44,7 +52,7 @@ class RoomBookingController extends Controller {
         $bookingRoom = new BookingRoom ();
         $bookingRoom->room_id = $input ['roomId'];
         $bookingRoom->booking_no = $input ['bookingNo'];
-        $bookingRoom->event = $input ['events'];
+        $bookingRoom->events = $input ['events'];
         $bookingRoom->purpose = $input ['purpose'];
         $bookingRoom->description = $input ['description'];
         $bookingRoom->contact_person = $input ['contactPerson'];
@@ -52,9 +60,9 @@ class RoomBookingController extends Controller {
         $bookingRoom->start_time = $input ['startTime'];
         $bookingRoom->end_time = $input ['endTime'];
         $bookingRoom->create_user = '1';
-        $bookingRoom->create_date = DateUtils::getDBDate();
+        $bookingRoom->create_date = DateUtils::getDBDateTime();
         $bookingRoom->update_user = '1';
-        $bookingRoom->update_date = DateUtils::getDBDate();
+        $bookingRoom->update_date = DateUtils::getDBDateTime();
         $bookingRoom->save();
         return redirect('viewManageRoom');
     }
@@ -92,14 +100,14 @@ class RoomBookingController extends Controller {
         $bookingRoom = BookingRoom::find($id);
         $bookingRoom->room_id = $input ['roomId'];
         $bookingRoom->booking_no = $input ['bookingNo'];
-        $bookingRoom->event = $input ['event'];
+        $bookingRoom->events = $input ['events'];
         $bookingRoom->purpose = $input ['purpose'];
         $bookingRoom->description = $input ['description'];
         $bookingRoom->contact_person = $input ['contactPerson'];
         $bookingRoom->start_time = $input ['startTime'];
         $bookingRoom->end_time = $input ['endTime'];
         $bookingRoom->update_user = '1';
-        $bookingRoom->update_date = DateUtils::getDBDate();
+        $bookingRoom->update_date = DateUtils::getDBDateTime();
         $bookingRoom->save();
         return redirect('viewManageRoom');
     }

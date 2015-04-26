@@ -23,7 +23,7 @@
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-3">Date : </label>
                             <div class="col-lg-2">
-                                <input class="form-control" disabled value="{{date('d/m/Y')}}"/>
+                                <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDate()}}"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -79,7 +79,12 @@
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Approved : </label>
                             <div class="col-lg-2">
-                                <input class="form-control" name="approvedDate"/>
+                                <div class="input-group">
+                                    <input class="form-control datepicker" name="approvedDate"/>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -89,7 +94,12 @@
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Received : </label>
                             <div class="col-lg-2">
-                                <input class="form-control" name="receivedDate"/>
+                                <div class="input-group">
+                                    <input class="form-control datepicker" name="receivedDate"/>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <!-- /.col-lg-4 (nested) -->

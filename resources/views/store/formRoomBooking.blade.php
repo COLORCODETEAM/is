@@ -24,13 +24,13 @@
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-3">วันที่ : </label>
                             <div class="col-lg-2">
-                                <input class="form-control" disabled name="documentDate" value="{{date('d/m/Y')}}"/>
+                                <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDate()}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Events : </label>
                             <div class="col-lg-6">
-                                <input class="form-control" nanme="events"/>
+                                <input class="form-control" name="events"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -48,7 +48,7 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Contact person : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="contact_person"/>
+                                <input class="form-control" name="contactPerson"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Email address : </label>
                             <div class="col-lg-3">
@@ -59,7 +59,7 @@
                             <label class="control-label col-lg-2">Date of Event : </label>
                             <div class="col-lg-2">
                                 <div class="input-group">
-                                    <input class="form-control datepicker" name="eventDate" value="{{date('d/m/Y')}}"/>
+                                    <input class="form-control datepicker" name="eventDate" value="{{DateUtils::getDate()}}"/>
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>

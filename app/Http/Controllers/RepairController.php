@@ -43,13 +43,13 @@ class RepairController extends Controller {
         $repairDevice->repair_no = $input ['repairNo'];
         $repairDevice->person = $input ['person'];
         $repairDevice->approvement = $input ['approvement'];
-        $repairDevice->approve_date = DateUtils::getDBDateFromStr($input ['approvedDate']);
+        $repairDevice->approved_date = DateUtils::getDBDateTimeFromStr($input ['approvedDate']);
         $repairDevice->received_by = $input ['receivedBy'];
-        $repairDevice->received_date = DateUtils::getDBDateFromStr($input ['receivedDate']);
+        $repairDevice->received_date = DateUtils::getDBDateTimeFromStr($input ['receivedDate']);
         $repairDevice->create_user = '1';
-        $repairDevice->create_date = DateUtils::getDBDate();
+        $repairDevice->create_date = DateUtils::getDBDateTime();
         $repairDevice->update_user = '1';
-        $repairDevice->update_date = DateUtils::getDBDate();
+        $repairDevice->update_date = DateUtils::getDBDateTime();
         $repairDevice->save();
         return redirect('viewManageRepair');
     }
@@ -88,11 +88,11 @@ class RepairController extends Controller {
         $repairDevice->repair_no = $input ['repairNo'];
         $repairDevice->person = $input ['person'];
         $repairDevice->approvement = $input ['approvement'];
-        $repairDevice->approve_date = DateUtils::getDBDateFromStr($input ['approvedDate']);
+        $repairDevice->approved_date = DateUtils::getDBDateTimeFromStr($input ['approvedDate']);
         $repairDevice->received_by = $input ['receivedBy'];
-        $repairDevice->received_date = DateUtils::getDBDateFromStr($input ['receivedDate']);
+        $repairDevice->received_date = DateUtils::getDBDateTimeFromStr($input ['receivedDate']);
         $repairDevice->update_user = '1';
-        $repairDevice->update_date = DateUtils::getDBDate();
+        $repairDevice->update_date = DateUtils::getDBDateTime();
         $repairDevice->save();
         return redirect('viewManageRepair');
     }

@@ -7,6 +7,7 @@ use Request;
 use App\Order;
 use App\OrderDetail;
 use App\DeviceType;
+use DateUtils;
 
 class OrderController extends Controller {
 
@@ -45,23 +46,23 @@ class OrderController extends Controller {
      */
     public function store() {
         $input = Request::all();
-        $bookingRoom = new BookingRoom ();
-        $bookingRoom->room_id = $input ['roomId'];
-        $bookingRoom->booking_no = $input ['bookingNo'];
-        $bookingRoom->event = $input ['events'];
-        $bookingRoom->purpose = $input ['purpose'];
-        $bookingRoom->description = $input ['description'];
-        $bookingRoom->contact_person = $input ['contactPerson'];
-        $bookingRoom->email = $input ['email'];  
-//        eventDate
-        $bookingRoom->start_time = $input ['startTime'];
-        $bookingRoom->end_time = $input ['endTime'];
-//        $bookingRoom->create_user = '';
-//        $bookingRoom->create_date = '';
-//        $bookingRoom->update_user = '';
-//        $bookingRoom->update_date = '';
-        $bookingRoom->save();
-        return redirect('viewManageRoom');
+        $order = new Order ();
+        $order->order_no = $input ['orderNo'];
+        $order->purpose = $input ['purpose'];
+        $order->approvement = $input ['approvement'];
+        $order->approved_date = DateUtils::getDBDateTimeFromStr($input ['approvedDate']);
+        $order->order_by = $input ['orderBy'];  
+        $order->order_date = DateUtils::getDBDateTimeFromStr($input ['orderDate']); 
+        $order->received_by = $input ['receivedBy'];  
+        $order->received_date = DateUtils::getDBDateTimeFromStr($input ['receivedDate']);  
+        $order->checked_by = $input ['checkedBy'];  
+        $order->checked_date = DateUtils::getDBDateTimeFromStr($input ['checkedDate']);
+        $order->create_user = '1';
+        $order->create_date = DateUtils::getDBDateTime();
+        $order->update_user = '1';
+        $order->update_date = DateUtils::getDBDateTime();
+        $order->save();
+        return redirect('viewManageOrder');
     }
 
     /**
@@ -81,9 +82,9 @@ class OrderController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $room = Room::find($id);
-        $data = $room;
-        return view('store.formEditRoom')->with('room', $data);
+        $order = Order::find($id);
+        $data = $order;
+        return view('store.formEditOrder')->with('order', $data);
     }
 
     /**
@@ -94,21 +95,21 @@ class OrderController extends Controller {
      */
     public function update($id) {
         $input = Request::all();
-        $bookingRoom = BookingRoom::find($id);
-        $bookingRoom->room_id = $input ['roomId'];
-        $bookingRoom->booking_no = $input ['bookingNo'];
-        $bookingRoom->event = $input ['event'];
-        $bookingRoom->purpose = $input ['purpose'];
-        $bookingRoom->description = $input ['description'];
-        $bookingRoom->contact_person = $input ['contactPerson'];
-        $bookingRoom->start_time = $input ['startTime'];
-        $bookingRoom->end_time = $input ['endTime'];
-//        $bookingRoom->create_user = '';
-//        $bookingRoom->create_date = '';
-//        $bookingRoom->update_user = '';
-//        $bookingRoom->update_date = '';
-        $bookingRoom->save();
-        return redirect('viewManageRoom');
+        $order = Order::find($id);
+        $order->order_no = $input ['orderNo'];
+        $order->purpose = $input ['purpose'];
+        $order->approvement = $input ['approvement'];
+        $order->approved_date = DateUtils::getDBDateTimeFromStr($input ['approvedDate']);
+        $order->order_by = $input ['orderBy'];  
+        $order->order_date = DateUtils::getDBDateTimeFromStr($input ['orderDate']); 
+        $order->received_by = $input ['receivedBy'];  
+        $order->received_date = DateUtils::getDBDateTimeFromStr($input ['receivedDate']);  
+        $order->checked_by = $input ['checkedBy'];  
+        $order->checked_date = DateUtils::getDBDateTimeFromStr($input ['checkedDate']);
+        $order->update_user = '1';
+        $order->update_date = DateUtils::getDBDateTime();
+        $order->save();
+        return redirect('viewManageOrder');
     }
 
     /**
@@ -118,9 +119,9 @@ class OrderController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $bookingRoom = BookingRoom::find($id);
-        $bookingRoom->delete();
-        return redirect('viewManageRoom');
+        $order = Order::find($id);
+        $order->delete();
+        return redirect('viewManageOrder');
     }
 
 }

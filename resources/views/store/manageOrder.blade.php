@@ -61,12 +61,12 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>Purchase-No 1</td>
-                                                    <td>11/04/2015</td>
-                                                    <td>Purchase-Purpose 1</td>
-                                                    <td>Staff-1</td>
-                                                    <td>Staff-2</td>
-                                                    <td>Staff-3</td>
+                                                    <td>{{$order['order_no']}}</td>
+                                                    <td>{{DateUtils::getDateFromStr($order['order_date'])}}</td>
+                                                    <td>{{$order['purpose']}}</td>
+                                                    <td>{{$order['order_by']}}</td>
+                                                    <td>{{$order['received_by']}}</td>
+                                                    <td>{{$order['checked_by']}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

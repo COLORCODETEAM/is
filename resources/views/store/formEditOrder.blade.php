@@ -1,6 +1,6 @@
 @extends('store.app')
 @section('content')
-{!! Form::open(array('url'=>'addOrder')) !!}
+{!! Form::open( ['route'=>['updateOrder',$order['id'] ]])  !!}
 <form>
     <div class="row">
         <div class="col-lg-12">
@@ -20,17 +20,17 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Order No : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="orderNo"/>
+                                <input class="form-control" name="orderNo" value="{{$order['order_no']}}"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-3">วันที่ : </label>
                             <div class="col-lg-2">
-                                <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDate()}}"/>
+                                <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDateFromStr($order['create_date'])}}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Purpose of request : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3" name="purpose"></textarea>
+                                <textarea class="form-control" rows="3" name="purpose">{{$order['purpose']}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -78,12 +78,12 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Order by : </label>
                             <div class="col-lg-2">
-                                <input class="form-control" name="orderBy"/>
+                                <input class="form-control" name="orderBy" value="{{$order['order_by']}}"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Order : </label>
                             <div class="col-lg-2">
                                 <div class=" input-group">
-                                    <input class="form-control datepicker" name="orderDate"/>
+                                    <input class="form-control datepicker" name="orderDate" value="{{DateUtils::getDateFromStr($order['order_date'])}}"/>
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -94,14 +94,14 @@
                             <label class="control-label col-lg-2">Approvement : </label>
                             <div class="col-lg-2">
                                 <select class="form-control" name="approvement">
-                                    <option value="1">OK</option>
-                                    <option value="0">CANCEL</option>
+                                    <option value="1" {{ ($order['approvement']=='1' ? 'selected' : '') }}>OK</option>
+                                    <option value="0 "{{ ($order['approvement']=='0' ? 'selected' : '') }}>CANCEL</option>
                                 </select>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Approved : </label>
                             <div class="col-lg-2">
                                 <div class=" input-group">
-                                    <input class="form-control datepicker" name="approvedDate"/>
+                                    <input class="form-control datepicker" name="approvedDate" value="{{DateUtils::getDateFromStr($order['approved_date'])}}"/>
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -111,12 +111,12 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Received by : </label>
                             <div class="col-lg-2">
-                                <input class="form-control" name="receivedBy"/>
+                                <input class="form-control" name="receivedBy" value="{{$order['received_by']}}"/>
                             </div>
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Received : </label>
                             <div class="col-lg-2">
                                 <div class=" input-group">
-                                    <input class="form-control datepicker" name="receivedDate"/>
+                                    <input class="form-control datepicker" name="receivedDate" value="{{DateUtils::getDateFromStr($order['received_date'])}}"/>
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -126,12 +126,12 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Checked by : </label>
                             <div class="col-lg-2">
-                                <input class="form-control" name="checkedBy"/>
+                                <input class="form-control" name="checkedBy" value="{{$order['checked_by']}}"/>
                             </div>                            
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Checked : </label>
                             <div class="col-lg-2">
                                 <div class=" input-group">
-                                    <input class="form-control datepicker" name="checkedDate"/>
+                                    <input class="form-control datepicker" name="checkedDate" value="{{DateUtils::getDateFromStr($order['checked_date'])}}"/>
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
