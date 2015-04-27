@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Request;
 use App\Stock;
+use DateUtils;
 
 class StockController extends Controller {
 

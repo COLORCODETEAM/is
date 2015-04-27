@@ -9,12 +9,13 @@ class BookingRoom extends Model {
     protected $table = 'booking_room';
     public $timestamps = false;
     
-//    public function Room()
-//    {
-//        return $this->belongsTo('Room');
-//    }
-//    
-    public function room(){
-        $this->hasOne('Room');
+    public function room()
+    {
+        return $this->belongsTo('App\Room');
+    }
+    
+    public function bookingRoomDetail()
+    {
+        return $this->hasMany('App\BookingRoomDetail');
     }
 }

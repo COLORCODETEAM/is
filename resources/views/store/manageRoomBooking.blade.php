@@ -50,11 +50,11 @@
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <a href="{{route('editRoomBooking',$bookingRoom['id'])}}">
+                                                                    <a href="{{route('editRoomBooking',$bookingRoom->id)}}">
                                                                         <button type="button"
                                                                                 class="form-control btn btn-default">แก้ไข</button>
                                                                     </a>
-                                                                    <a href="{{route('delRoomBooking',$bookingRoom['id'])}}">
+                                                                    <a href="{{route('delRoomBooking',$bookingRoom->id)}}">
                                                                         <button type="button"
                                                                                 class="form-control btn btn-danger">ลบ</button>
                                                                     </a>
@@ -62,12 +62,12 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>{{$bookingRoom['booking_no']}}</td>
-                                                    <td>??</td>
-                                                    <td>{{$bookingRoom['purpose']}}</td>
-                                                    <td>{{DateUtils::getDateFromStr($bookingRoom['start_time'])}}</td>
-                                                    <td>{{DateUtils::getTimeFromStr($bookingRoom['start_time'])}}</td>
-                                                    <td>{{DateUtils::getTimeFromStr($bookingRoom['end_time'])}}</td>
+                                                    <td>{{$bookingRoom->booking_no}}</td>
+                                                    <td>{{$bookingRoom->room->room_no}}</td>
+                                                    <td>{{$bookingRoom->purpose}}</td>
+                                                    <td>{{DateUtils::getDateFromStr($bookingRoom->start_time)}}</td>
+                                                    <td>{{DateUtils::getTimeFromStr($bookingRoom->start_time)}}</td>
+                                                    <td>{{DateUtils::getTimeFromStr($bookingRoom->end_time)}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

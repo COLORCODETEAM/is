@@ -18,14 +18,7 @@ class RoomBookingController extends Controller {
      */
     public function index() {
         $bookingRoom = new BookingRoom ();
-        $data = $bookingRoom->all()->toArray();
-//        $data2 = $bookingRoom->all();
-//        
-//        
-//        foreach ($data2 as $x)
-//        {
-//            echo $x->room->room_no;
-//        }
+        $data = $bookingRoom->all();
 
         return view('store.manageRoomBooking')->with('bookingRooms', $data);
     }
@@ -57,14 +50,27 @@ class RoomBookingController extends Controller {
         $bookingRoom->description = $input ['description'];
         $bookingRoom->contact_person = $input ['contactPerson'];
         $bookingRoom->email = $input ['email'];
-        $bookingRoom->start_time = $input ['startTime'];
-        $bookingRoom->end_time = $input ['endTime'];
+        $bookingRoom->start_time = DateUtils::getConcatDBDateTime($input['eventDate'], $input ['startTime']);
+        $bookingRoom->end_time = DateUtils::getConcatDBDateTime($input['eventDate'], $input ['endTime']);
         $bookingRoom->create_user = '1';
         $bookingRoom->create_date = DateUtils::getDBDateTime();
         $bookingRoom->update_user = '1';
         $bookingRoom->update_date = DateUtils::getDBDateTime();
         $bookingRoom->save();
-        return redirect('viewManageRoom');
+        
+        // save details
+        for ($i=0; $i<3; $i++) {
+            $detail = new BookingRoomDetail();
+            $detail->booking_room_id = '1';
+            $detail->device_id = '2';
+            $detail->description = '';
+            $detail->amount = '';
+            
+            $details[] = $detail;
+        }
+        $bookingRoom->bookingRoomDetail()->saveMany($details);
+
+        return redirect('viewManageRoomBooking');
     }
 
     /**
@@ -84,9 +90,21 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $room = Room::find($id);
-        $data = $room;
-        return view('store.formEditRoom')->with('room', $data);
+        $bookingRoom = BookingRoom::find($id);
+        $data = $bookingRoom->toArray();
+        
+        $room = new Room();
+        $rooms = $room->all()->toArray();
+        
+        foreach ( $rooms as &$tmp ) {
+            if ($data['room_id']==$tmp['id']) {
+                $tmp['selected'] = 'selected';
+            } else {
+                $tmp['selected'] = '';
+            }
+        }
+        
+        return view('store.formEditRoomBooking')->with('compact', compact('data', 'rooms'));
     }
 
     /**
@@ -104,12 +122,12 @@ class RoomBookingController extends Controller {
         $bookingRoom->purpose = $input ['purpose'];
         $bookingRoom->description = $input ['description'];
         $bookingRoom->contact_person = $input ['contactPerson'];
-        $bookingRoom->start_time = $input ['startTime'];
-        $bookingRoom->end_time = $input ['endTime'];
+        $bookingRoom->start_time = DateUtils::getConcatDBDateTime($input['eventDate'], $input ['startTime']);
+        $bookingRoom->end_time = DateUtils::getConcatDBDateTime($input['eventDate'], $input ['endTime']);
         $bookingRoom->update_user = '1';
         $bookingRoom->update_date = DateUtils::getDBDateTime();
         $bookingRoom->save();
-        return redirect('viewManageRoom');
+        return redirect('viewManageRoomBooking');
     }
 
     /**
@@ -121,7 +139,7 @@ class RoomBookingController extends Controller {
     public function destroy($id) {
         $bookingRoom = BookingRoom::find($id);
         $bookingRoom->delete();
-        return redirect('viewManageRoom');
+        return redirect('viewManageRoomBooking');
     }
 
 }

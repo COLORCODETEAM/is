@@ -18,33 +18,23 @@ class DateUtils {
     }
     
     static function getDateFromStr($date) {
-        return date('d/m/Y', strtotime($date));
+        return date('d/m/Y', strtotime(str_replace('/', '-', $date)));
+    }
+    
+    static function getTimeFromStr($date) {
+        return date('h:i A', strtotime(str_replace('/', '-', $date)));
     }
     
     static function getDBDateTime() {
-        return date('Y-m-d H:i:s');
+        return date('Y-m-d H:i');
     }
     
     static function getDBDateTimeFromStr($date) {
-        return date('Y-m-d H:i:s', strtotime($date));
+        return date('Y-m-d H:i', strtotime(str_replace('/', '-', $date)));
+        
     }
     
-    static function getTimeFromStr($time) {
-        // TODO
-        return date('H:i');
-    }
-    
-    static function getSplitDate($date) {
-        // TODO
-        return date('d/m/Y');
-    }
-    
-    static function getSplitTime($date) {
-        // TODO
-        return date('H:i');
-    }
-    
-    static function getConcatDateTime($date, $time) {
-        return date('Y-m-d H:i:s', strtotime($date. " " .$time));
+    static function getConcatDBDateTime($date, $time) {
+        return date('Y-m-d H:i', strtotime(str_replace('/', '-', $date. " " .$time)));
     }
 }

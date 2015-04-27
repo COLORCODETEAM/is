@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Room;
+use App\BookingRoom;
+use App\BookingRoomDetail;
+use DateUtils;
 
 class UserController extends Controller {
 
@@ -15,5 +19,9 @@ class UserController extends Controller {
      */
     public function index() {
         return view('store.home');
+    }
+    
+    public function calendar() {
+        
     }
 }

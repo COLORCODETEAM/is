@@ -13,6 +13,7 @@
 
 
 Route::get('/', 'UserController@index');
+Route::get('/calendar', 'UserController@calendar');
 
 //Room
 Route::get('/viewManageRoom', 'RoomController@index');

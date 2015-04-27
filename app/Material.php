@@ -10,7 +10,6 @@ class Material extends Model {
     public $timestamps = false;
 
     public function stock() {
-        return $this->hasOne('App\Stock');
+        return $this->belongsTo('App\Stock');
     }
-
 }
