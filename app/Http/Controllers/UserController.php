@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Room;
 use App\BookingRoom;
-use App\BookingRoomDetail;
 use DateUtils;
 
 class UserController extends Controller {
@@ -22,6 +20,16 @@ class UserController extends Controller {
     }
     
     public function calendar() {
+        $bookingRoom = new BookingRoom ();
+        $bookingRooms = $bookingRoom->getCurrentBookingRoom();
         
+        foreach ($bookingRooms as $bookingRoom) {
+            $tmp['id'] = $bookingRoom['id'];
+            $tmp['title'] = $bookingRoom['events'];
+            $tmp['start'] = $bookingRoom['start_time'];
+            $tmp['end'] = $bookingRoom['end_time'];            
+            $events[] = $tmp;
+        }
+        echo json_encode($events);
     }
 }

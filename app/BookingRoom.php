@@ -18,4 +18,11 @@ class BookingRoom extends Model {
     {
         return $this->hasMany('App\BookingRoomDetail');
     }
+    
+    public function getCurrentBookingRoom ()
+    {
+        return BookingRoom::where('start_time', '>=', date('Y-m-d').' 00:00:00')
+                ->orWhere('start_time', '<=', date('Y-m-d').' 23:59:59')
+                ->get();
+    }
 }
