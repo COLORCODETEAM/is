@@ -59,7 +59,7 @@
         <!-- Calendar CSS -->
         <link
             href="{{ asset('store/components/fullcalendar/fullcalendar.css')}}"
-            rel='stylesheet' />
+            rel='stylesheet' />	
     </head>
 
     <body>
@@ -164,6 +164,9 @@
         src="{{ asset('store/components/fullcalendar/lib/moment.min.js')}}"></script>
         <script
         src="{{ asset('store/components/fullcalendar/fullcalendar.min.js')}}"></script>
+		<!-- modal -->
+		<script
+        src="{{ asset('store/components/bootstrap/js/modal.js')}}"></script>
 
         <script>
             $(document).ready(function () {
