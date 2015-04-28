@@ -17,9 +17,8 @@ class BringMaterialController extends Controller {
      * @return Response
      */
     public function index() {
-        $bringMaterial = new BringMaterial ();
-        $data = $bringMaterial->all()->toArray();
-        
+        $data = BringMaterial::where('flag', '=', '1')->get();
+                
         return view('store.manageBringMaterial')->with('bringMaterials', $data);
     }
 
@@ -51,6 +50,7 @@ class BringMaterialController extends Controller {
         $bringMaterial->create_date = DateUtils::getDBDateTime();
         $bringMaterial->update_user = '1';
         $bringMaterial->update_date = DateUtils::getDBDateTime();
+        $bringMaterial->flag = '1';
         $bringMaterial->save();
         return redirect('viewManageBringMaterial');
     }
@@ -72,8 +72,8 @@ class BringMaterialController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $bringMaterial = BringMaterial::find($id);
-        $data = $bringMaterial;
+        $data = BringMaterial::find($id);
+        
         return view('store.formEditBringMaterial')->with('bringMaterial', $data);
     }
 
@@ -106,9 +106,9 @@ class BringMaterialController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $bringMaterial = BringMaterial::find($id);
-        $bringMaterial->delete();
+        BringMaterial::where('id', '=', $id)->update(['flag' => '0']);
+        BringMaterialDetail::where('bring_material_id', '=', $id)->update(['flag' => '0']);
+        
         return redirect('viewManageBringMaterial');
     }
-
 }

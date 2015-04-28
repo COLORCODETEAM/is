@@ -17,8 +17,7 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function index() {
-        $bookingRoom = new BookingRoom ();
-        $data = $bookingRoom->all();
+        $data =  BookingRoom::where('flag', '=', '1')->get();
 
         return view('store.manageRoomBooking')->with('bookingRooms', $data);
     }
@@ -29,8 +28,7 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function create() {
-        $room = new Room();
-        $rooms = $room->all()->toArray();
+        $rooms = Room::where('flag', '=', '1')->get();
         
         return view('store.formRoomBooking')->with('rooms', $rooms);
     }
@@ -56,19 +54,21 @@ class RoomBookingController extends Controller {
         $bookingRoom->create_date = DateUtils::getDBDateTime();
         $bookingRoom->update_user = '1';
         $bookingRoom->update_date = DateUtils::getDBDateTime();
+        $bookingRoom->flag = '1';
         $bookingRoom->save();
         
         // save details
-        for ($i=0; $i<3; $i++) {
-            $detail = new BookingRoomDetail();
-            $detail->booking_room_id = '1';
-            $detail->device_id = '2';
-            $detail->description = '';
-            $detail->amount = '';
-            
-            $details[] = $detail;
-        }
-        $bookingRoom->bookingRoomDetail()->saveMany($details);
+//        for ($i=0; $i<3; $i++) {
+//            $detail = new BookingRoomDetail();
+//            $detail->booking_room_id = '1';
+//            $detail->device_id = '2';
+//            $detail->description = '';
+//            $detail->amount = '';
+//            $detail->flag = '1';
+//            
+//            $details[] = $detail;
+//        }
+//        $bookingRoom->bookingRoomDetail()->saveMany($details);
 
         return redirect('viewManageRoomBooking');
     }
@@ -90,11 +90,8 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $bookingRoom = BookingRoom::find($id);
-        $data = $bookingRoom->toArray();
-        
-        $room = new Room();
-        $rooms = $room->all()->toArray();
+        $data = BookingRoom::find($id);
+        $rooms = Room::where('flag', '=', '1')->get();
         
         foreach ( $rooms as &$tmp ) {
             if ($data['room_id']==$tmp['id']) {
@@ -137,8 +134,9 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $bookingRoom = BookingRoom::find($id);
-        $bookingRoom->delete();
+        BookingRoom::where('id', '=', $id)->update(['flag' => '0']);
+        BookingRoomDetail::where('booking_room_id', '=', $id)->update(['flag' => '0']);
+        
         return redirect('viewManageRoomBooking');
     }
 

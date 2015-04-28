@@ -15,11 +15,9 @@ class MaterialController extends Controller {
      * @return Response
      */
     public function index() {
-        $material = new Material ();
-        $data = $material->all()->toArray();
-        // var_dump($data);
+        $data = Material::where('flag', '=', '1')->get();
+        
         return view('store.manageMaterial')->with('materials', $data);
-        // return "index";
     }
 
     /**
@@ -28,11 +26,9 @@ class MaterialController extends Controller {
      * @return Response
      */
     public function create() {
-        $stock = new Stock();
-        $data = $stock->all()->toArray();
+        $data = Stock::where('flag', '=', '1')->get();
         
         return view('store.formMaterial')->with('stocks', $data);
-        // return "create";
     }
 
     /**
@@ -49,6 +45,11 @@ class MaterialController extends Controller {
         $material->model = $input ['model'];
         $material->description = $input ['description'];
         $material->amount = $input ['amount'];
+        $material->create_user = '1';
+        $material->create_date = DateUtils::getDBDateTime();
+        $material->update_user = '1';
+        $material->update_date = DateUtils::getDBDateTime();
+        $material->flag = '1';
         $material->save();
         return redirect('viewManageMaterial');
     }
@@ -70,11 +71,8 @@ class MaterialController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $material = Material::find($id);
-        $data = $material;
-        
-        $stock = new Stock();
-        $stocks = $stock->all()->toArray();
+        $data = Material::find($id);
+        $stocks = Stock::where('flag', '=', '1')->get();
         
         foreach ( $stocks as &$tmp ) {
             if ($data['stock_id']==$tmp['id']) {
@@ -102,6 +100,8 @@ class MaterialController extends Controller {
         $material->model = $input ['model'];
         $material->description = $input ['description'];
         $material->amount = $input ['amount'];
+        $material->update_user = '1';
+        $material->update_date = DateUtils::getDBDateTime();
         $material->save();
         return redirect('viewManageMaterial');
     }
@@ -113,8 +113,8 @@ class MaterialController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $material = Material::find($id);
-        $material->delete();
+        Material::where('id', '=', $id)->update(['flag' => '0']);
+        
         return redirect('viewManageMaterial');
     }
 

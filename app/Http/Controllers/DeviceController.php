@@ -16,11 +16,9 @@ class DeviceController extends Controller {
      * @return Response
      */
     public function index() {
-        $device = new Device ();
-        $data = $device->all()->toArray();
-        // var_dump($data);
+        $data = Device::where('flag', '=', '1')->get();
+        
         return view('store.manageDevice')->with('devices', $data);
-        // return "index";
     }
 
     /**
@@ -29,11 +27,8 @@ class DeviceController extends Controller {
      * @return Response
      */
     public function create() {
-        $stock = new Stock();
-        $stocks = $stock->all()->toArray();
-        
-        $deviceType = new DeviceType();
-        $deviceTypes = $deviceType->all()->toArray();
+        $stocks = Stock::where('flag', '=', '1')->get();
+        $deviceTypes = DeviceType::all()->toArray();
         
         return view('store.formDevice')->with('compact', compact('stocks', 'deviceTypes'));
     }
@@ -56,6 +51,11 @@ class DeviceController extends Controller {
         $device->serial_no = $input ['serialNo'];
         $device->warranty = $input ['warranty'];
         $device->amount = $input ['amount'];
+        $device->create_user = '1';
+        $device->create_date = DateUtils::getDBDateTime();
+        $device->update_user = '1';
+        $device->update_date = DateUtils::getDBDateTime();
+        $device->flag = '1';
         $device->save();
         return redirect('viewManageDevice');
     }
@@ -77,14 +77,9 @@ class DeviceController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $device = Device::find($id);
-        $data = $device;
-        
-        $stock = new Stock();
-        $stocks = $stock->all()->toArray();
-        
-        $deviceType = new DeviceType();
-        $deviceTypes = $deviceType->all()->toArray();
+        $data = Device::find($id);
+        $stocks = Stock::where('flag', '=', '1')->get();
+        $deviceTypes = DeviceType::where('flag', '=', '1')->get();
         
         foreach ( $stocks as &$tmp ) {
             if ($data['stock_id']==$tmp['id']) {
@@ -124,6 +119,8 @@ class DeviceController extends Controller {
         $device->serial_no = $input ['serialNo'];
         $device->warranty = $input ['warranty'];
         $device->amount = $input ['amount'];
+        $device->update_user = '1';
+        $device->update_date = DateUtils::getDBDateTime();
         $device->save();
         return redirect('viewManageDevice');
     }
@@ -135,8 +132,8 @@ class DeviceController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $device = Device::find($id);
-        $device->delete();
+        Device::where('id', '=', $id)->update(['flag' => '0']);
+        
         return redirect('viewManageDevice');
     }
 

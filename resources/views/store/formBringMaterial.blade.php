@@ -47,7 +47,7 @@
                             <div class="col-lg-3">
                                 <input class="form-control" name="email"/>
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">

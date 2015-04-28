@@ -17,8 +17,7 @@ class RepairController extends Controller {
      * @return Response
      */
     public function index() {
-        $repairDevice = new RepairDevice ();
-        $data = $repairDevice->all()->toArray();
+        $data = RepairDevice::where('flag', '=', '1')->get();
         
         return view('store.manageRepair')->with('repairDevices', $data);
     }
@@ -50,6 +49,7 @@ class RepairController extends Controller {
         $repairDevice->create_date = DateUtils::getDBDateTime();
         $repairDevice->update_user = '1';
         $repairDevice->update_date = DateUtils::getDBDateTime();
+        $repairDevice->flag = '1';
         $repairDevice->save();
         return redirect('viewManageRepair');
     }
@@ -71,8 +71,8 @@ class RepairController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $repairDevice = RepairDevice::find($id);
-        $data = $repairDevice;
+        $data = RepairDevice::find($id);
+        
         return view('store.formEditRepair')->with('repairDevice', $data);
     }
 
@@ -104,8 +104,9 @@ class RepairController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $repairDevice = RepairDevice::find($id);
-        $repairDevice->delete();
+        RepairDevice::where('id', '=', $id)->update(['flag' => '0']);
+        RepairDeviceDetail::where('repair_device_id', '=', $id)->update(['flag' => '0']);
+        
         return redirect('viewManageRepair');
     }
 

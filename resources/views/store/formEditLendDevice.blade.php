@@ -42,7 +42,28 @@
                                 <input class="form-control" name="email" value="{{$lendDevice['email']}}"/>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Start Date : </label>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <input class="form-control datepicker" name="startTime" value="{{DateUtils::getDateFromStr($lendDevice['start_time'])}}"/>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <label class="control-label col-lg-2">Finish Date : </label>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <input class="form-control datepicker" name="endTime" value="{{DateUtils::getDateFromStr($lendDevice['end_time'])}}"/>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">

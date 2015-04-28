@@ -35,9 +35,10 @@
                                                 <tr>
                                                     <th></th>
                                                     <th>Rent No.</th>
-                                                    <th>Date</th>
                                                     <th>Person</th>
                                                     <th>Purpose</th>
+                                                    <th>Start time</th>
+                                                    <th>Finish time</th>
                                                     <th>Approvement</th>
                                                 </tr>
                                             </thead>
@@ -61,9 +62,10 @@
                                                         </div>
                                                     </td>
                                                     <td>{{$lendDevice['lend_no']}}</td>
-                                                    <td>{{$lendDevice['create_date']}}</td>
                                                     <td>{{$lendDevice['rent_person']}}</td>
                                                     <td>{{$lendDevice['purpose']}}</td>
+                                                    <td>{{DateUtils::getDateFromStr($lendDevice['start_time'])}}</td>
+                                                    <td>{{DateUtils::getDateFromStr($lendDevice['end_time'])}}</td>
                                                     <td>{{($lendDevice['approvement']=='1' ? 'OK':'CANCEL')}}</td>
                                                 </tr>
                                                 @endforeach

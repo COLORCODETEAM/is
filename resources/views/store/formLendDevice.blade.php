@@ -42,7 +42,28 @@
                                 <input class="form-control" name="email"/>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Start Date : </label>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <input class="form-control datepicker" name="startTime" value="{{DateUtils::getDate()}}"/>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <label class="control-label col-lg-2">Finish Date : </label>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <input class="form-control datepicker" name="endTime" value="{{DateUtils::getDate()}}"/>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">
@@ -57,14 +78,14 @@
                                                 <tr>
                                                     <th>Item No.</th>
                                                     <th>Items</th>
-                                                    <th>Date/Time</th>
+                                                    <th>Amount</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>123</td>
                                                     <td>อุปกรณ์ 123</td>
-                                                    <td>25/02/2015 - 29/02/2015</td>
+                                                    <td>1</td>
                                                 </tr>
                                             </tbody>
                                         </table>

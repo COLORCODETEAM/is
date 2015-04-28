@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LendDeviceDetail extends Model {
 
-    protected $table = 'booking_device_detail';
+    protected $table = 'lend_device_detail';
     public $timestamps = false;
 
 }

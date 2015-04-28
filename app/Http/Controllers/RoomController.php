@@ -15,11 +15,9 @@ class RoomController extends Controller {
      * @return Response
      */
     public function index() {
-        $room = new Room ();
-        $data = $room->all()->toArray();
-        // var_dump($data);
+        $data = Room::where('flag', '=', '1')->get();
+        
         return view('store.manageRoom')->with('rooms', $data);
-        // return "index";
     }
 
     /**
@@ -29,7 +27,6 @@ class RoomController extends Controller {
      */
     public function create() {
         return view('store.formRoom');
-        // return "create";
     }
 
     /**
@@ -47,6 +44,7 @@ class RoomController extends Controller {
         $room->create_date = DateUtils::getDBDateTime();
         $room->update_user = '1';
         $room->update_date = DateUtils::getDBDateTime();
+        $room->flag = '1';
         $room->save();
         return redirect('viewManageRoom');
     }
@@ -68,8 +66,8 @@ class RoomController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $room = Room::find($id);
-        $data = $room;
+        $data = Room::find($id);
+        
         return view('store.formEditRoom')->with('room', $data);
     }
     
@@ -98,8 +96,8 @@ class RoomController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $room = Room::find($id);
-        $room->delete();
+        Room::where('id', '=', $id)->update(['flag' => '0']);
+        
         return redirect('viewManageRoom');
     }
 

@@ -17,8 +17,7 @@ class OrderController extends Controller {
      * @return Response
      */
     public function index() {
-        $order = new Order ();
-        $data = $order->all()->toArray();
+        $data = Order::where('flag', '=', '1')->get();
         
         return view('store.manageOrder')->with('orders', $data);
     }
@@ -28,15 +27,8 @@ class OrderController extends Controller {
      *
      * @return Response
      */
-    public function create() {
-        $deviceType = new DeviceType ();
-        $deviceTypes = $deviceType->all()->toArray();
-        
-        $materialType = '';
-        
-        $types = '';
-        
-        return view('store.formOrder')->with('types', $types);
+    public function create() {        
+        return view('store.formOrder');
     }
 
     /**
@@ -61,6 +53,7 @@ class OrderController extends Controller {
         $order->create_date = DateUtils::getDBDateTime();
         $order->update_user = '1';
         $order->update_date = DateUtils::getDBDateTime();
+        $order->flag = '1';
         $order->save();
         return redirect('viewManageOrder');
     }
@@ -82,8 +75,8 @@ class OrderController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $order = Order::find($id);
-        $data = $order;
+        $data = Order::find($id);
+        
         return view('store.formEditOrder')->with('order', $data);
     }
 
@@ -119,8 +112,9 @@ class OrderController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $order = Order::find($id);
-        $order->delete();
+        Order::where('id', '=', $id)->update(['flag' => '0']);
+        OrderDetail::where('order_id', '=', $id)->update(['flag' => '0']);
+        
         return redirect('viewManageOrder');
     }
 

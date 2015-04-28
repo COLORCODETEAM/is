@@ -83,7 +83,7 @@
                             <label class="control-label col-lg-2 col-lg-offset-1">Date of Order : </label>
                             <div class="col-lg-2">
                                 <div class=" input-group">
-                                    <input class="form-control datepicker" name="orderDate"/>
+                                    <input class="form-control datepicker" name="orderDate" value="{{DateUtils::getDate()}}"/>
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>

@@ -18,8 +18,7 @@ class LendDeviceController extends Controller {
      * @return Response
      */
     public function index() {
-        $lendDevice = new LendDevice ();
-        $data = $lendDevice->all()->toArray();
+        $data = LendDevice::where('flag', '=', '1')->get();
         
         return view('store.manageLendDevice')->with('lendDevices', $data);
     }
@@ -41,17 +40,19 @@ class LendDeviceController extends Controller {
     public function store() {
         $input = Request::all();
         $lendDevice = new LendDevice();
-        $lendDevice->lend_device_type_id = '1';
         $lendDevice->lend_no = $input ['lendNo'];
         $lendDevice->purpose = $input ['purpose'];
         $lendDevice->rent_person = $input ['rentPerson'];
         $lendDevice->email = $input ['email'];
+        $lendDevice->start_time = DateUtils::getDBDateTimeFromStr($input ['startTime']);
+        $lendDevice->end_time = DateUtils::getDBDateTimeFromStr($input ['endTime']);
         $lendDevice->approvement = $input ['approvement'];
         $lendDevice->remark = $input ['remark'];
         $lendDevice->create_user = '1';
         $lendDevice->create_date = DateUtils::getDBDateTime();
         $lendDevice->update_user = '1';
         $lendDevice->update_date = DateUtils::getDBDateTime();
+        $lendDevice->flag = '1';
         $lendDevice->save();
         return redirect('viewManageLendDevice');
     }
@@ -73,8 +74,8 @@ class LendDeviceController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $lendDevice = LendDevice::find($id);
-        $data = $lendDevice;
+        $data = LendDevice::find($id);
+        
         return view('store.formEditLendDevice')->with('lendDevice', $data);
     }
 
@@ -87,11 +88,12 @@ class LendDeviceController extends Controller {
     public function update($id) {
         $input = Request::all();
         $lendDevice = LendDevice::find($id);
-        $lendDevice->lend_device_type_id = '1';
         $lendDevice->lend_no = $input ['lendNo'];
         $lendDevice->purpose = $input ['purpose'];
         $lendDevice->rent_person = $input ['rentPerson'];
         $lendDevice->email = $input ['email'];
+        $lendDevice->start_time = DateUtils::getDBDateTimeFromStr($input ['startTime']);
+        $lendDevice->end_time = DateUtils::getDBDateTimeFromStr($input ['endTime']);
         $lendDevice->approvement = $input ['approvement'];
         $lendDevice->remark = $input ['remark'];
         $lendDevice->update_user = '1';
@@ -106,9 +108,10 @@ class LendDeviceController extends Controller {
      * @param int $id        	
      * @return Response
      */
-    public function destroy($id) {
-        $lendDevice = LendDevice::find($id);
-        $lendDevice->delete();
+    public function destroy($id) {        
+        LendDevice::where('id', '=', $id)->update(['flag' => '0']);
+        LendDeviceDetail::where('lend_device_id', '=', $id)->update(['flag' => '0']);
+        
         return redirect('viewManageLendDevice');
     }
 

@@ -15,11 +15,9 @@ class StockController extends Controller {
      * @return Response
      */
     public function index() {
-        $stock = new Stock ();
-        $data = $stock->all()->toArray();
-        // var_dump($data);
+        $data = Stock::where('flag', '=', '1')->get();
+        
         return view('store.manageStock')->with('stocks', $data);
-        // return "index";
     }
 
     /**
@@ -29,7 +27,6 @@ class StockController extends Controller {
      */
     public function create() {
         return view('store.formStock');
-        // return "create";
     }
 
     /**
@@ -47,6 +44,7 @@ class StockController extends Controller {
         $stock->create_date = DateUtils::getDBDateTime();
         $stock->update_user = '1';
         $stock->update_date = DateUtils::getDBDateTime();
+        $stock->flag = '1';
         $stock->save();
         return redirect('viewManageStock');
     }
@@ -68,8 +66,8 @@ class StockController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $stock = Stock::find($id);
-        $data = $stock;
+        $data = Stock::find($id);
+        
         return view('store.formEditStock')->with('stock', $data);
     }
 
@@ -98,8 +96,8 @@ class StockController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $stock = Stock::find($id);
-        $stock->delete();
+        Stock::where('id', '=', $id)->update(['flag' => '0']);
+        
         return redirect('viewManageStock');
     }
 
