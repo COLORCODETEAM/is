@@ -132,16 +132,13 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /.row (nested) -->
-                    <div class="row">
-                        <div class="col-lg-offset-11">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">OK</button>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary pull-right">Update</button>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
                     </div>
-                    <!-- /.row (nested) -->
                 </div>
                 <!-- /.panel-body -->
             </div>

@@ -35,14 +35,11 @@
                                 <textarea class="form-control" rows="3" name="description" >{{$room['description']}}</textarea>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-offset-11">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Update</button>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary pull-right">Update</button>
                             </div>
                         </div>
-                        <!-- /.col-lg-4 (nested) -->
                     </div>
                     <!-- /.row (nested) -->
                 </div>
