@@ -167,117 +167,77 @@
 
         <script>
 
-            $(document).ready(function () {
+$(document).ready(function () {
 
-                // fullcalendar
-                $('#event_calendar').fullCalendar({
-                    defaultView: 'agendaDay',
-                    editable: false,
-                    eventLimit: true, // allow "more" link when too many events
-                    events: "{{url('calendar')}}"
-                });
+    // fullcalendar
+    $('#event_calendar').fullCalendar({
+        defaultView: 'agendaDay',
+        editable: false,
+        eventLimit: true, // allow "more" link when too many events
+        events: "{{url('calendar')}}"
+    });
 
-                // table responsive
-                $('#dataTables-example').DataTable({
-                    responsive: true
-                });
+    // table responsive
+    $('#dataTables-example').DataTable({
+        responsive: true
+    });
 
-                // datepicker
-                $('.datepicker').datepicker({
-                    format: 'dd/mm/yyyy'
-                });
+    // datepicker
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy'
+    });
 
-                // timepicker
-                $('.timepicker').timepicker();
+    // timepicker
+    $('.timepicker').timepicker();
 
-                // device-items popup
-                $('#deviceItemsPopup').on('show.bs.modal', function (e) {
-                    // Get data form view
-                    $.get("{{url('listDeviceItems')}}", function(data){
-                        $('#dataTables-deviceItemsPopup .modal-body').html(data);
-                    });
-                    
-                    // Add items to main-page
-                    $('#addDeviceItemsBtn').on('click', function(e) {
-                        
-                        // loop it
-                        $('#items-table tbody').append(
-                            '<tr>'+
-                                '<td>xxx</td>'+
-                                '<td>xxx</td>'+
-                                '<td>xxx</td>'+
-                                '<td>'+
-                                    '<input class="form-control" name="symptom[]"/>'+
-                                '</td>'+
-                                '<input type="hidden" name="hiddenDeviceId[]" value="xxx">'+
-                            '</tr>'
+    // device-items popup
+    $('#deviceItemsPopup').on('show.bs.modal', function (e) {
+        // Get data form view
+        $.get("{{url('listDeviceItems')}}", function (data) {
+            $('#dataTables-deviceItemsPopup .modal-body').html(data);
+        });
+
+        // Add items to main-page
+        $('#addDeviceItemsBtn').on('click', function (e) {
+
+            var nodeCheck = $('#dataTables-deviceItemsPopup tbody input:checked').parent().parent();
+            // loop it
+            nodeCheck.each(function () {
+                list = $(this).find('td').first();
+                item = list.next().next().text();
+                des = list.next().next().next().next().next().text();
+                serial = list.next().next().next().next().next().next().text();
+
+                $('#items-table tbody').append(
+                        '<tr>' +
+                        '<td>' + item + '</td>' +
+                        '<td>' + des + '</td>' +
+                        '<td>' + serial + '</td>' +
+                        '<td>' +
+                        '<input class="form-control" name="symptom[]"/>' +
+                        '</td>' +
+                        '<input type="hidden" name="hiddenDeviceId[]" value="xxx">' +
+                        '</tr>'
                         );
-                
-                
-                    });
-                });
             });
+        });
+    });
+});
 
 
-            //$('#addItemsBtn').on('click', function () {
-            //        $('#addItemsModal').modal({show:true});
-            //
-            //$.get('{{ asset('viewFormStock') }}',function(data){
-            //$('#addItemsModal .modal-body').html(data);
-            //});
-            //    });
-            //เพิ่ม $.get('{{ asset('viewFormStock') }}',function(data){
-            //$('#addItemsModal .modal-body').html(data);
-            //}); 
+//$('#addItemsBtn').on('click', function () {
+//        $('#addItemsModal').modal({show:true});
+//
+//$.get('{{ asset('viewFormStock') }}',function(data){
+//$('#addItemsModal .modal-body').html(data);
+//});
+//    });
+//เพิ่ม $.get('{{ asset('viewFormStock') }}',function(data){
+//$('#addItemsModal .modal-body').html(data);
+//}); 
 
         </script>
 
-        <!-- Modal Popup -->
-        <div id="deviceItemsPopup" class="modal fade">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Add Items</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="dataTable_wrapper">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-deviceItemsPopup">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Stock</th>
-                                        <th>Item No.</th>
-                                        <th>Brand</th>
-                                        <th>Model</th>
-                                        <th>Item Description</th>
-                                        <th>Serial No.</th>
-                                        <th>Warranty</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="checkbox" name="itemCbx[]"></td>
-                                        <td>Stock</td>
-                                        <td>Item No.</td>
-                                        <td>Brand</td>
-                                        <td>Model</td>
-                                        <td>Item Description</td>
-                                        <td>Serial No.</td>
-                                        <td>Warranty</td>
-                                        <td>Amount</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="addDeviceItemsBtn" class="btn btn-primary">Add</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </body>
 
 </html>
