@@ -48,14 +48,8 @@
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                   <a href="{{route('editMaterial',$material['id'])}}">
-                                                                        <button type="button"
-                                                                                class="form-control btn btn-default">แก้ไข</button>
-                                                                    </a>
-                                                                    <a href="{{route('delMaterial',$material['id'])}}">
-                                                                        <button type="button"
-                                                                                class="form-control btn btn-danger">ลบ</button>
-                                                                    </a>
+                                                                    <a href="{{route('editMaterial',$material['id'])}}" class="form-control btn btn-default">แก้ไข</a>
+                                                                    <a href-link="{{route('delMaterial',$material['id'])}}" class="form-control btn btn-danger" data-confirm="manage-page">ลบ</a>
                                                                 </div>
                                                             </div>
                                                         </div>

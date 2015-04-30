@@ -45,6 +45,7 @@
                                     <table id="items-table" class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th></th>
                                                 <th>ItemNo.</th>
                                                 <th>Item Description</th>
                                                 <th>Serial No.</th>
@@ -52,18 +53,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>123</td>
-                                                <td>อุปกรณ์ 123</td>
-                                                <td>sn-123</td>
-                                                <td>
-                                                    <input class="form-control" name="symptom[]"/>
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <button type="button" id="openDeviceItemsBtn" class="pull-right btn btn-primary" data-toggle="modal" data-target="#deviceItemsPopup" data-whatever="@mdo">Add Items</button>
+                                <button type="button" id="openDeviceItemsBtn" page="repair" class="pull-right btn btn-primary" data-toggle="modal" data-target="#deviceItemsPopup" data-whatever="@mdo">Add Items</button>
                             </div>  
                             <!-- /.panel-body -->
                         </div>

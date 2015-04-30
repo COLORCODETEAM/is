@@ -56,18 +56,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>123</td>
-                                                    <td>อุปกรณ์ 123</td>
-                                                    <td>2</td>
-                                                    <td>3,500</td>
-                                                    <td>7,000</td>
-                                                    <td>สินค้ามีแต่สีดำ</td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <!-- /.table-responsive -->
+                                    <button type="button" id="openOrderItemsBtn" class="pull-right btn btn-primary" data-toggle="modal" data-target="#orderItemsPopup" data-whatever="@mdo">Add Items</button>
                                 </div>
                                 <!-- /.panel-body -->
                             </div>

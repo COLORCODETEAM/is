@@ -167,72 +167,177 @@
 
         <script>
 
-            $(document).ready(function () {
+        $(document).ready(function () {
 
-                // fullcalendar
-                $('#event_calendar').fullCalendar({
-                    defaultView: 'agendaDay',
-                    editable: false,
-                    eventLimit: true, // allow "more" link when too many events
-                    events: "{{url('calendar')}}"
-                });
+            // fullcalendar
+            $('#event_calendar').fullCalendar({
+                defaultView: 'agendaDay',
+                editable: false,
+                eventLimit: true, // allow "more" link when too many events
+                events: "{{url('calendar')}}"
+            });
 
-                // table responsive
-                $('#dataTables-example').DataTable({
-                    responsive: true
-                });
+            // table responsive
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
 
-                // datepicker
-                $('.datepicker').datepicker({
-                    format: 'dd/mm/yyyy'
-                });
+            // datepicker
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy'
+            });
 
-                // timepicker
-                $('.timepicker').timepicker();
+            // timepicker
+            $('.timepicker').timepicker();
 
-                // device-items popup
-                $('#deviceItemsPopup').on('show.bs.modal', function (e) {
-                    // Get data form view
-                    $.get("{{url('listDeviceItems')}}", function(data){
-                        $('#dataTables-deviceItemsPopup .modal-body').html(data);
-                    });
+            // Confirm dialog
+            $('a[data-confirm]').click(function(e) {
+                var type = $(this).attr('data-confirm');
+                
+                switch (type) {
+                    case 'manage-page':
+                        var href = $(this).attr('href-link');
+                        $('#confirmDeletePopuYesBtn').attr('href', href);
+                        break;
+                    case 'table-items':
+                        var node = $(this).parent().parent();
+                        $('#confirmDeletePopuYesBtn').click(function(e) {
+                            node.remove();
+                            $('#confirmDeletePopup').modal('hide');
+                        });
+                        break;
+                }
                     
-                    // Add items to main-page
-                    $('#addDeviceItemsBtn').on('click', function(e) {
+                $('#confirmDeletePopup').modal('show');
+            });
+
+            // Device items popup
+            $('#deviceItemsPopup').on('show.bs.modal', function (e) {      
+                // Get data form view
+                $.get("{{url('listDeviceItems')}}", function (data) {
+                    $('#dataTables-deviceItemsPopup .modal-body').html(data);
+                });
+
+                // Add items to main-page
+                $('#addDeviceItemsBtn').on('click', function (e) {
+                    var page = $('#openDeviceItemsBtn').attr('page');
+                    var nodeCheck = $('#dataTables-deviceItemsPopup tbody input:checked').parent().parent();
+                    
+                    nodeCheck.each(function () {
+                        var list = $(this).find('td').first();
+                        var device_id = '';
+                        var item_no = list.next().next().text();
+                        var description = list.next().next().next().next().next().text();
+                        var serial_no = list.next().next().next().next().next().next().text();
                         
-                        // loop it
-                        $('#items-table tbody').append(
-                            '<tr>'+
-                                '<td>xxx</td>'+
-                                '<td>xxx</td>'+
-                                '<td>xxx</td>'+
-                                '<td>'+
-                                    '<input class="form-control" name="symptom[]"/>'+
-                                '</td>'+
-                                '<input type="hidden" name="hiddenDeviceId[]" value="xxx">'+
-                            '</tr>'
-                        );
-                
-                
+                        var row = '';
+                        switch (page) {
+                            case 'repair':
+                                row = '<tr>' +
+                                        '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
+                                        '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
+                                        '<td>' + item_no + '</td>' +
+                                        '<td>' + description + '</td>' +
+                                        '<td>' + serial_no + '</td>' +
+                                        '<td><input class="form-control" name="symptom[]"/></td>' +
+                                      '</tr>';
+                                break;
+                            case 'room-booking':
+                                row = '<tr>' +
+                                        '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
+                                        '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
+                                        '<td>' + item_no + '</td>' +
+                                        '<td>' + description + '</td>' +
+                                        '<td><input class="form-control" name="amount[]"/></td>' +
+                                      '</tr>';
+                                break;
+                            case 'lend-device':
+                                row = '<tr>' +
+                                    '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
+                                    '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
+                                    '<td>' + item_no + '</td>' +
+                                    '<td>' + description + '</td>' +
+                                    '<td><input class="form-control" name="amount[]"/></td>' +
+                                  '</tr>';
+                                break;
+                        }
+                        $('#items-table tbody').append(row);
                     });
                 });
             });
+            
+            // Order items popup
+            $('#orderItemsPopup').on('show.bs.modal', function (e) {   
+                // Add items to main-page
+                $('#addOrderItemsBtn').on('click', function (e) {
+                   
+                    var nodeCheck = $('#dataTables-orderItemsPopup tbody input:checked').parent().parent();
+                    
+                    nodeCheck.each(function () {
+                        var list = $(this).find('td').first();
+                        var item_no = list.val();
+                        var brand = list.next().val();
+                        var amount = list.next().next().val();
+                        var unitPrice = list.next().next().next().val();;
+                        var total = list.next().next().next().next().val();;
+                        var remark = list.next().next().next().next().next().val();;
+                        
+                        alert(remark);
+                        
+                        var row = '<tr>' +
+                                    '<input type="hidden" name="itemNo[]" value="' + item_no + '">' +
+                                    '<input type="hidden" name="brand[]" value="' + brand + '">' +
+                                    '<input type="hidden" name="amount[]" value="' + amount + '">' +
+                                    '<input type="hidden" name="unitPrice[]" value="' + unitPrice + '">' +
+                                    '<input type="hidden" name="total[]" disabled value="' + total + '">' +
+                                    '<input type="hidden" name="remark[]" value="' + remark + '">' +
+                                    '<td>' + item_no + '</td>' +
+                                    '<td>' + brand + '</td>' +
+                                    '<td>' + amount + '</td>' +
+                                    '<td>' + unitPrice + '</td>' +
+                                    '<td>' + total + '</td>' +
+                                    '<td>' + remark + '</td>' +
+                                  '</tr>';
+                        $('#items-table tbody').append(row);
+                    });
+                });
+            });
+        });
 
 
-            //$('#addItemsBtn').on('click', function () {
-            //        $('#addItemsModal').modal({show:true});
-            //
-            //$.get('{{ asset('viewFormStock') }}',function(data){
-            //$('#addItemsModal .modal-body').html(data);
-            //});
-            //    });
-            //เพิ่ม $.get('{{ asset('viewFormStock') }}',function(data){
-            //$('#addItemsModal .modal-body').html(data);
-            //}); 
+//$('#addItemsBtn').on('click', function () {
+//        $('#addItemsModal').modal({show:true});
+//
+//$.get('{{ asset('viewFormStock') }}',function(data){
+//$('#addItemsModal .modal-body').html(data);
+//});
+//    });
+//เพิ่ม $.get('{{ asset('viewFormStock') }}',function(data){
+//$('#addItemsModal .modal-body').html(data);
+//}); 
 
         </script>
 
-        <!-- Modal Popup -->
+        <!-- Confirm modal popup -->
+        <div id="confirmDeletePopup" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Confirm</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a id="confirmDeletePopuYesBtn" class="btn btn-danger">Yes</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Device modal popup -->
         <div id="deviceItemsPopup" class="modal fade">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -258,22 +363,76 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <input type="hidden" name="deviceId" value="1">
                                         <td><input type="checkbox" name="itemCbx[]"></td>
-                                        <td>Stock</td>
-                                        <td>Item No.</td>
-                                        <td>Brand</td>
-                                        <td>Model</td>
-                                        <td>Item Description</td>
-                                        <td>Serial No.</td>
-                                        <td>Warranty</td>
-                                        <td>Amount</td>
+                                        <td>stock1</td>
+                                        <td>Item 1</td>
+                                        <td>tttt</td>
+                                        <td>bbbb</td>
+                                        <td>aaaaa</td>
+                                        <td>xxxxxx No.</td>
+                                        <td>1</td>
+                                        <td>10</td>
+                                    </tr>
+                                    <tr>
+                                        <input type="hidden" name="deviceId" value="1">
+                                        <td><input type="checkbox" name="itemCbx[]"></td>
+                                        <td>stock2</td>
+                                        <td>Item 2</td>
+                                        <td>tttt</td>
+                                        <td>yyyyyy</td>
+                                        <td>ttttttt</td>
+                                        <td>xxxxxx No.</td>
+                                        <td>1</td>
+                                        <td>10</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="addDeviceItemsBtn" class="btn btn-primary">Add</button>
+                        <button type="button" id="addDeviceItemsBtn" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Order modal popup -->
+        <div id="orderItemsPopup" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Add Items</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-orderItemsPopup">
+                                <thead>
+                                    <tr>
+                                        <th>Item No.</th>
+                                        <th>Brand/Model/Description</th>
+                                        <th>Amount</th>
+                                        <th>Unit Price</th>
+                                        <th>Total</th>
+                                        <th>Remark</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" name="itemNo[]" class="form-control col-lg-2"></td>
+                                        <td><input type="text" name="brand[]" class="form-control col-lg-2"></td>
+                                        <td><input type="text" name="amount[]" class="form-control col-lg-1"></td>
+                                        <td><input type="text" name="unitPrice[]" class="form-control col-lg-1"></td>
+                                        <td><input type="text" name="total[]" class="form-control col-lg-1" disabled></td>
+                                        <td><input type="text" name="remark[]" class="form-control col-lg-2"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="addOrderItemsBtn" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Add</button>
                     </div>
                 </div>
             </div>
@@ -281,3 +440,5 @@
     </body>
 
 </html>
+
+

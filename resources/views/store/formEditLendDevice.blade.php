@@ -73,24 +73,21 @@
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover">
+                                        <table id="items-table" class="table table-striped table-bordered table-hover">
                                             <thead>
                                                 <tr>
+                                                    <th></th>
                                                     <th>Item No.</th>
-                                                    <th>Items</th>
-                                                    <th>Date/Time</th>
+                                                    <th>Description</th>
+                                                    <th>Amount</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>123</td>
-                                                    <td>อุปกรณ์ 123</td>
-                                                    <td>25/02/2015 - 29/02/2015</td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <!-- /.table-responsive -->
+                                    <button type="button" id="openDeviceItemsBtn" page="lend-device" class="pull-right btn btn-primary" data-toggle="modal" data-target="#deviceItemsPopup" data-whatever="@mdo">Add Items</button>
                                 </div>
                                 <!-- /.panel-body -->
                             </div>

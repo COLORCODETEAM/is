@@ -41,28 +41,23 @@
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>ItemNo.</th>
-                                                    <th>Item Description</th>
-                                                    <th>Serial No.</th>
-                                                    <th>อาการขัดข้อง</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>123</td>
-                                                    <td>อุปกรณ์ 123</td>
-                                                    <td>sn-123</td>
-                                                    <td>เปิดไม่ติด</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.table-responsive -->
+                                <div class="table-responsive">
+                                    <table id="items-table" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>ItemNo.</th>
+                                                <th>Item Description</th>
+                                                <th>Serial No.</th>
+                                                <th>อาการขัดข้อง</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
+                                <button type="button" id="openDeviceItemsBtn" page="repair" class="pull-right btn btn-primary" data-toggle="modal" data-target="#deviceItemsPopup" data-whatever="@mdo">Add Items</button>
+                            </div>  
                                 <!-- /.panel-body -->
                             </div>
                         </div>

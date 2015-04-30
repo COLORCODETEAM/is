@@ -48,14 +48,8 @@
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <a href="{{route('editRepair',$repairDevice['id'])}}">
-                                                                        <button type="button"
-                                                                                class="form-control btn btn-default">แก้ไข</button>
-                                                                    </a>
-                                                                    <a href="{{route('delRepair',$repairDevice['id'])}}">
-                                                                        <button type="button"
-                                                                                class="form-control btn btn-danger">ลบ</button>
-                                                                    </a>
+                                                                    <a href="{{route('editRepair',$repairDevice['id'])}}" class="form-control btn btn-default">แก้ไข</a>
+                                                                    <a href-link="{{route('delRepair',$repairDevice['id'])}}" class="form-control btn btn-danger" data-confirm="manage-page">ลบ</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -86,4 +80,4 @@
     </div>
     <!-- /.row -->
 </form>
-@stop
+@stop       
