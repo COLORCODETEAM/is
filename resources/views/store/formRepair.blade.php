@@ -116,4 +116,62 @@
 
 <!-- /.row -->
 {!! Form::close() !!}
+
+<!-- Modal Popup -->
+<div id="deviceItemsPopup" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Add Items</h4>
+            </div>
+            <div class="modal-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-deviceItemsPopup">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Stock</th>
+                                <th>Item No.</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Item Description</th>
+                                <th>Serial No.</th>
+                                <th>Warranty</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" name="itemCbx[]"></td>
+                                <td>stock1</td>
+                                <td>Item 1</td>
+                                <td>tttt</td>
+                                <td>bbbb</td>
+                                <td>aaaaa</td>
+                                <td>xxxxxx No.</td>
+                                <td>1</td>
+                                <td>10</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="itemCbx[]"></td>
+                                <td>stock2</td>
+                                <td>Item 2</td>
+                                <td>tttt</td>
+                                <td>yyyyyy</td>
+                                <td>ttttttt</td>
+                                <td>xxxxxx No.</td>
+                                <td>1</td>
+                                <td>10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="addDeviceItemsBtn" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
