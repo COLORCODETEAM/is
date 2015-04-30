@@ -166,124 +166,117 @@
         src="{{ asset('store/components/fullcalendar/fullcalendar.min.js')}}"></script>
 
         <script>
+            $(document).ready(function () {
 
-        $(document).ready(function () {
-
-            // fullcalendar
-            $('#event_calendar').fullCalendar({
-                defaultView: 'agendaDay',
-                editable: false,
-                eventLimit: true, // allow "more" link when too many events
-                events: "{{url('calendar')}}"
-            });
-
-            // table responsive
-            $('#dataTables-example').DataTable({
-                responsive: true
-            });
-
-            // datepicker
-            $('.datepicker').datepicker({
-                format: 'dd/mm/yyyy'
-            });
-
-            // timepicker
-            $('.timepicker').timepicker();
-
-            // Confirm dialog
-            $('a[data-confirm]').click(function(e) {
-                var type = $(this).attr('data-confirm');
-                
-                switch (type) {
-                    case 'manage-page':
-                        var href = $(this).attr('href-link');
-                        $('#confirmDeletePopuYesBtn').attr('href', href);
-                        break;
-                    case 'table-items':
-                        var node = $(this).parent().parent();
-                        $('#confirmDeletePopuYesBtn').click(function(e) {
-                            node.remove();
-                            $('#confirmDeletePopup').modal('hide');
-                        });
-                        break;
-                }
-                    
-                $('#confirmDeletePopup').modal('show');
-            });
-
-            // Device items popup
-            $('#deviceItemsPopup').on('show.bs.modal', function (e) {      
-                // Get data form view
-                $.get("{{url('listDeviceItems')}}", function (data) {
-                    $('#dataTables-deviceItemsPopup .modal-body').html(data);
+                // fullcalendar
+                $('#event_calendar').fullCalendar({
+                    defaultView: 'agendaDay',
+                    editable: false,
+                    eventLimit: true, // allow "more" link when too many events
+                    events: "{{url('calendar')}}"
                 });
 
-                // Add items to main-page
-                $('#addDeviceItemsBtn').on('click', function (e) {
-                    var page = $('#openDeviceItemsBtn').attr('page');
-                    var nodeCheck = $('#dataTables-deviceItemsPopup tbody input:checked').parent().parent();
-                    
-                    nodeCheck.each(function () {
-                        var list = $(this).find('td').first();
-                        var device_id = '';
-                        var item_no = list.next().next().text();
-                        var description = list.next().next().next().next().next().text();
-                        var serial_no = list.next().next().next().next().next().next().text();
-                        
-                        var row = '';
-                        switch (page) {
-                            case 'repair':
-                                row = '<tr>' +
-                                        '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
-                                        '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
-                                        '<td>' + item_no + '</td>' +
-                                        '<td>' + description + '</td>' +
-                                        '<td>' + serial_no + '</td>' +
-                                        '<td><input class="form-control" name="symptom[]"/></td>' +
-                                      '</tr>';
-                                break;
-                            case 'room-booking':
-                                row = '<tr>' +
+                // table responsive
+                $('#dataTables-example').DataTable({
+                    responsive: true
+                });
+
+                // datepicker
+                $('.datepicker').datepicker({
+                    format: 'dd/mm/yyyy'
+                });
+
+                // timepicker
+                $('.timepicker').timepicker();
+
+                // Confirm dialog
+                $('body').on('click', 'a[data-confirm]', function(e) {
+                    var type = $(this).attr('data-confirm');
+
+                    switch (type) {
+                        case 'manage-page':
+                            var href = $(this).attr('href-link');
+                            $('#confirmDeletePopupYesBtn').attr('href', href);
+                            break;
+                        case 'table-items':
+                            var node = $(this).parent().parent();
+                            $('#confirmDeletePopupYesBtn').click(function(e) {
+                                node.remove();
+                                $('#confirmDeletePopup').modal('hide');
+                            });
+                            break;
+                    }
+
+                    $('#confirmDeletePopup').modal('show');
+                });
+
+                // Device items popup
+                $('#deviceItemsPopup').on('show.bs.modal', function (e) {      
+                    // Get data form view
+                    $.get("{{url('listDeviceItems')}}", function (data) {
+                        $('#dataTables-deviceItemsPopup .modal-body').html(data);
+                    });
+
+                    // Add items to main-page
+                    $('#addDeviceItemsBtn').on('click', function (e) {
+                        var page = $('#openDeviceItemsBtn').attr('page');
+                        var nodeCheck = $('#dataTables-deviceItemsPopup tbody input:checked').parent().parent();
+
+                        nodeCheck.each(function () {
+                            var list = $(this).find('td').first();
+                            var device_id = '';
+                            var item_no = list.next().next().text();
+                            var description = list.next().next().next().next().next().text();
+                            var serial_no = list.next().next().next().next().next().next().text();
+
+                            var row = '';
+                            switch (page) {
+                                case 'repair':
+                                    row = '<tr>' +
+                                            '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
+                                            '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
+                                            '<td>' + item_no + '</td>' +
+                                            '<td>' + description + '</td>' +
+                                            '<td>' + serial_no + '</td>' +
+                                            '<td><input class="form-control" name="symptom[]"/></td>' +
+                                          '</tr>';
+                                    break;
+                                case 'room-booking':
+                                    row = '<tr>' +
+                                            '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
+                                            '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
+                                            '<td>' + item_no + '</td>' +
+                                            '<td>' + description + '</td>' +
+                                            '<td><input class="form-control" name="amount[]"/></td>' +
+                                          '</tr>';
+                                    break;
+                                case 'lend-device':
+                                    row = '<tr>' +
                                         '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
                                         '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
                                         '<td>' + item_no + '</td>' +
                                         '<td>' + description + '</td>' +
                                         '<td><input class="form-control" name="amount[]"/></td>' +
                                       '</tr>';
-                                break;
-                            case 'lend-device':
-                                row = '<tr>' +
-                                    '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
-                                    '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
-                                    '<td>' + item_no + '</td>' +
-                                    '<td>' + description + '</td>' +
-                                    '<td><input class="form-control" name="amount[]"/></td>' +
-                                  '</tr>';
-                                break;
-                        }
-                        $('#items-table tbody').append(row);
+                                    break;
+                            }
+                            $('#items-table tbody').append(row);
+                            $('#addDeviceItemsBtn').unbind('click');
+                        });
                     });
                 });
-            });
-            
-            // Order items popup
-            $('#orderItemsPopup').on('show.bs.modal', function (e) {   
-                // Add items to main-page
-                $('#addOrderItemsBtn').on('click', function (e) {
-                   
-                    var nodeCheck = $('#dataTables-orderItemsPopup tbody input:checked').parent().parent();
-                    
-                    nodeCheck.each(function () {
-                        var list = $(this).find('td').first();
-                        var item_no = list.val();
-                        var brand = list.next().val();
-                        var amount = list.next().next().val();
-                        var unitPrice = list.next().next().next().val();;
-                        var total = list.next().next().next().next().val();;
-                        var remark = list.next().next().next().next().next().val();;
-                        
-                        alert(remark);
-                        
+
+                // Order items popup
+                $('#orderItemsPopup').on('show.bs.modal', function (e) {   
+                    // Add items to main-page
+                    $('#addOrderItemsBtn').on('click', function (e) {
+                        var item_no = $("input[name='itemNoPopup']").val();
+                        var brand = $("input[name='brandPopup']").val();
+                        var amount = $("input[name='amountPopup']").val();
+                        var unitPrice = $("input[name='unitPricePopup']").val();
+                        var total = $("input[name='totalPopup']").val();
+                        var remark = $("input[name='remarkPopup']").val();
+
                         var row = '<tr>' +
                                     '<input type="hidden" name="itemNo[]" value="' + item_no + '">' +
                                     '<input type="hidden" name="brand[]" value="' + brand + '">' +
@@ -291,6 +284,7 @@
                                     '<input type="hidden" name="unitPrice[]" value="' + unitPrice + '">' +
                                     '<input type="hidden" name="total[]" disabled value="' + total + '">' +
                                     '<input type="hidden" name="remark[]" value="' + remark + '">' +
+                                    '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
                                     '<td>' + item_no + '</td>' +
                                     '<td>' + brand + '</td>' +
                                     '<td>' + amount + '</td>' +
@@ -299,23 +293,17 @@
                                     '<td>' + remark + '</td>' +
                                   '</tr>';
                         $('#items-table tbody').append(row);
+
+                        $("input[name='itemNoPopup']").val('');
+                        $("input[name='brandPopup']").val('');
+                        $("input[name='amountPopup']").val('');
+                        $("input[name='unitPricePopup']").val('');
+                        $("input[name='totalPopup']").val('');
+                        $("input[name='remarkPopup']").val('');
+                        $('#addOrderItemsBtn').unbind('click');
                     });
                 });
             });
-        });
-
-
-//$('#addItemsBtn').on('click', function () {
-//        $('#addItemsModal').modal({show:true});
-//
-//$.get('{{ asset('viewFormStock') }}',function(data){
-//$('#addItemsModal .modal-body').html(data);
-//});
-//    });
-//เพิ่ม $.get('{{ asset('viewFormStock') }}',function(data){
-//$('#addItemsModal .modal-body').html(data);
-//}); 
-
         </script>
 
         <!-- Confirm modal popup -->
@@ -330,7 +318,7 @@
                         <p>Are you sure you want to delete ?</p>
                     </div>
                     <div class="modal-footer">
-                        <a id="confirmDeletePopuYesBtn" class="btn btn-danger">Yes</a>
+                        <a id="confirmDeletePopupYesBtn" class="btn btn-danger">Yes</a>
                         <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">No</button>
                     </div>
                 </div>
@@ -364,7 +352,7 @@
                                 <tbody>
                                     <tr>
                                         <input type="hidden" name="deviceId" value="1">
-                                        <td><input type="checkbox" name="itemCbx[]"></td>
+                                        <td><input type="checkbox" checked name="itemCbx[]"></td>
                                         <td>stock1</td>
                                         <td>Item 1</td>
                                         <td>tttt</td>
@@ -420,12 +408,12 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input type="text" name="itemNo[]" class="form-control col-lg-2"></td>
-                                        <td><input type="text" name="brand[]" class="form-control col-lg-2"></td>
-                                        <td><input type="text" name="amount[]" class="form-control col-lg-1"></td>
-                                        <td><input type="text" name="unitPrice[]" class="form-control col-lg-1"></td>
-                                        <td><input type="text" name="total[]" class="form-control col-lg-1" disabled></td>
-                                        <td><input type="text" name="remark[]" class="form-control col-lg-2"></td>
+                                        <td><input type="text" name="itemNoPopup" class="form-control col-lg-2"></td>
+                                        <td><input type="text" name="brandPopup" class="form-control col-lg-2"></td>
+                                        <td><input type="text" name="amountPopup" class="form-control col-lg-1"></td>
+                                        <td><input type="text" name="unitPricePopup" class="form-control col-lg-1"></td>
+                                        <td><input type="text" name="totalPopup" class="form-control col-lg-1" disabled></td>
+                                        <td><input type="text" name="remarkPopup" class="form-control col-lg-2"></td>
                                     </tr>
                                 </tbody>
                             </table>
