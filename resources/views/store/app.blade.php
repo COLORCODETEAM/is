@@ -99,8 +99,7 @@
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
-                            <li><a href="{{ action('UserController@index')}}"><i
-                                        class="fa fa-folder-open fa-fw"></i> การจัดการ<span
+                            <li><a href><i class="fa fa-folder-open fa-fw"></i> การจัดการ<span
                                         class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li><a href="{{ action('StockController@index')}}">จัดการคลัง</a></li>
@@ -173,7 +172,7 @@
                     defaultView: 'agendaDay',
                     editable: false,
                     eventLimit: true, // allow "more" link when too many events
-                    events: "{{url('calendar')}}"
+                    events: "{{url('bookingCalendar')}}"
                 });
 
                 // table responsive
@@ -213,8 +212,8 @@
                 // Device items popup
                 $('#deviceItemsPopup').on('show.bs.modal', function (e) {      
                     // Get data form view
-                    $.get("{{url('listDeviceItems')}}", function (data) {
-                        $('#dataTables-deviceItemsPopup .modal-body').html(data);
+                    $.get("{{url('listAvailableDeviceItems')}}", function (data) {
+                        $('#dataTables-deviceItemsPopup-wrapper').html(data);
                     });
 
                     // Add items to main-page
@@ -334,48 +333,8 @@
                         <h4 class="modal-title">Add Items</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="dataTable_wrapper">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-deviceItemsPopup">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Stock</th>
-                                        <th>Item No.</th>
-                                        <th>Brand</th>
-                                        <th>Model</th>
-                                        <th>Item Description</th>
-                                        <th>Serial No.</th>
-                                        <th>Warranty</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <input type="hidden" name="deviceId" value="1">
-                                        <td><input type="checkbox" checked name="itemCbx[]"></td>
-                                        <td>stock1</td>
-                                        <td>Item 1</td>
-                                        <td>tttt</td>
-                                        <td>bbbb</td>
-                                        <td>aaaaa</td>
-                                        <td>xxxxxx No.</td>
-                                        <td>1</td>
-                                        <td>10</td>
-                                    </tr>
-                                    <tr>
-                                        <input type="hidden" name="deviceId" value="1">
-                                        <td><input type="checkbox" name="itemCbx[]"></td>
-                                        <td>stock2</td>
-                                        <td>Item 2</td>
-                                        <td>tttt</td>
-                                        <td>yyyyyy</td>
-                                        <td>ttttttt</td>
-                                        <td>xxxxxx No.</td>
-                                        <td>1</td>
-                                        <td>10</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div id="dataTables-deviceItemsPopup-wrapper" class="dataTable_wrapper">
+                            
                         </div>
                     </div>
                     <div class="modal-footer">

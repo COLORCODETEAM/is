@@ -140,4 +140,18 @@ class RoomBookingController extends Controller {
         return redirect('viewManageRoomBooking');
     }
 
+    public function bookingCalendar() {
+        $bookingRooms = BookingRoom::where('start_time', '>=', date('Y-m-d').' 00:00:00')
+                                    ->orWhere('start_time', '<=', date('Y-m-d').' 23:59:59')
+                                    ->get();
+        
+        foreach ($bookingRooms as $bookingRoom) {
+            $tmp['id'] = $bookingRoom->id;
+            $tmp['title'] = $bookingRoom->room->name. ' : ' .$bookingRoom->events;
+            $tmp['start'] = $bookingRoom->start_time;
+            $tmp['end'] = $bookingRoom->end_time;            
+            $events[] = $tmp;
+        }
+        echo json_encode($events);
+    }
 }

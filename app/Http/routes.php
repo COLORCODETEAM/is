@@ -11,11 +11,13 @@
   |
  */
 
+// Home
+Route::get('home', 'HomeController@index');
 
+// User
 Route::get('/', 'UserController@index');
-Route::get('/calendar', 'UserController@calendar');
 
-//Room
+// Room
 Route::get('/viewManageRoom', 'RoomController@index');
 Route::get('/viewFormRoom', 'RoomController@create');
 Route::post('/addRoom', 'RoomController@store');
@@ -46,6 +48,7 @@ Route::post('/addDevice', 'DeviceController@store');
 Route::get('/delDevice/{id}', ['as' => 'delDevice', 'uses' => 'DeviceController@destroy']);
 Route::get('/editDevice/{id}', ['as' => 'editDevice', 'uses' => 'DeviceController@edit']);
 Route::any('/updateDevice/{id}', ['as' => 'updateDevice', 'uses' => 'DeviceController@update']);
+Route::get('/listAvailableDeviceItems', 'DeviceController@listAvailableDeviceItems');
 
 // Order
 Route::get('/viewManageOrder', 'OrderController@index');
@@ -62,6 +65,7 @@ Route::post('/addRoomBooking', 'RoomBookingController@store');
 Route::get('/delRoomBooking/{id}', ['as' => 'delRoomBooking', 'uses' => 'RoomBookingController@destroy']);
 Route::get('/editRoomBooking/{id}', ['as' => 'editRoomBooking', 'uses' => 'RoomBookingController@edit']);
 Route::any('/updateRoomBooking/{id}', ['as' => 'updateRoomBooking', 'uses' => 'RoomBookingController@update']);
+Route::get('/bookingCalendar', 'RoomBookingController@bookingCalendar');
 
 // Lend Device
 Route::get('/viewManageLendDevice', 'LendDeviceController@index');
@@ -94,9 +98,6 @@ Route::post('/addRepair', 'RepairController@store');
 Route::get('/delRepair/{id}', ['as' => 'delRepair', 'uses' => 'RepairController@destroy']);
 Route::get('/editRepair/{id}', ['as' => 'editRepair', 'uses' => 'RepairController@edit']);
 Route::any('/updateRepair/{id}', ['as' => 'updateRepair', 'uses' => 'RepairController@update']);
-
-// Home
-Route::get('home', 'HomeController@index');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',
