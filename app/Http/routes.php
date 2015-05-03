@@ -40,6 +40,7 @@ Route::post('/addMaterial', 'MaterialController@store');
 Route::get('/delMaterial/{id}', ['as' => 'delMaterial', 'uses' => 'MaterialController@destroy']);
 Route::get('/editMaterial/{id}', ['as' => 'editMaterial', 'uses' => 'MaterialController@edit']);
 Route::any('/updateMaterial/{id}', ['as' => 'updateMaterial', 'uses' => 'MaterialController@update']);
+Route::get('/listAvailableMaterialItems', 'MaterialController@listAvailableMaterialItems');
 
 // Device
 Route::get('/viewManageDevice', 'DeviceController@index');

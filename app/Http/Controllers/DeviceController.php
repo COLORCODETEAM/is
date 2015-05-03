@@ -7,6 +7,7 @@ use Request;
 use App\Device;
 use App\DeviceType;
 use App\Stock;
+use Illuminate\Support\Facades\DB;
 
 class DeviceController extends Controller {
 
@@ -138,38 +139,22 @@ class DeviceController extends Controller {
     }
 
     public function listAvailableDeviceItems() {
-             
-        $rows = '<tr>' +
-            '<input type="hidden" name="deviceId" value="1">' +
-            '<td><input type="checkbox" checked name="itemCbx[]"></td>' +
-            '<td>stock1</td>' +
-            '<td>Item 1</td>' +
-            '<td>tttt</td>' +
-            '<td>bbbb</td>' +
-            '<td>aaaaa</td>' +
-            '<td>xxxxxx No.</td>' +
-            '<td>1</td>' +
-            '<td>10</td>' +
-        '</tr>';
+        $devices = DB::select('select * from view_availableDevice');
+
+        foreach ($devices as $device) {
+            $row['id'] = $device->id;
+            $row['stockName'] = $device->stock_name;
+            $row['itemNo'] = $device->device_no;
+            $row['brand'] = $device->brand;
+            $row['model'] = $device->model;
+            $row['description'] = $device->description;
+            $row['serialNo'] = $device->serial_no;
+            $row['warranty'] = $device->warranty;
+            $row['amount'] = $device->amount;
+            
+            $rows[] = $row;
+        }
         
-        $rs = '<table class="table table-striped table-bordered table-hover" id="dataTables-deviceItemsPopup">' +
-                                '<thead>' +
-                                    '<tr>' +
-                                        '<th></th>' +
-                                        '<th>Stock</th>' +
-                                        '<th>Item No.</th>' +
-                                        '<th>Brand</th>' +
-                                        '<th>Model</th>' +
-                                        '<th>Item Description</th>' +
-                                        '<th>Serial No.</th>' +
-                                        '<th>Warranty</th>' +
-                                        '<th>Amount</th>' +
-                                    '</tr>' +
-                                '</thead>' +
-                                '<tbody>' +
-                                '</tbody>' +
-                            '</table>';
-        
-        
+        return json_encode($rows);
     }
 }

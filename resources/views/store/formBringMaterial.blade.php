@@ -58,31 +58,22 @@
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover">
+                                        <table id="items-table" class="table table-striped table-bordered table-hover">
                                             <thead>
                                                 <tr>
+                                                    <th></th>
                                                     <th>Item No.</th>
-                                                    <th>Items</th>
+                                                    <th>Item Description</th>
                                                     <th>Amount</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>123</td>
-                                                    <td>อุปกรณ์ 123</td>
-                                                    <td>1</td>
-                                                    <td>
-                                                        <select class="form-control">
-                                                            <option>ยืนยัน</option>
-                                                            <option>ยกเลิก</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
+                                                
                                             </tbody>
                                         </table>
                                     </div>
-                                    <!-- /.table-responsive -->
+                                    <button type="button" id="openMaterialItemsBtn" page="bring" class="pull-right btn btn-primary" data-toggle="modal" data-target="#materialItemsPopup" data-whatever="@mdo">Add Items</button>
                                 </div>
                                 <!-- /.panel-body -->
                             </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use App\Stock;
 use App\Material;
+use Illuminate\Support\Facades\DB;
 
 class MaterialController extends Controller {
 
@@ -44,6 +45,7 @@ class MaterialController extends Controller {
         $material->brand = $input ['brand'];
         $material->model = $input ['model'];
         $material->description = $input ['description'];
+        $material->serial_no = $input ['serialNo'];
         $material->amount = $input ['amount'];
         $material->create_user = '1';
         $material->create_date = DateUtils::getDBDateTime();
@@ -99,6 +101,7 @@ class MaterialController extends Controller {
         $material->brand = $input ['brand'];
         $material->model = $input ['model'];
         $material->description = $input ['description'];
+        $material->serial_no = $input ['serialNo'];
         $material->amount = $input ['amount'];
         $material->update_user = '1';
         $material->update_date = DateUtils::getDBDateTime();
@@ -118,4 +121,22 @@ class MaterialController extends Controller {
         return redirect('viewManageMaterial');
     }
 
+    public function listAvailableMaterialItems() {
+        $materials = DB::select('select * from view_availableMaterial');
+
+        foreach ($materials as $material) {
+            $row['id'] = $material->id;
+            $row['stockName'] = $material->stock_name;
+            $row['itemNo'] = $material->material_no;
+            $row['brand'] = $material->brand;
+            $row['model'] = $material->model;
+            $row['description'] = $material->description;
+            $row['serialNo'] = $material->serial_no;
+            $row['amount'] = $material->amount;
+            
+            $rows[] = $row;
+        }
+        
+        return json_encode($rows);
+    }
 }

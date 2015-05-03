@@ -212,8 +212,25 @@
                 // Device items popup
                 $('#deviceItemsPopup').on('show.bs.modal', function (e) {      
                     // Get data form view
-                    $.get("{{url('listAvailableDeviceItems')}}", function (data) {
-                        $('#dataTables-deviceItemsPopup-wrapper').html(data);
+                    $.getJSON("{{url('listAvailableDeviceItems')}}", function (data) {
+                        var rows = '';
+                        $.each( data, function( i, val ) {
+                            var row = '<tr>' +
+                                '<input type="hidden" name="hiddenDeviceIdPopup" value="' +val.id+ '">' +
+                                '<td><input type="checkbox" name="itemCbx[]"></td>' +
+                                '<td>' +val.stockName+ '</td>' +
+                                '<td>' +val.itemNo+ '</td>' +
+                                '<td>' +val.brand+ '</td>' +
+                                '<td>' +val.model+ '</td>' +
+                                '<td>' +val.description+ '</td>' +
+                                '<td>' +val.serialNo+ '</td>' +
+                                '<td>' +val.warranty+ '</td>' +
+                                '<td>' +val.amount+ '</td>' +
+                            '</tr>';
+                            rows += row;
+                        });
+                        $('#dataTables-deviceItemsPopup tbody').empty();
+                        $('#dataTables-deviceItemsPopup tbody').append(rows);
                     });
 
                     // Add items to main-page
@@ -222,11 +239,11 @@
                         var nodeCheck = $('#dataTables-deviceItemsPopup tbody input:checked').parent().parent();
 
                         nodeCheck.each(function () {
-                            var list = $(this).find('td').first();
-                            var device_id = '';
-                            var item_no = list.next().next().text();
-                            var description = list.next().next().next().next().next().text();
-                            var serial_no = list.next().next().next().next().next().next().text();
+                            var device_id = $(this).find('input[name="hiddenDeviceIdPopup"]').val();
+                            var row = $(this).find('td').first();
+                            var item_no = row.next().next().text();
+                            var description = row.next().next().next().next().next().text();
+                            var serial_no = row.next().next().next().next().next().next().text();
 
                             var row = '';
                             switch (page) {
@@ -260,11 +277,70 @@
                                     break;
                             }
                             $('#items-table tbody').append(row);
-                            $('#addDeviceItemsBtn').unbind('click');
                         });
+                        $('#addDeviceItemsBtn').unbind('click');
                     });
                 });
 
+                // Material items popup
+                $('#materialItemsPopup').on('show.bs.modal', function (e) {      
+                    // Get data form view
+                    $.getJSON("{{url('listAvailableMaterialItems')}}", function (data) {
+                        var rows = '';
+                        $.each( data, function( i, val ) {
+                            var row = '<tr>' +
+                                '<input type="hidden" name="hiddenMaterialIdPopup" value="' +val.id+ '">' +
+                                '<td><input type="checkbox" name="itemCbx[]"></td>' +
+                                '<td>' +val.stockName+ '</td>' +
+                                '<td>' +val.itemNo+ '</td>' +
+                                '<td>' +val.brand+ '</td>' +
+                                '<td>' +val.model+ '</td>' +
+                                '<td>' +val.description+ '</td>' +
+                                '<td>' +val.serialNo+ '</td>' +
+                                '<td>' +val.amount+ '</td>' +
+                            '</tr>';
+                            rows += row;
+                        });
+                        $('#dataTables-materialItemsPopup tbody').empty();
+                        $('#dataTables-materialItemsPopup tbody').append(rows);
+                    });
+
+                    // Add items to main-page
+                    $('#addMaterialItemsBtn').on('click', function (e) {
+                        var page = $('#openMaterialItemsBtn').attr('page');
+                        var nodeCheck = $('#dataTables-materialItemsPopup tbody input:checked').parent().parent();
+
+                        nodeCheck.each(function () {
+                            var material_id = $(this).find('input[name="hiddenMaterialIdPopup"]').val();
+                            var row = $(this).find('td').first();
+                            var item_no = row.next().next().text();
+                            var description = row.next().next().next().next().next().text();
+                            var amount = row.next().next().next().next().next().next().next().text();
+
+                            var row = '';
+                            switch (page) {
+                                case 'bring':
+                                    row = '<tr>' +
+                                            '<input type="hidden" flag="new" name="hiddenMaterialId[]" value="' + material_id + '">' +
+                                            '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
+                                            '<td>' + item_no + '</td>' +
+                                            '<td>' + description + '</td>' +
+                                            '<td>' + amount + '</td>' +
+                                            '<td>' +
+                                                '<select class="form-control" name="status[]">' +
+                                                '<option value="1">OK</option>' +
+                                                '<option value="0">CANCEL</option>' +
+                                                '</select>' +
+                                            '</td>' +
+                                          '</tr>';
+                                    break;
+                            }
+                            $('#items-table tbody').append(row);
+                        });
+                        $('#addMaterialItemsBtn').unbind('click');
+                    });
+                });
+                
                 // Order items popup
                 $('#orderItemsPopup').on('show.bs.modal', function (e) {   
                     // Add items to main-page
@@ -333,12 +409,65 @@
                         <h4 class="modal-title">Add Items</h4>
                     </div>
                     <div class="modal-body">
-                        <div id="dataTables-deviceItemsPopup-wrapper" class="dataTable_wrapper">
-                            
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-deviceItemsPopup">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Stock</th>
+                                        <th>Item No.</th>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Item Description</th>
+                                        <th>Serial No.</th>
+                                        <th>Warranty</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="addDeviceItemsBtn" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Material modal popup -->
+        <div id="materialItemsPopup" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Add Items</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-materialItemsPopup">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Stock</th>
+                                        <th>Item No.</th>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Item Description</th>
+                                        <th>Serial No.</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="addMaterialItemsBtn" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Add</button>
                     </div>
                 </div>
             </div>
