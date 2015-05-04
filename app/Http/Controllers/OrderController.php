@@ -118,4 +118,8 @@ class OrderController extends Controller {
         return redirect('viewManageOrder');
     }
 
+    public function destroyDetail($id) {
+        OrderDetail::where('id', '=', $id)->update(['flag' => '0']);
+    }
+    
 }

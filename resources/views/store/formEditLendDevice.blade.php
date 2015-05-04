@@ -1,5 +1,9 @@
 @extends('store.app')
 @section('content')
+<?php 
+    $lendDevice = $compact['data'];
+    $lendDeviceDetails = $compace['lendDeviceDetails'];
+?>
 {!! Form::open( ['route'=>['updateLendDevice',$lendDevice['id'] ]])  !!}
     <div class="row">
         <div class="col-lg-12">
@@ -83,6 +87,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($lendDeviceDetails as $lendDeviceDetail)
+                                                <tr>
+                                                    <input type="hidden" flag="new" name="hiddenLendDeviceDetailId[]" value="{{ $lendDeviceDetail->id }}">
+                                                    <td><a href-link="{{ route('delLendDeviceDetail',$lendDeviceDetail->id) }}" class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>
+                                                    <td>{{ $lendDeviceDetail->device->device_no }}</td>
+                                                    <td>{{ $lendDeviceDetail->device->description }}</td>
+                                                    <td><input class="form-control" name="amount[]" disabled value="{{ $lendDeviceDetail->amount }}"/></td>
+                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

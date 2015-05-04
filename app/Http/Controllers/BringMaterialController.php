@@ -52,6 +52,24 @@ class BringMaterialController extends Controller {
         $bringMaterial->update_date = DateUtils::getDBDateTime();
         $bringMaterial->flag = '1';
         $bringMaterial->save();
+        
+        // save details
+        if (isset($input ['hiddenMaterialId'])) {
+            $items = $input ['hiddenMaterialId'];
+            $i = 0;
+            foreach ($items as $item) {
+                $detail = new BringMaterialDetail();
+                $detail->material_id = $item;
+                $detail->amount = $input ['amount'][$i];
+                $detail->status = $input ['status'][$i];
+                $detail->flag = '1';
+
+                $details[] = $detail;
+                $i++;
+            }
+            $bringMaterial->bringMaterialDetail()->saveMany($details);
+        }
+        
         return redirect('viewManageBringMaterial');
     }
 
@@ -73,8 +91,11 @@ class BringMaterialController extends Controller {
      */
     public function edit($id) {
         $data = BringMaterial::find($id);
-        
-        return view('store.formEditBringMaterial')->with('bringMaterial', $data);
+        $bringMaterialDetails = BringMaterialDetail::where('flag', '=', '1')
+                ->where('bring_material_id', '=', $id)
+                ->get();
+                
+        return view('store.formEditBringMaterial')->with('compact', compact('data', 'bringMaterialDetails'));
     }
 
     /**
@@ -96,6 +117,36 @@ class BringMaterialController extends Controller {
         $bringMaterial->update_user = '1';
         $bringMaterial->update_date = DateUtils::getDBDateTime();
         $bringMaterial->save();
+        
+        // save details
+        if (isset($input ['hiddenBringMaterialDetailId'])) {
+            $items = $input ['hiddenBringMaterialDetailId'];
+            $i = 0;
+            foreach ($items as $item) {
+                $detail = BringMaterialDetail::find($item);
+                $detail->status = $input ['status'][$i];
+
+                $details[] = $detail;
+                $i++;
+            }
+            $bringMaterial->bringMaterialDetail()->saveMany($details);
+        }
+        if (isset($input ['hiddenMaterialId'])) {
+            $items = $input ['hiddenMaterialId'];
+            $i = 0;
+            foreach ($items as $item) {
+                $detail = new BringMaterialDetail();
+                $detail->material_id = $item;
+                $detail->amount = $input ['amount'][$i];
+                $detail->status = $input ['status'][$i];
+                $detail->flag = '1';
+
+                $details[] = $detail;
+                $i++;
+            }
+            $bringMaterial->bringMaterialDetail()->saveMany($details);
+        }
+        
         return redirect('viewManageBringMaterial');
     }
 
@@ -110,5 +161,9 @@ class BringMaterialController extends Controller {
         BringMaterialDetail::where('bring_material_id', '=', $id)->update(['flag' => '0']);
         
         return redirect('viewManageBringMaterial');
+    }
+    
+    public function destroyDetail($id) {
+        BringMaterialDetail::where('id', '=', $id)->update(['flag' => '0']);
     }
 }

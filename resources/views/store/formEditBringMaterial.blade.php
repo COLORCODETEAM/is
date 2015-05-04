@@ -1,5 +1,9 @@
 @extends('store.app')
 @section('content')
+<?php 
+    $bringMaterial = $compact['data'];
+    $bringMaterialDetails = $compact['bringMaterialDetails'];
+?>
 {!! Form::open( ['route'=>['updateBringMaterial',$bringMaterial['id'] ]])  !!}
     <div class="row">
         <div class="col-lg-12">
@@ -68,21 +72,25 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($bringMaterialDetails as $bringMaterialDetail)
                                                 <tr>
-                                                    <td>123</td>
-                                                    <td>อุปกรณ์ 123</td>
-                                                    <td>1</td>
+                                                    <input type="hidden" flag="new" name="hiddenBringMaterialDetailId[]" value="{{ $bringMaterialDetail->id }}">
+                                                    <td><a href-link="{{ route('delBringMaterialDetail',$bringMaterialDetail->id) }}" class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>
+                                                    <td>{{ $bringMaterialDetail->material->material_no }}</td>
+                                                    <td>{{ $bringMaterialDetail->material->description }}</td>
+                                                    <td><input class="form-control" name="amount[]" disabled value="{{ $bringMaterialDetail->amount }}"/></td>
                                                     <td>
-                                                        <select class="form-control">
-                                                            <option>ยืนยัน</option>
-                                                            <option>ยกเลิก</option>
+                                                        <select class="form-control" name="status[]">
+                                                            <option value="1" {{($bringMaterialDetail->status=='1'?'selected':'')}}>OK</option>
+                                                            <option value="0" {{($bringMaterialDetail->status=='0'?'selected':'')}}>CANCEL</option>
                                                         </select>
                                                     </td>
                                                 </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
-                                    <!-- /.table-responsive -->
+                                    <button type="button" id="openMaterialItemsBtn" page="bring" class="pull-right btn btn-primary" data-toggle="modal" data-target="#materialItemsPopup" data-whatever="@mdo">Add Items</button>
                                 </div>
                                 <!-- /.panel-body -->
                             </div>

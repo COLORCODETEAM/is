@@ -54,6 +54,22 @@ class LendDeviceController extends Controller {
         $lendDevice->update_date = DateUtils::getDBDateTime();
         $lendDevice->flag = '1';
         $lendDevice->save();
+        
+        // save details
+        if (isset($input ['hiddenDeviceId'])) {
+            $items = $input ['hiddenDeviceId'];
+            $i = 0;
+            foreach ($items as $item) {
+                $detail = new LendDeviceDetail();
+                $detail->device_id = $item;
+                $detail->amount = $input ['amount'][$i];
+                $detail->flag = '1';
+
+                $details[] = $detail;
+            }
+            $lendDevice->lendDeviceDetail()->saveMany($details);
+        }
+        
         return redirect('viewManageLendDevice');
     }
 
@@ -75,8 +91,11 @@ class LendDeviceController extends Controller {
      */
     public function edit($id) {
         $data = LendDevice::find($id);
-        
-        return view('store.formEditLendDevice')->with('lendDevice', $data);
+        $lendDeviceDetails = LendDeviceDetail::where('flag', '=', '1')
+                ->where('lend_device_id', '=', $id)
+                ->get();
+                
+        return view('store.formEditLendDevice')->with('compact', compact('data', 'lendDeviceDetails'));
     }
 
     /**
@@ -99,6 +118,22 @@ class LendDeviceController extends Controller {
         $lendDevice->update_user = '1';
         $lendDevice->update_date = DateUtils::getDBDateTime();
         $lendDevice->save();
+        
+        // save details
+        if (isset($input ['hiddenDeviceId'])) {
+            $items = $input ['hiddenDeviceId'];
+            $i = 0;
+            foreach ($items as $item) {
+                $detail = new LendDeviceDetail();
+                $detail->device_id = $item;
+                $detail->amount = $input ['amount'][$i];
+                $detail->flag = '1';
+
+                $details[] = $detail;
+            }
+            $lendDevice->lendDeviceDetail()->saveMany($details);
+        }
+        
         return redirect('viewManageLendDevice');
     }
 
@@ -115,4 +150,7 @@ class LendDeviceController extends Controller {
         return redirect('viewManageLendDevice');
     }
 
+    public function destroyDetail($id) {
+        LendDeviceDetail::where('id', '=', $id)->update(['flag' => '0']);
+    }
 }

@@ -127,7 +127,7 @@ class MaterialController extends Controller {
         foreach ($materials as $material) {
             $row['id'] = $material->id;
             $row['stockName'] = $material->stock_name;
-            $row['itemNo'] = $material->material_no;
+            $row['materialNo'] = $material->material_no;
             $row['brand'] = $material->brand;
             $row['model'] = $material->model;
             $row['description'] = $material->description;

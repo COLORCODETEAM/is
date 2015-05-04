@@ -1,5 +1,9 @@
 @extends('store.app')
 @section('content')
+<?php 
+    $repairDevice = $compact['data'];
+    $repairDeviceDetails = $compact['repairDeviceDetails'];
+?>
 {!! Form::open( ['route'=>['updateRepair',$repairDevice['id'] ]])  !!}
     <div class="row">
         <div class="col-lg-12">
@@ -53,6 +57,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($repairDeviceDetails as $repairDeviceDetail)
+                                            <tr>
+                                                <input type="hidden" flag="new" name="hiddenRepairDeviceDetailId[]" value="{{ $repairDeviceDetail->id }}">
+                                                <td><a href-link="{{ route('delRepairDetail',$repairDeviceDetail->id) }}" class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>
+                                                <td>{{ $repairDeviceDetail->device->device_no }}</td>
+                                                <td>{{ $repairDeviceDetail->device->description }}</td>
+                                                <td>{{ $repairDeviceDetail->device->serial_no }}</td>
+                                                <td><input class="form-control" name="symptom[]" disabled value="{{ $repairDeviceDetail->symptom }}"/></td>
+                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

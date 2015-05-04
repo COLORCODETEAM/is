@@ -58,6 +58,7 @@ Route::post('/addOrder', 'OrderController@store');
 Route::get('/delOrder/{id}', ['as' => 'delOrder', 'uses' => 'OrderController@destroy']);
 Route::get('/editOrder/{id}', ['as' => 'editOrder', 'uses' => 'OrderController@edit']);
 Route::any('/updateOrder/{id}', ['as' => 'updateOrder', 'uses' => 'OrderController@update']);
+Route::get('/delOrderDetail/{id}', ['as' => 'delOrderDetail', 'uses' => 'OrderController@destroyDetail']);
 
 // Room Booking
 Route::get('/viewManageRoomBooking', 'RoomBookingController@index');
@@ -67,6 +68,7 @@ Route::get('/delRoomBooking/{id}', ['as' => 'delRoomBooking', 'uses' => 'RoomBoo
 Route::get('/editRoomBooking/{id}', ['as' => 'editRoomBooking', 'uses' => 'RoomBookingController@edit']);
 Route::any('/updateRoomBooking/{id}', ['as' => 'updateRoomBooking', 'uses' => 'RoomBookingController@update']);
 Route::get('/bookingCalendar', 'RoomBookingController@bookingCalendar');
+Route::get('/delRoomBookingDetail/{id}', ['as' => 'delRoomBookingDetail', 'uses' => 'RoomBookingController@destroyDetail']);
 
 // Lend Device
 Route::get('/viewManageLendDevice', 'LendDeviceController@index');
@@ -75,6 +77,7 @@ Route::post('/addLendDevice', 'LendDeviceController@store');
 Route::get('/delLendDevice/{id}', ['as' => 'delLendDevice', 'uses' => 'LendDeviceController@destroy']);
 Route::get('/editLendDevice/{id}', ['as' => 'editLendDevice', 'uses' => 'LendDeviceController@edit']);
 Route::any('/updateLendDevice/{id}', ['as' => 'updateLendDevice', 'uses' => 'LendDeviceController@update']);
+Route::get('/delLendDeviceDetail/{id}', ['as' => 'delLendDeviceDetail', 'uses' => 'LendDeviceController@destroyDetail']);
 
 // Bring Material
 Route::get('/viewManageBringMaterial', 'BringMaterialController@index');
@@ -83,6 +86,7 @@ Route::post('/addBringMaterial', 'BringMaterialController@store');
 Route::get('/delBringMaterial/{id}', ['as' => 'delBringMaterial', 'uses' => 'BringMaterialController@destroy']);
 Route::get('/editBringMaterial/{id}', ['as' => 'editBringMaterial', 'uses' => 'BringMaterialController@edit']);
 Route::any('/updateBringMaterial/{id}', ['as' => 'updateBringMaterial', 'uses' => 'BringMaterialController@update']);
+Route::get('/delBringMaterialDetail/{id}', ['as' => 'delBringMaterialDetail', 'uses' => 'BringMaterialController@destroyDetail']);
 
 // Mapping Computer
 //Route::get('/viewManageMappingComputer', 'MappingComputerController@index');
@@ -99,6 +103,7 @@ Route::post('/addRepair', 'RepairController@store');
 Route::get('/delRepair/{id}', ['as' => 'delRepair', 'uses' => 'RepairController@destroy']);
 Route::get('/editRepair/{id}', ['as' => 'editRepair', 'uses' => 'RepairController@edit']);
 Route::any('/updateRepair/{id}', ['as' => 'updateRepair', 'uses' => 'RepairController@update']);
+Route::get('/delRepairDetail/{id}', ['as' => 'delRepairDetail', 'uses' => 'RepairController@destroyDetail']);
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

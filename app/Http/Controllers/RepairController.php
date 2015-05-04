@@ -51,6 +51,23 @@ class RepairController extends Controller {
         $repairDevice->update_date = DateUtils::getDBDateTime();
         $repairDevice->flag = '1';
         $repairDevice->save();
+        
+        // save details
+        if (isset($input ['hiddenDeviceId'])) {
+            $items = $input ['hiddenDeviceId'];
+            $i = 0;
+            foreach ($items as $item) {
+                $detail = new RepairDeviceDetail();
+                $detail->device_id = $item;
+                $detail->symptom = $input ['symptom'][$i];
+                $detail->flag = '1';
+
+                $details[] = $detail;
+                $i++;
+            }
+            $repairDevice->repairDeviceDetail()->saveMany($details);
+        }
+        
         return redirect('viewManageRepair');
     }
 
@@ -72,8 +89,11 @@ class RepairController extends Controller {
      */
     public function edit($id) {
         $data = RepairDevice::find($id);
+        $repairDeviceDetails = RepairDeviceDetail::where('flag', '=', '1')
+                ->where('repair_device_id', '=', $id)
+                ->get();
         
-        return view('store.formEditRepair')->with('repairDevice', $data);
+        return view('store.formEditRepair')->with('compact', compact('data', 'repairDeviceDetails'));
     }
 
     /**
@@ -94,6 +114,21 @@ class RepairController extends Controller {
         $repairDevice->update_user = '1';
         $repairDevice->update_date = DateUtils::getDBDateTime();
         $repairDevice->save();
+        
+        // save details
+        $items = $input ['hiddenDeviceId'];
+        $i = 0;
+        foreach ($items as $item) {
+            $detail = new RepairDeviceDetail();
+            $detail->device_id = $item;
+            $detail->symptom = $input ['symptom'][$i];
+            $detail->flag = '1';
+            
+            $details[] = $detail;
+            $i++;
+        }
+        $repairDevice->repairDeviceDetail()->saveMany($details);
+        
         return redirect('viewManageRepair');
     }
 
@@ -110,4 +145,7 @@ class RepairController extends Controller {
         return redirect('viewManageRepair');
     }
 
+    public function destroyDetail($id) {
+        RepairDeviceDetail::where('id', '=', $id)->update(['flag' => '0']);
+    }
 }

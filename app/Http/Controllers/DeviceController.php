@@ -144,7 +144,7 @@ class DeviceController extends Controller {
         foreach ($devices as $device) {
             $row['id'] = $device->id;
             $row['stockName'] = $device->stock_name;
-            $row['itemNo'] = $device->device_no;
+            $row['deviceNo'] = $device->device_no;
             $row['brand'] = $device->brand;
             $row['model'] = $device->model;
             $row['description'] = $device->description;

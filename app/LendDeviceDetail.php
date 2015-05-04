@@ -9,4 +9,7 @@ class LendDeviceDetail extends Model {
     protected $table = 'lend_device_detail';
     public $timestamps = false;
 
+    public function device() {
+        return $this->belongsTo('App\Device');
+    }
 }

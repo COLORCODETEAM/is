@@ -58,18 +58,20 @@ class RoomBookingController extends Controller {
         $bookingRoom->save();
         
         // save details
-//        for ($i=0; $i<3; $i++) {
-//            $detail = new BookingRoomDetail();
-//            $detail->booking_room_id = '1';
-//            $detail->device_id = '2';
-//            $detail->description = '';
-//            $detail->amount = '';
-//            $detail->flag = '1';
-//            
-//            $details[] = $detail;
-//        }
-//        $bookingRoom->bookingRoomDetail()->saveMany($details);
+        if (isset($input ['hiddenDeviceId'])) {
+            $items = $input ['hiddenDeviceId'];
+            $i = 0;
+            foreach ($items as $item) {
+                $detail = new BookingRoomDetail();
+                $detail->device_id = $item;
+                $detail->amount = $input ['amount'][$i];
+                $detail->flag = '1';
 
+                $details[] = $detail;
+            }
+            $bookingRoom->bookingRoomDetail()->saveMany($details);
+        }
+        
         return redirect('viewManageRoomBooking');
     }
 
@@ -92,7 +94,10 @@ class RoomBookingController extends Controller {
     public function edit($id) {
         $data = BookingRoom::find($id);
         $rooms = Room::where('flag', '=', '1')->get();
-        
+        $bookingRoomDetails = BookingRoomDetail::where('flag', '=', '1')
+                ->where('booking_room_id', '=', $id)
+                ->get();
+                
         foreach ( $rooms as &$tmp ) {
             if ($data['room_id']==$tmp['id']) {
                 $tmp['selected'] = 'selected';
@@ -101,7 +106,7 @@ class RoomBookingController extends Controller {
             }
         }
         
-        return view('store.formEditRoomBooking')->with('compact', compact('data', 'rooms'));
+        return view('store.formEditRoomBooking')->with('compact', compact('data', 'rooms', 'bookingRoomDetails'));
     }
 
     /**
@@ -124,6 +129,22 @@ class RoomBookingController extends Controller {
         $bookingRoom->update_user = '1';
         $bookingRoom->update_date = DateUtils::getDBDateTime();
         $bookingRoom->save();
+        
+        // save details
+        if (isset($input ['hiddenDeviceId'])) {
+            $items = $input ['hiddenDeviceId'];
+            $i = 0;
+            foreach ($items as $item) {
+                $detail = new BookingRoomDetail();
+                $detail->device_id = $item;
+                $detail->amount = $input ['amount'][$i];
+                $detail->flag = '1';
+
+                $details[] = $detail;
+            }
+            $bookingRoom->bookingRoomDetail()->saveMany($details);
+        }
+        
         return redirect('viewManageRoomBooking');
     }
 
@@ -140,6 +161,10 @@ class RoomBookingController extends Controller {
         return redirect('viewManageRoomBooking');
     }
 
+    public function destroyDetail($id) {
+        BookingRoomDetail::where('id', '=', $id)->update(['flag' => '0']);
+    }
+    
     public function bookingCalendar() {
         $bookingRooms = BookingRoom::where('start_time', '>=', date('Y-m-d').' 00:00:00')
                                     ->orWhere('start_time', '<=', date('Y-m-d').' 23:59:59')

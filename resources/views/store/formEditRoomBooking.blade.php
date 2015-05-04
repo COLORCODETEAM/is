@@ -3,6 +3,7 @@
 <?php 
     $roomBooking = $compact['data'];
     $rooms = $compact['rooms'];
+    $roomBookingDetails = $compact['roomBookingDetails'];
 ?>
 {!! Form::open( ['route'=>['updateRoomBooking',$roomBooking['id'] ]])  !!}
 <form role="form">
@@ -119,6 +120,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($roomBookingDetails as $roomBookingDetail)
+                                                <tr>
+                                                    <input type="hidden" flag="new" name="hiddenRoomBookingDetailId[]" value="{{ $roomBookingDetail->id }}">
+                                                    <td><a href-link="{{ route('delRoomBookingDetail',$roomBookingDetail->id) }}" class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>
+                                                    <td>{{ $roomBookingDetail->device->device_no }}</td>
+                                                    <td>{{ $roomBookingDetail->device->description }}</td>
+                                                    <td><input class="form-control" name="amount[]" disabled value="{{ $roomBookingDetail->amount }}"/></td>
+                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

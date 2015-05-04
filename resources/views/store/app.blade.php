@@ -199,8 +199,12 @@
                             break;
                         case 'table-items':
                             var node = $(this).parent().parent();
+                            var href = $(this).attr('href-link');
                             $('#confirmDeletePopupYesBtn').click(function(e) {
                                 node.remove();
+                                $.getJSON(href, function (data) {
+                                   // TODO
+                                });
                                 $('#confirmDeletePopup').modal('hide');
                             });
                             break;
@@ -210,7 +214,8 @@
                 });
 
                 // Device items popup
-                $('#deviceItemsPopup').on('show.bs.modal', function (e) {      
+                $('#deviceItemsPopup').on('show.bs.modal', function (e) {  
+                    $('#dataTables-deviceItemsPopup tbody').empty();
                     // Get data form view
                     $.getJSON("{{url('listAvailableDeviceItems')}}", function (data) {
                         var rows = '';
@@ -219,7 +224,7 @@
                                 '<input type="hidden" name="hiddenDeviceIdPopup" value="' +val.id+ '">' +
                                 '<td><input type="checkbox" name="itemCbx[]"></td>' +
                                 '<td>' +val.stockName+ '</td>' +
-                                '<td>' +val.itemNo+ '</td>' +
+                                '<td>' +val.deviceNo+ '</td>' +
                                 '<td>' +val.brand+ '</td>' +
                                 '<td>' +val.model+ '</td>' +
                                 '<td>' +val.description+ '</td>' +
@@ -229,7 +234,6 @@
                             '</tr>';
                             rows += row;
                         });
-                        $('#dataTables-deviceItemsPopup tbody').empty();
                         $('#dataTables-deviceItemsPopup tbody').append(rows);
                     });
 
@@ -241,7 +245,7 @@
                         nodeCheck.each(function () {
                             var device_id = $(this).find('input[name="hiddenDeviceIdPopup"]').val();
                             var row = $(this).find('td').first();
-                            var item_no = row.next().next().text();
+                            var device_no = row.next().next().text();
                             var description = row.next().next().next().next().next().text();
                             var serial_no = row.next().next().next().next().next().next().text();
 
@@ -251,7 +255,7 @@
                                     row = '<tr>' +
                                             '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
                                             '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
-                                            '<td>' + item_no + '</td>' +
+                                            '<td>' + device_no + '</td>' +
                                             '<td>' + description + '</td>' +
                                             '<td>' + serial_no + '</td>' +
                                             '<td><input class="form-control" name="symptom[]"/></td>' +
@@ -261,7 +265,7 @@
                                     row = '<tr>' +
                                             '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
                                             '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
-                                            '<td>' + item_no + '</td>' +
+                                            '<td>' + device_no + '</td>' +
                                             '<td>' + description + '</td>' +
                                             '<td><input class="form-control" name="amount[]"/></td>' +
                                           '</tr>';
@@ -270,7 +274,7 @@
                                     row = '<tr>' +
                                         '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
                                         '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
-                                        '<td>' + item_no + '</td>' +
+                                        '<td>' + device_no + '</td>' +
                                         '<td>' + description + '</td>' +
                                         '<td><input class="form-control" name="amount[]"/></td>' +
                                       '</tr>';
@@ -284,6 +288,7 @@
 
                 // Material items popup
                 $('#materialItemsPopup').on('show.bs.modal', function (e) {      
+                    $('#dataTables-materialItemsPopup tbody').empty();
                     // Get data form view
                     $.getJSON("{{url('listAvailableMaterialItems')}}", function (data) {
                         var rows = '';
@@ -292,7 +297,7 @@
                                 '<input type="hidden" name="hiddenMaterialIdPopup" value="' +val.id+ '">' +
                                 '<td><input type="checkbox" name="itemCbx[]"></td>' +
                                 '<td>' +val.stockName+ '</td>' +
-                                '<td>' +val.itemNo+ '</td>' +
+                                '<td>' +val.materialNo+ '</td>' +
                                 '<td>' +val.brand+ '</td>' +
                                 '<td>' +val.model+ '</td>' +
                                 '<td>' +val.description+ '</td>' +
@@ -301,7 +306,6 @@
                             '</tr>';
                             rows += row;
                         });
-                        $('#dataTables-materialItemsPopup tbody').empty();
                         $('#dataTables-materialItemsPopup tbody').append(rows);
                     });
 
@@ -313,7 +317,7 @@
                         nodeCheck.each(function () {
                             var material_id = $(this).find('input[name="hiddenMaterialIdPopup"]').val();
                             var row = $(this).find('td').first();
-                            var item_no = row.next().next().text();
+                            var material_no = row.next().next().text();
                             var description = row.next().next().next().next().next().text();
                             var amount = row.next().next().next().next().next().next().next().text();
 
@@ -323,9 +327,9 @@
                                     row = '<tr>' +
                                             '<input type="hidden" flag="new" name="hiddenMaterialId[]" value="' + material_id + '">' +
                                             '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
-                                            '<td>' + item_no + '</td>' +
+                                            '<td>' + material_no + '</td>' +
                                             '<td>' + description + '</td>' +
-                                            '<td>' + amount + '</td>' +
+                                            '<td><input class="form-control" name="amount[]"/></td>' +
                                             '<td>' +
                                                 '<select class="form-control" name="status[]">' +
                                                 '<option value="1">OK</option>' +
