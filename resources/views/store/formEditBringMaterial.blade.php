@@ -62,9 +62,10 @@
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover">
+                                        <table id="items-table" class="table table-striped table-bordered table-hover">
                                             <thead>
                                                 <tr>
+                                                    <th></th>
                                                     <th>Item No.</th>
                                                     <th>Items</th>
                                                     <th>Amount</th>

@@ -179,7 +179,7 @@
                 $('#dataTables-example').DataTable({
                     responsive: true
                 });
-
+                
                 // datepicker
                 $('.datepicker').datepicker({
                     format: 'dd/mm/yyyy'
@@ -214,7 +214,7 @@
                 });
 
                 // Device items popup
-                $('#deviceItemsPopup').on('show.bs.modal', function (e) {  
+                $('#deviceItemsPopup').on('show.bs.modal', function (e) {
                     $('#dataTables-deviceItemsPopup tbody').empty();
                     // Get data form view
                     $.getJSON("{{url('listAvailableDeviceItems')}}", function (data) {
@@ -235,6 +235,8 @@
                             rows += row;
                         });
                         $('#dataTables-deviceItemsPopup tbody').append(rows);
+                        $('#dataTables-deviceItemsPopup').dataTable({"bDestroy": true,
+                                                                    "lengthMenu": [[5], [5]]});
                     });
 
                     // Add items to main-page
@@ -307,6 +309,8 @@
                             rows += row;
                         });
                         $('#dataTables-materialItemsPopup tbody').append(rows);
+                        $('#dataTables-materialItemsPopup').dataTable({"bDestroy": true,
+                                                                    "lengthMenu": [[5], [5]]});
                     });
 
                     // Add items to main-page
@@ -329,7 +333,7 @@
                                             '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
                                             '<td>' + material_no + '</td>' +
                                             '<td>' + description + '</td>' +
-                                            '<td><input class="form-control" name="amount[]"/></td>' +
+                                            '<td><input class="form-control" name="amount[]" value="' +amount+ '"/></td>' +
                                             '<td>' +
                                                 '<select class="form-control" name="status[]">' +
                                                 '<option value="1">OK</option>' +

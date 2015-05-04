@@ -2,7 +2,7 @@
 @section('content')
 <?php 
     $lendDevice = $compact['data'];
-    $lendDeviceDetails = $compace['lendDeviceDetails'];
+    $lendDeviceDetails = $compact['lendDeviceDetails'];
 ?>
 {!! Form::open( ['route'=>['updateLendDevice',$lendDevice['id'] ]])  !!}
     <div class="row">

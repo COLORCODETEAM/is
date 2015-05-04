@@ -3,7 +3,7 @@
 <?php 
     $roomBooking = $compact['data'];
     $rooms = $compact['rooms'];
-    $roomBookingDetails = $compact['roomBookingDetails'];
+    $roomBookingDetails = $compact['bookingRoomDetails'];
 ?>
 {!! Form::open( ['route'=>['updateRoomBooking',$roomBooking['id'] ]])  !!}
 <form role="form">
