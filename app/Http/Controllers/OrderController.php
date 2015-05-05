@@ -55,6 +55,30 @@ class OrderController extends Controller {
         $order->update_date = DateUtils::getDBDateTime();
         $order->flag = '1';
         $order->save();
+        
+        // save details
+        if (isset($input ['itemNo'])) {
+            $items = $input ['itemNo'];
+            $i = 0;
+            foreach ($items as $item) {
+                $detail = new OrderDetail();
+                $detail->item_no = $item;
+                $detail->description = $input ['description'][$i];
+                $detail->amount = $input ['amount'][$i];
+                $detail->unit_price = $input ['unitPrice'][$i];
+                $detail->remark = $input ['remark'][$i];
+                $detail->create_user = '1';
+                $detail->create_date = DateUtils::getDBDateTime();
+                $detail->update_user = '1';
+                $detail->update_date = DateUtils::getDBDateTime();
+                $detail->flag = '1';
+
+                $details[] = $detail;
+                $i++;
+            }
+            $order->orderDetail()->saveMany($details);
+        }
+        
         return redirect('viewManageOrder');
     }
 
@@ -76,8 +100,11 @@ class OrderController extends Controller {
      */
     public function edit($id) {
         $data = Order::find($id);
+        $orderDetails = OrderDetail::where('flag', '=', '1')
+                ->where('order_id', '=', $id)
+                ->get();
         
-        return view('store.formEditOrder')->with('order', $data);
+        return view('store.formEditOrder')->with('compact', compact('data', 'orderDetails'));
     }
 
     /**
@@ -102,6 +129,30 @@ class OrderController extends Controller {
         $order->update_user = '1';
         $order->update_date = DateUtils::getDBDateTime();
         $order->save();
+        
+        // save details
+        if (isset($input ['itemNo'])) {
+            $items = $input ['itemNo'];
+            $i = 0;
+            foreach ($items as $item) {
+                $detail = new OrderDetail();
+                $detail->item_no = $item;
+                $detail->description = $input ['description'][$i];
+                $detail->amount = $input ['amount'][$i];
+                $detail->unit_price = $input ['unitPrice'][$i];
+                $detail->remark = $input ['remark'][$i];
+                $detail->create_user = '1';
+                $detail->create_date = DateUtils::getDBDateTime();
+                $detail->update_user = '1';
+                $detail->update_date = DateUtils::getDBDateTime();
+                $detail->flag = '1';
+
+                $details[] = $detail;
+                $i++;
+            }
+            $order->orderDetail()->saveMany($details);
+        }
+        
         return redirect('viewManageOrder');
     }
 

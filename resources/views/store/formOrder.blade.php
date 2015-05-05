@@ -61,7 +61,7 @@
                                         </table>
                                     </div>
                                     <!-- /.table-responsive -->
-                                    <button type="button" id="openOrderItemsBtn" class="pull-right btn btn-primary" data-toggle="modal" data-target="#orderItemsPopup" data-whatever="@mdo">Add Items</button>
+                                    <button type="button" id="openOrderItemsBtn" class="pull-right btn btn-primary">Add Items</button>
                                 </div>
                                 <!-- /.panel-body -->
                             </div>

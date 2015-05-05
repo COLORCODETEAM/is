@@ -70,7 +70,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <button type="button" id="openDeviceItemsBtn" page="repair" class="pull-right btn btn-primary" data-toggle="modal" data-target="#deviceItemsPopup" data-whatever="@mdo">Add Items</button>
+                                <button type="button" id="openDeviceItemsBtn" page="repair" class="pull-right btn btn-primary">Add Items</button>
                             </div>  
                                 <!-- /.panel-body -->
                             </div>

@@ -1,5 +1,9 @@
 @extends('store.app')
 @section('content')
+<?php 
+    $order = $compact['data'];
+    $orderDetails = $compact['orderDetails'];
+?>
 {!! Form::open( ['route'=>['updateOrder',$order['id'] ]])  !!}
 <form>
     <div class="row">
@@ -44,9 +48,10 @@
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover">
+                                        <table id="items-table" class="table table-striped table-bordered table-hover">
                                             <thead>
                                                 <tr>
+                                                    <th></th>
                                                     <th>Item No.</th>
                                                     <th>Brand/Model/Description</th>
                                                     <th>Amount</th>
@@ -56,18 +61,22 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($orderDetails as $orderDetail)
                                                 <tr>
-                                                    <td>123</td>
-                                                    <td>อุปกรณ์ 123</td>
-                                                    <td>2</td>
-                                                    <td>3,500</td>
-                                                    <td>7,000</td>
-                                                    <td>สินค้ามีแต่สีดำ</td>
+                                                    <input type="hidden" flag="new" name="hiddenItemNo[]" value="{{ $orderDetail->id }}">
+                                                    <td><a href-link="{{ route('delOrderDetail',$orderDetail->id) }}" class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>
+                                                    <td>{{ $orderDetail->item_no }}</td>
+                                                    <td>{{ $orderDetail->description }}</td>
+                                                    <td>{{ $orderDetail->amount }}</td>
+                                                    <td>{{ $orderDetail->unit_price }}</td>
+                                                    <td>{{ $orderDetail->amount*$orderDetail->unit_price }}</td>
+                                                    <td>{{ $orderDetail->remark }}</td>
                                                 </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
-                                    <!-- /.table-responsive -->
+                                    <button type="button" id="openOrderItemsBtn" class="pull-right btn btn-primary">Add Items</button>
                                 </div>
                                 <!-- /.panel-body -->
                             </div>

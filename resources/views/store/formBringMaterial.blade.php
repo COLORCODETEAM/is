@@ -73,7 +73,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <button type="button" id="openMaterialItemsBtn" page="bring" class="pull-right btn btn-primary" data-toggle="modal" data-target="#materialItemsPopup" data-whatever="@mdo">Add Items</button>
+                                    <button type="button" id="openMaterialItemsBtn" page="bring" class="pull-right btn btn-primary">Add Items</button>
                                 </div>
                                 <!-- /.panel-body -->
                             </div>

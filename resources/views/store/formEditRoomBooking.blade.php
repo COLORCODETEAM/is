@@ -133,7 +133,7 @@
                                         </table>
                                     </div>
                                     <!-- /.table-responsive -->
-                                    <button type="button" id="openDeviceItemsBtn" page="room-booking" class="pull-right btn btn-primary" data-toggle="modal" data-target="#deviceItemsPopup" data-whatever="@mdo">Add Items</button>
+                                    <button type="button" id="openDeviceItemsBtn" page="room-booking" class="pull-right btn btn-primary">Add Items</button>
                                 </div>
                                 <!-- /.panel-body -->
                             </div>
