@@ -254,6 +254,7 @@
                             show: 'true'
                         });
                         // Add items to main-page
+                        $('#addDeviceItemsBtn').unbind('click');
                         $('#addDeviceItemsBtn').on('click', function (e) {
                             var page = $('#openDeviceItemsBtn').attr('page');
                             var nodeCheck = $('#dataTables-deviceItemsPopup tbody input:checked').parent().parent();
@@ -298,7 +299,6 @@
                                 }
                                 $('#items-table tbody').append(row);
                             });
-                            $('#addDeviceItemsBtn').unbind('click');
                         });
                     });
                     setTimeout(function () {
@@ -339,6 +339,7 @@
                             show: 'true'
                         });
                         // Add items to main-page
+                        $('#addMaterialItemsBtn').unbind('click');
                         $('#addMaterialItemsBtn').on('click', function (e) {
                             var page = $('#openMaterialItemsBtn').attr('page');
                             var nodeCheck = $('#dataTables-materialItemsPopup tbody input:checked').parent().parent();
@@ -370,7 +371,6 @@
                                 }
                                 $('#items-table tbody').append(row);
                             });
-                            $('#addMaterialItemsBtn').unbind('click');
                         });
                     });  
                     setTimeout(function () {
