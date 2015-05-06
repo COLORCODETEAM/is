@@ -182,7 +182,20 @@
                             btn.button('reset');
                         }, 6000); 
                     }
-                  });
+                });
+                $('#orderItemsPopupForm').validator().on('submit', function (e) {
+                    if (e.isDefaultPrevented()) {
+                      // handle the invalid form...
+                        alert('11');
+                    } else {
+                        alert('22');
+                        // Add loading button
+                        var btn = $('button[type="submit"]').button('loading');
+                        setTimeout(function () {
+                            btn.button('reset');
+                        }, 6000); 
+                    }
+                });
                 
                 // fullcalendar
                 $('#event_calendar').fullCalendar({
@@ -538,43 +551,77 @@
         
         <!-- Order modal popup -->
         <div id="orderItemsPopup" class="modal fade">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Add Items</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="dataTable_wrapper" style="overflow: auto; width: 100%;">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-orderItemsPopup">
-                                <thead>
-                                    <tr>
-                                        <th>Item No.</th>
-                                        <th>Brand/Model/Description</th>
-                                        <th>Amount</th>
-                                        <th>Unit Price</th>
-                                        <th>Total</th>
-                                        <th>Remark</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="text" name="itemNoPopup" class="form-control col-lg-2"></td>
-                                        <td><input type="text" name="descriptionPopup" class="form-control col-lg-2"></td>
-                                        <td><input type="text" name="amountPopup" class="form-control col-lg-1"></td>
-                                        <td><input type="text" name="unitPricePopup" class="form-control col-lg-1"></td>
-                                        <td><input type="text" name="totalPopup" class="form-control col-lg-1" disabled></td>
-                                        <td><input type="text" name="remarkPopup" class="form-control col-lg-2"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+            <form id="orderItemsPopupForm">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">Add Items</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="dataTable_wrapper" style="overflow: auto; width: 100%;">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-orderItemsPopup">
+                                    <thead>
+                                        <tr>
+                                            <th>Item No.</th>
+                                            <th>Brand/Model/Description</th>
+                                            <th>Amount</th>
+                                            <th>Unit Price</th>
+                                            <th>Total</th>
+                                            <th>Remark</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="text" name="itemNoPopup" class="form-control col-lg-2" required>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="text" name="descriptionPopup" class="form-control col-lg-2" required>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="number" name="amountPopup" class="form-control col-lg-1" required>
+                                                    <div class="help-block with-errors"></div>        
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="number" name="unitPricePopup" class="form-control col-lg-1" required>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="text" name="totalPopup" class="form-control col-lg-1" disabled>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="text" name="remarkPopup" class="form-control col-lg-2" required>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group">
+                                <button type="submit" id="addOrderItemsBtn" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Add</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" id="addOrderItemsBtn" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Add</button>
-                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </body>
 

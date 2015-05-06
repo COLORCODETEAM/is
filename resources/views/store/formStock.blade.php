@@ -1,6 +1,6 @@
 @extends('store.app')
 @section('content')
-{!! Form::open(array('url'=>'addStock', 'data-toggle'=>'validator')) !!}
+{!! Form::open(array('url'=>'addStock')) !!}
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">จัดการคลัง </h1>

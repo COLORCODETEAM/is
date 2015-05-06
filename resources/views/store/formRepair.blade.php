@@ -21,7 +21,7 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-4">Repair No : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="repairNo" required/>
+                                    <input type="number" class="form-control" name="repairNo" required/>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>

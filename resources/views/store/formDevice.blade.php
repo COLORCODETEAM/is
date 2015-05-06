@@ -95,7 +95,7 @@ $deviceTypes = $compact['deviceTypes'];
                     <div class="form-group">
                         <label class="control-label col-lg-2">Amount : </label>
                         <div class="col-lg-3">
-                            <input class="form-control" name="amount" value="1" required/>
+                            <input class="form-control" name="amount" type="number" value="1" required/>
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
