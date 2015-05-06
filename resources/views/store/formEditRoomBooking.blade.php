@@ -1,9 +1,9 @@
 @extends('store.app')
 @section('content')
-<?php 
-    $roomBooking = $compact['data'];
-    $rooms = $compact['rooms'];
-    $roomBookingDetails = $compact['bookingRoomDetails'];
+<?php
+$roomBooking = $compact['data'];
+$rooms = $compact['rooms'];
+$roomBookingDetails = $compact['bookingRoomDetails'];
 ?>
 {!! Form::open( ['route'=>['updateRoomBooking',$roomBooking['id'] ]])  !!}
 <form role="form">
@@ -22,81 +22,138 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-horizontal">
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Booking No : </label>
-                            <div class="col-lg-3">
-                                <input class="form-control" name="bookingNo" value="{{$roomBooking['booking_no']}}"/>
-                            </div>
-                            <label class="control-label col-lg-2 col-lg-offset-3">วันที่ : </label>
-                            <div class="col-lg-2">
-                                <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDateFromStr($roomBooking['create_date'])}}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Events : </label>
+                        <div class="row">
                             <div class="col-lg-6">
-                                <input class="form-control" name="events" value="{{$roomBooking['events']}}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Purpose of use : </label>
-                            <div class="col-lg-6">
-                                <input class="form-control" name="purpose" value="{{$roomBooking['events']}}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Description : </label>
-                            <div class="col-lg-6">
-                                <textarea class="form-control" rows="3" name="description">{{$roomBooking['description']}}</textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Contact person : </label>
-                            <div class="col-lg-3">
-                                <input class="form-control" name="contactPerson" value="{{$roomBooking['contact_person']}}"/>
-                            </div>
-                            <label class="control-label col-lg-2 col-lg-offset-1">Email address : </label>
-                            <div class="col-lg-3">
-                                <input class="form-control" name="email" value="{{$roomBooking['email']}}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Date of Event : </label>
-                            <div class="col-lg-2">
-                                <div class="input-group">
-                                    <input class="form-control datepicker" name="eventDate" value="{{DateUtils::getDateFromStr($roomBooking['start_time'])}}"/>
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Booking No : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="bookingNo" value="{{$roomBooking['booking_no']}}" required/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
                                 </div>
                             </div>
-                            <label class="control-label col-lg-2">Start time : </label>
-                            <div class="col-lg-2">
-                                <div class="input-group">
-                                    <input class="form-control timepicker" name="startTime" value="{{DateUtils::getTimeFromStr($roomBooking['start_time'])}}"/>
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </span>
-                                </div>
-                            </div>
-                            <label class="control-label col-lg-2">Finish time : </label>
-                            <div class="col-lg-2">
-                                <div class="input-group">
-                                    <input class="form-control timepicker" name="endTime" value="{{DateUtils::getTimeFromStr($roomBooking['end_time'])}}"/>
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </span>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4 col-lg-offset-4">Date : </label>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDateFromStr($roomBooking['create_date'])}}"/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-3">Space needed (please select) : </label>
-                            <div class="col-lg-2">
-                                <select class="form-control" name="roomId">
-                                    @foreach($rooms as $room)
-                                        <option value="{{$room['id']}}" {{$room['selected']}}>{{$room['name']}}</option>
-                                    @endforeach
-                                </select>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Events : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="events" value="{{$roomBooking['events']}}" required/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Purpose of use : </label>
+                                    <div class="col-lg-6">
+				    <textarea class="form-control" rows="3" name="purpose">{{$roomBooking['events']}}</textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Description : </label>
+                                    <div class="col-lg-6">
+                                        <textarea class="form-control" rows="3" name="description">{{$roomBooking['description']}}</textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Contact person : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="contactPerson" value="{{$roomBooking['contact_person']}}" required/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Email address : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="email" value="{{$roomBooking['email']}}"/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-6">Date of Event : </label>
+                                        <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <input class="form-control datepicker" name="eventDate" value="{{DateUtils::getDateFromStr($roomBooking['start_time'])}}" required/>
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </span>
+                                            </div>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-6">Start time : </label>
+                                        <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <input class="form-control timepicker" name="startTime" value="{{DateUtils::getTimeFromStr($roomBooking['start_time'])}}" required/>
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </span>
+                                            </div>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-6">Finish time : </label>
+                                        <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <input class="form-control timepicker" name="endTime" value="{{DateUtils::getTimeFromStr($roomBooking['end_time'])}}" required/>
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </span>
+                                            </div>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3">Space needed (please select) : </label>
+                                    <div class="col-lg-2">
+                                        <select class="form-control" name="roomId" required>
+                                            @foreach($rooms as $room)
+                                            <option value="{{$room['id']}}" {{$room['selected']}}>{{$room['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -122,13 +179,13 @@
                                             <tbody>
                                                 @foreach ($roomBookingDetails as $roomBookingDetail)
                                                 <tr>
-                                                    <input type="hidden" flag="new" name="hiddenRoomBookingDetailId[]" value="{{ $roomBookingDetail->id }}">
-                                                    <td><a href-link="{{ route('delRoomBookingDetail',$roomBookingDetail->id) }}" class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>
-                                                    <td>{{ $roomBookingDetail->device->device_no }}</td>
-                                                    <td>{{ $roomBookingDetail->device->description }}</td>
-                                                    <td><input class="form-control" name="amount[]" disabled value="{{ $roomBookingDetail->amount }}"/></td>
-                                                </tr>
-                                                @endforeach
+                                            <input type="hidden" flag="new" name="hiddenRoomBookingDetailId[]" value="{{ $roomBookingDetail->id }}">
+                                            <td><a href-link="{{ route('delRoomBookingDetail',$roomBookingDetail->id) }}" class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>
+                                            <td>{{ $roomBookingDetail->device->device_no }}</td>
+                                            <td>{{ $roomBookingDetail->device->description }}</td>
+                                            <td><input class="form-control" name="amount[]" disabled value="{{ $roomBookingDetail->amount }}"/></td>
+                                            </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>

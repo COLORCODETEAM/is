@@ -17,81 +17,138 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-horizontal">
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Booking No : </label>
-                            <div class="col-lg-3">
-                                <input class="form-control" name="bookingNo"/>
-                            </div>
-                            <label class="control-label col-lg-2 col-lg-offset-3">วันที่ : </label>
-                            <div class="col-lg-2">
-                                <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDate()}}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Events : </label>
+                        <div class="row">
                             <div class="col-lg-6">
-                                <input class="form-control" name="events"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Purpose of use : </label>
-                            <div class="col-lg-6">
-                                <input class="form-control" name="purpose"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Description : </label>
-                            <div class="col-lg-6">
-                                <textarea class="form-control" rows="3" name="description"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Contact person : </label>
-                            <div class="col-lg-3">
-                                <input class="form-control" name="contactPerson"/>
-                            </div>
-                            <label class="control-label col-lg-2 col-lg-offset-1">Email address : </label>
-                            <div class="col-lg-3">
-                                <input class="form-control" name="email"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Date of Event : </label>
-                            <div class="col-lg-2">
-                                <div class="input-group">
-                                    <input class="form-control datepicker" name="eventDate" value="{{DateUtils::getDate()}}"/>
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Booking No : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="bookingNo" required/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
                                 </div>
                             </div>
-                            <label class="control-label col-lg-2">Start time : </label>
-                            <div class="col-lg-2">
-                                <div class="input-group">
-                                    <input class="form-control timepicker" name="startTime"/>
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </span>
-                                </div>
-                            </div>
-                            <label class="control-label col-lg-2">Finish time : </label>
-                            <div class="col-lg-2">
-                                <div class="input-group">
-                                    <input class="form-control timepicker" name="endTime"/>
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </span>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4 col-lg-offset-4">Date : </label>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDate()}}"/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-3">Space needed (please select) : </label>
-                            <div class="col-lg-2">
-                                <select class="form-control" name="roomId">
-                                    @foreach($rooms as $room)
-                                        <option value="{{$room['id']}}">{{$room['name']}}</option>
-                                    @endforeach
-                                </select>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Events : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="events" required/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Purpose of use : </label>
+                                    <div class="col-lg-6">
+                                        <textarea class="form-control" rows="3" name="purpose"></textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Description : </label>
+                                    <div class="col-lg-6">
+                                        <textarea class="form-control" rows="3" name="description"></textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Contact person : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="contactPerson" required/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Email address : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="email"/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-6">Date of Event : </label>
+                                        <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <input class="form-control datepicker" name="eventDate" value="{{DateUtils::getDate()}}" required/>
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </span>
+                                            </div>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-6">Start time : </label>
+                                        <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <input class="form-control timepicker" name="startTime" required/>
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </span>
+                                            </div>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-6">Finish time : </label>
+                                        <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <input class="form-control timepicker" name="endTime" required/>
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </span>
+                                            </div>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3">Space needed (please select) : </label>
+                                    <div class="col-lg-2">
+                                        <select class="form-control" name="roomId" required>
+                                            @foreach($rooms as $room)
+                                            <option value="{{$room['id']}}">{{$room['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -125,7 +182,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /.row (nested) -->
                     <div class="form-horizontal">
                         <div class="form-group">
                             <div class="col-lg-12">

@@ -16,22 +16,37 @@
             </div>
             <div class="panel-body">
                 <div class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Repair No : </label>
-                        <div class="col-lg-3">
-                            <input class="form-control" name="repairNo"/>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="control-label col-lg-4">Repair No : </label>
+                                <div class="col-lg-6">
+                                    <input class="form-control" name="repairNo" required/>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
                         </div>
-                        <label class="control-label col-lg-2 col-lg-offset-3">Date : </label>
-                        <div class="col-lg-2">
-                            <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDate()}}"/>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="control-label col-lg-4 col-lg-offset-4">Date : </label>
+                                <div class="col-lg-4">
+                                    <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDate()}}"/>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Repair person : </label>
-                        <div class="col-lg-3">
-                            <input class="form-control" name="person"/>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">Repair person : </label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" name="person" required/>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>      
                         </div>
-                    </div>                        
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
@@ -53,7 +68,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -65,46 +80,63 @@
                 </div>
                 <!-- /.row (nested) -->
                 <div class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Approvement : </label>
-                        <div class="col-lg-2">
-                            <select class="form-control" name="approvement">
-                                <option value="1">OK</option>
-                                <option value="0">CANCEL</option>
-                            </select>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="control-label col-lg-6">Approvement : </label>
+                                <div class="col-lg-6">
+                                    <select class="form-control" name="approvement">
+                                        <option value="1">OK</option>
+                                        <option value="0">CANCEL</option>
+                                    </select>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
                         </div>
-                        <label class="control-label col-lg-2 col-lg-offset-1">Date of Approved : </label>
-                        <div class="col-lg-2">
-                            <div class="input-group">
-                                <input class="form-control datepicker" name="approvedDate"/>
-                                <span class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </span>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="control-label col-lg-6">Date of Approved : </label>
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <input class="form-control datepicker" name="approvedDate"/>
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Received by : </label>
-                        <div class="col-lg-2">
-                            <input class="form-control" name="receivedBy"/>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="control-label col-lg-6">Received by : </label>
+                                <div class="col-lg-6">
+                                    <input class="form-control" name="receivedBy"/>
+                                </div>
+                            </div>
                         </div>
-                        <label class="control-label col-lg-2 col-lg-offset-1">Date of Received : </label>
-                        <div class="col-lg-2">
-                            <div class="input-group">
-                                <input class="form-control datepicker" name="receivedDate"/>
-                                <span class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </span>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="control-label col-lg-6">Date of Received : </label>
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <input class="form-control datepicker" name="receivedDate"/>
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                    <div class="help-block with-errors"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- /.col-lg-4 (nested) -->
                     <div class="form-group">
                         <div class="col-lg-12">
                             <button type="submit" class="btn btn-primary pull-right">OK</button>
                         </div>
                     </div>
-                    <!-- /.col-lg-5 (nested) -->
                 </div>
                 <!-- /.row (nested) -->
             </div>

@@ -1,8 +1,8 @@
 @extends('store.app')
 @section('content')
-<?php 
-    $order = $compact['data'];
-    $orderDetails = $compact['orderDetails'];
+<?php
+$order = $compact['data'];
+$orderDetails = $compact['orderDetails'];
 ?>
 {!! Form::open( ['route'=>['updateOrder',$order['id'] ]])  !!}
 <form>
@@ -21,20 +21,35 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-horizontal">
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Order No : </label>
-                            <div class="col-lg-3">
-                                <input class="form-control" name="orderNo" value="{{$order['order_no']}}"/>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Order No : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="orderNo" value="{{$order['order_no']}}" required/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <label class="control-label col-lg-2 col-lg-offset-3">วันที่ : </label>
-                            <div class="col-lg-2">
-                                <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDateFromStr($order['create_date'])}}"/>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4 col-lg-offset-4">Date : </label>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" disabled name="documentDate" value="{{DateUtils::getDateFromStr($order['create_date'])}}"/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Purpose of request : </label>
-                            <div class="col-lg-6">
-                                <textarea class="form-control" rows="3" name="purpose">{{$order['purpose']}}</textarea>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Purpose of request : </label>
+                                    <div class="col-lg-6">
+                                        <textarea class="form-control" rows="3" name="purpose" required>{{$order['purpose']}}</textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,16 +78,16 @@
                                             <tbody>
                                                 @foreach ($orderDetails as $orderDetail)
                                                 <tr>
-                                                    <input type="hidden" flag="new" name="hiddenItemNo[]" value="{{ $orderDetail->id }}">
-                                                    <td><a href-link="{{ route('delOrderDetail',$orderDetail->id) }}" class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>
-                                                    <td>{{ $orderDetail->item_no }}</td>
-                                                    <td>{{ $orderDetail->description }}</td>
-                                                    <td>{{ $orderDetail->amount }}</td>
-                                                    <td>{{ $orderDetail->unit_price }}</td>
-                                                    <td>{{ $orderDetail->amount*$orderDetail->unit_price }}</td>
-                                                    <td>{{ $orderDetail->remark }}</td>
-                                                </tr>
-                                                @endforeach
+                                            <input type="hidden" flag="new" name="hiddenItemNo[]" value="{{ $orderDetail->id }}">
+                                            <td><a href-link="{{ route('delOrderDetail',$orderDetail->id) }}" class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>
+                                            <td>{{ $orderDetail->item_no }}</td>
+                                            <td>{{ $orderDetail->description }}</td>
+                                            <td>{{ $orderDetail->amount }}</td>
+                                            <td>{{ $orderDetail->unit_price }}</td>
+                                            <td>{{ $orderDetail->amount*$orderDetail->unit_price }}</td>
+                                            <td>{{ $orderDetail->remark }}</td>
+                                            </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -84,66 +99,106 @@
                     </div>
                     <!-- /.row (nested) -->
                     <div class="form-horizontal">
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Order by : </label>
-                            <div class="col-lg-2">
-                                <input class="form-control" name="orderBy" value="{{$order['order_by']}}"/>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-6">Order by : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="orderBy" value="{{$order['order_by']}}" required/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <label class="control-label col-lg-2 col-lg-offset-1">Date of Order : </label>
-                            <div class="col-lg-2">
-                                <div class=" input-group">
-                                    <input class="form-control datepicker" name="orderDate" value="{{DateUtils::getDateFromStr($order['order_date'])}}"/>
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3">Date of Order : </label>
+                                    <div class="col-lg-6">
+                                        <div class=" input-group">
+                                            <input class="form-control datepicker" name="orderDate" value="{{DateUtils::getDateFromStr($order['order_date'])}}"/>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Approvement : </label>
-                            <div class="col-lg-2">
-                                <select class="form-control" name="approvement">
-                                    <option value="1" {{ ($order['approvement']=='1' ? 'selected' : '') }}>OK</option>
-                                    <option value="0 "{{ ($order['approvement']=='0' ? 'selected' : '') }}>CANCEL</option>
-                                </select>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-6">Approvement : </label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" name="approvement">
+                                            <option value="1" {{ ($order['approvement']=='1' ? 'selected' : '') }}>OK</option>
+                                            <option value="0 "{{ ($order['approvement']=='0' ? 'selected' : '') }}>CANCEL</option>
+                                        </select>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <label class="control-label col-lg-2 col-lg-offset-1">Date of Approved : </label>
-                            <div class="col-lg-2">
-                                <div class=" input-group">
-                                    <input class="form-control datepicker" name="approvedDate" value="{{DateUtils::getDateFromStr($order['approved_date'])}}"/>
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3">Date of Approved : </label>
+                                    <div class="col-lg-6">
+                                        <div class=" input-group">
+                                            <input class="form-control datepicker" name="approvedDate" value="{{DateUtils::getDateFromStr($order['approved_date'])}}"/>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Received by : </label>
-                            <div class="col-lg-2">
-                                <input class="form-control" name="receivedBy" value="{{$order['received_by']}}"/>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-6">Received by : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="receivedBy" value="{{$order['received_by']}}"/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <label class="control-label col-lg-2 col-lg-offset-1">Date of Received : </label>
-                            <div class="col-lg-2">
-                                <div class=" input-group">
-                                    <input class="form-control datepicker" name="receivedDate" value="{{DateUtils::getDateFromStr($order['received_date'])}}"/>
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3">Date of Received : </label>
+                                    <div class="col-lg-6">
+                                        <div class=" input-group">
+                                            <input class="form-control datepicker" name="receivedDate" value="{{DateUtils::getDateFromStr($order['received_date'])}}"/>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Checked by : </label>
-                            <div class="col-lg-2">
-                                <input class="form-control" name="checkedBy" value="{{$order['checked_by']}}"/>
-                            </div>                            
-                            <label class="control-label col-lg-2 col-lg-offset-1">Date of Checked : </label>
-                            <div class="col-lg-2">
-                                <div class=" input-group">
-                                    <input class="form-control datepicker" name="checkedDate" value="{{DateUtils::getDateFromStr($order['checked_date'])}}"/>
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-6">Checked by : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="checkedBy" value="{{$order['checked_by']}}"/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3">Date of Checked : </label>
+                                    <div class="col-lg-6">
+                                        <div class=" input-group">
+                                            <input class="form-control datepicker" name="checkedDate" value="{{DateUtils::getDateFromStr($order['checked_date'])}}"/>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

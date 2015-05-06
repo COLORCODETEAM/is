@@ -137,6 +137,10 @@
         <script
         src="{{ asset('store/components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
+        <!-- Bootstrap validator -->
+        <script
+        src="{{ asset('store/components/bootstrap-validator/dist/validator.min.js')}}"></script>
+        
         <!-- Datepicker 1.4.0 -->
         <script
         src="{{ asset('store/components/bootstrap-datepicker-1.4.0/js/bootstrap-datepicker.min.js')}}"></script>
@@ -167,6 +171,19 @@
         <script>
             $(document).ready(function () {
 
+                // validator
+                $('form').validator().on('submit', function (e) {
+                    if (e.isDefaultPrevented()) {
+                      // handle the invalid form...
+                    } else {
+                        // Add loading button
+                        var btn = $('button[type="submit"]').button('loading');
+                        setTimeout(function () {
+                            btn.button('reset');
+                        }, 6000); 
+                    }
+                  });
+                
                 // fullcalendar
                 $('#event_calendar').fullCalendar({
                     defaultView: 'agendaDay',
@@ -174,7 +191,7 @@
                     eventLimit: true, // allow "more" link when too many events
                     events: "{{url('bookingCalendar')}}"
                 });
-
+ 
                 // table responsive
                 $('#dataTables-example').DataTable({
                     responsive: true
@@ -188,14 +205,6 @@
                 // timepicker
                 $('.timepicker').timepicker();
 
-                // Loading submit button
-                $('button[type="submit"]').on('click', function() {
-                    var btn = $(this).button('loading');
-                    setTimeout(function () {
-                        btn.button('reset');
-                    }, 10000); 
-                });
-                
                 // Confirm dialog
                 $('body').on('click', 'a[data-confirm]', function(e) {
                     var type = $(this).attr('data-confirm');
