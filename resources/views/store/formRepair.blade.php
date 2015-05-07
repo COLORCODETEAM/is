@@ -5,9 +5,7 @@
     <div class="col-lg-12">
         <h1 class="page-header">แจ้งซ่อมอุปกรณ์</h1>
     </div>
-    <!-- /.col-lg-12 -->
 </div>
-<!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -21,7 +19,7 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-4">Repair No : </label>
                                 <div class="col-lg-6">
-                                    <input type="number" class="form-control" name="repairNo" required/>
+                                    <input class="form-control" name="repairNo" required/>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -54,7 +52,6 @@
                             <div class="panel-heading">
                                 รายการส่งซ่อม
                             </div>
-                            <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table id="items-table" class="table table-striped table-bordered table-hover">
@@ -74,11 +71,9 @@
                                 </div>
                                 <button type="button" id="openDeviceItemsBtn" page="repair" class="pull-right btn btn-primary">Add Items</button>
                             </div>  
-                            <!-- /.panel-body -->
                         </div>
                     </div>
                 </div>
-                <!-- /.row (nested) -->
                 <div class="form-horizontal">
                     <div class="row">
                         <div class="col-lg-4">
@@ -138,15 +133,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.row (nested) -->
             </div>
-            <!-- /.panel-body -->
         </div>
-        <!-- /.panel -->
     </div>
-    <!-- /.col-lg-12 -->
 </div>
-
-<!-- /.row -->
 {!! Form::close() !!}
 @stop

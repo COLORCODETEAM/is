@@ -105,6 +105,7 @@
                                     <li><a href="{{ action('StockController@index')}}">จัดการคลัง</a></li>
                                     <li><a href="{{ action('MaterialController@index')}}">จัดการวัสดุ</a></li>
                                     <li><a href="{{ action('DeviceController@index')}}">จัดการอุปกรณ์</a></li>
+                                    <li><a href="{{ action('DeviceController@index')}}">จัดการเครื่องคอมพิวเตอร์</a></li>
                                     <li><a href="{{ action('RoomController@index') }}"> จัดการห้องแลป</a></li>
                                 </ul></li>
                             <li><a href="{{ action('OrderController@index') }}"><i
@@ -171,7 +172,7 @@
         <script>
             $(document).ready(function () {
 
-                // validator
+                // ================== validator ================== 
                 $('form').validator().on('submit', function (e) {
                     if (e.isDefaultPrevented()) {
                       // handle the invalid form...
@@ -186,18 +187,24 @@
                 $('#orderItemsPopupForm').validator().on('submit', function (e) {
                     if (e.isDefaultPrevented()) {
                       // handle the invalid form...
-                        alert('11');
                     } else {
-                        alert('22');
                         // Add loading button
                         var btn = $('button[type="submit"]').button('loading');
                         setTimeout(function () {
                             btn.button('reset');
-                        }, 6000); 
+                        }, 5000); 
                     }
                 });
                 
-                // fullcalendar
+                // ================== Loading button ================== 
+                $('.loadingButton').on('click', function(e){
+                    var btn = $(this).button('loading');
+                        setTimeout(function () {
+                            btn.button('reset');
+                        }, 6000); 
+                });
+                
+                // ================== fullcalendar ================== 
                 $('#event_calendar').fullCalendar({
                     defaultView: 'agendaDay',
                     editable: false,
@@ -205,20 +212,20 @@
                     events: "{{url('bookingCalendar')}}"
                 });
  
-                // table responsive
+                // ================ Table responsive =============== 
                 $('#dataTables-example').DataTable({
                     responsive: true
                 });
                 
-                // datepicker
+                // ================== datepicker ================== 
                 $('.datepicker').datepicker({
                     format: 'dd/mm/yyyy'
                 });
 
-                // timepicker
+                // ================== timepicker ================== 
                 $('.timepicker').timepicker();
 
-                // Confirm dialog
+                // =============== Confirm popup =================
                 $('body').on('click', 'a[data-confirm]', function(e) {
                     var type = $(this).attr('data-confirm');
 
@@ -228,7 +235,7 @@
                             $('#confirmDeletePopupYesBtn').attr('href', href);
                             break;
                         case 'table-items':
-                            var node = $(this).parent().parent();
+                            var node = $(this).parent().parent().parent();
                             var href = $(this).attr('href-link');
                             $('#confirmDeletePopupYesBtn').click(function(e) {
                                 node.remove();
@@ -241,8 +248,69 @@
                     }
                     $('#confirmDeletePopup').modal('show');
                 });
+                
+                // =========== Device item detail popup ============
+                $('body').on('click', '.deviceItemDetailPopup', function(e) {
+                    var btn = $(this).button('loading');
+                    var href = $(this).attr('href-link');
+                    var rows = '';
+                    $.getJSON(href, function (data) {
+                        $.each( data, function( i, val ) {
+                            var row = '<tr>' +
+                                '<td>' +val.stock_name+ '</td>' +
+                                '<td>' +val.device_no+ '</td>' +
+                                '<td>' +val.brand+ '</td>' +
+                                '<td>' +val.model+ '</td>' +
+                                '<td>' +val.description+ '</td>' +
+                                '<td>' +val.serial_no+ '</td>' +
+                                '<td>' +val.warranty+ '</td>' +
+                                '<td>' +val.amount+ '</td>' +
+                            '</tr>';
+                            rows += row;
+                        });
+                    }).done(function(e) {
+                        $('#dataTables-deviceItemDetailPopup tbody').empty();
+                        $('#dataTables-deviceItemDetailPopup tbody').append(rows);
+                        $('#deviceItemDetailPopup').modal({
+                            show: 'true'
+                        });
+                    });
+                    setTimeout(function () {
+                        btn.button('reset');
+                    }, 3000);
+                });
+                
+                // =========== Material item detail popup ===========
+                $('body').on('click', '.materialItemDetailPopup', function(e) {
+                    var btn = $(this).button('loading');
+                    var href = $(this).attr('href-link');
+                    var rows = '';
+                    $.getJSON(href, function (data) {
+                        $.each( data, function( i, val ) {
+                            var row = '<tr>' +
+                                '<td>' +val.stock_name+ '</td>' +
+                                '<td>' +val.material_no+ '</td>' +
+                                '<td>' +val.brand+ '</td>' +
+                                '<td>' +val.model+ '</td>' +
+                                '<td>' +val.description+ '</td>' +
+                                '<td>' +val.serial_no+ '</td>' +
+                                '<td>' +val.amount+ '</td>' +
+                            '</tr>';
+                            rows += row;
+                        });
+                    }).done(function(e) {
+                        $('#dataTables-materialItemDetailPopup tbody').empty();
+                        $('#dataTables-materialItemDetailPopup tbody').append(rows);
+                        $('#materialItemDetailPopup').modal({
+                            show: 'true'
+                        });
+                    });
+                    setTimeout(function () {
+                        btn.button('reset');
+                    }, 3000);
+                });
 
-                // Device items popup
+                // ============== Device items popup ==============
                 $('#openDeviceItemsBtn').on('click', function(e) {
                     var btn = $(this).button('loading');
                     var rows = '';
@@ -293,7 +361,14 @@
                                     case 'repair':
                                         row = '<tr>' +
                                                 '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
-                                                '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
+                                                '<td class="col-lg-2">' +
+                                                    '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
+                                                        '<a href-link="http://localhost/is/public/deviceInformation/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
+                                                    '</div>' +
+                                                    '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
+                                                        '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
+                                                    '</div>' +
+                                                '</td>' +
                                                 '<td>' + device_no + '</td>' +
                                                 '<td>' + description + '</td>' +
                                                 '<td>' + serial_no + '</td>' +
@@ -303,7 +378,14 @@
                                     case 'room-booking':
                                         row = '<tr>' +
                                                 '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
-                                                '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
+                                                '<td class="col-lg-2">' +
+                                                    '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
+                                                        '<a href-link="http://localhost/is/public/deviceInformation/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
+                                                    '</div>' +
+                                                    '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
+                                                        '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
+                                                    '</div>' +
+                                                '</td>' +
                                                 '<td>' + device_no + '</td>' +
                                                 '<td>' + description + '</td>' +
                                                 '<td><input class="form-control" name="amount[]"/></td>' +
@@ -311,12 +393,19 @@
                                         break;
                                     case 'lend-device':
                                         row = '<tr>' +
-                                            '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
-                                            '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
-                                            '<td>' + device_no + '</td>' +
-                                            '<td>' + description + '</td>' +
-                                            '<td><input class="form-control" name="amount[]"/></td>' +
-                                          '</tr>';
+                                                '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
+                                                '<td class="col-lg-2">' +
+                                                    '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
+                                                        '<a href-link="http://localhost/is/public/deviceInformation/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
+                                                    '</div>' +
+                                                    '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
+                                                        '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
+                                                    '</div>' +
+                                                '</td>' +
+                                                '<td>' + device_no + '</td>' +
+                                                '<td>' + description + '</td>' +
+                                                '<td><input class="form-control" name="amount[]"/></td>' +
+                                              '</tr>';
                                         break;
                                 }
                                 $('#items-table tbody').append(row);
@@ -328,7 +417,7 @@
                     }, 5000);
                 });
                 
-                // Material items popup
+                // ============== Material items popup ===============
                 $('#openMaterialItemsBtn').on('click', function(e) {
                     var btn = $(this).button('loading');
                     var rows = '';
@@ -378,7 +467,14 @@
                                     case 'bring':
                                         row = '<tr>' +
                                                 '<input type="hidden" flag="new" name="hiddenMaterialId[]" value="' + material_id + '">' +
-                                                '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
+                                                '<td class="col-lg-2">' +
+                                                    '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
+                                                        '<a href-link="http://localhost/is/public/materialInformation/' + material_id + '" class="materialItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
+                                                    '</div>' +
+                                                    '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
+                                                        '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
+                                                    '</div>' +
+                                                '</td>' +
                                                 '<td>' + material_no + '</td>' +
                                                 '<td>' + description + '</td>' +
                                                 '<td><input class="form-control" name="amount[]" value="' +amount+ '"/></td>' +
@@ -400,7 +496,7 @@
                     }, 5000); 
                 });
                   
-                // Order items popup
+                // ============== Order items popup ================
                 $('#openOrderItemsBtn').on('click', function(e) {
                     $("input[name='itemNoPopup']").val('');
                     $("input[name='descriptionPopup']").val('');
@@ -469,7 +565,7 @@
                         <p>Are you sure you want to delete ?</p>
                     </div>
                     <div class="modal-footer">
-                        <a id="confirmDeletePopupYesBtn" class="btn btn-danger">Yes</a>
+                        <a id="confirmDeletePopupYesBtn" class="loadingButton btn btn-danger">Yes</a>
                         <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">No</button>
                     </div>
                 </div>
@@ -623,6 +719,72 @@
                 </div>
             </form>
         </div>
+        
+        <!-- Device item detail popup -->
+        <div id="deviceItemDetailPopup" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Item details</h4>
+                    </div>
+                    <div class="modal-body" style="overflow: auto; width: 100%;">
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-deviceItemDetailPopup">
+                                <thead>
+                                    <tr>
+                                        <th>Stock</th>
+                                        <th>Item No.</th>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Item Description</th>
+                                        <th>Serial No.</th>
+                                        <th>Warranty</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Material item detail popup -->
+        <div id="materialItemDetailPopup" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Item details</h4>
+                    </div>
+                    <div class="modal-body" style="overflow: auto; width: 100%;">
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-materialItemDetailPopup">
+                                <thead>
+                                    <tr>
+                                        <th>Stock</th>
+                                        <th>Item No.</th>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Item Description</th>
+                                        <th>Serial No.</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </body>
 
 </html>

@@ -5,14 +5,11 @@ $material = $compact['data'];
 $stocks = $compact['stocks'];
 ?>
 {!! Form::open( ['route'=>['updateMaterial',$material['id'] ]])  !!}
-<!--form role="form"-->
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">จัดการวัสดุ </h1>
     </div>
-    <!-- /.col-lg-12 -->
 </div>
-<!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -35,21 +32,21 @@ $stocks = $compact['stocks'];
                     <div class="form-group">
                         <label class="control-label col-lg-2">Item No : </label>
                         <div class="col-lg-3">
-                            <input class="form-control" name="materialNo" value="{{$material['material_no']}} required"/>
+                            <input class="form-control" name="materialNo" value="{{$material['material_no']}}" required/>
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-2">Brand : </label>
                         <div class="col-lg-3">
-                            <input class="form-control" name="brand" value="{{$material['brand']}} required"/>
+                            <input class="form-control" name="brand" value="{{$material['brand']}}" required/>
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-2">Model : </label>
                         <div class="col-lg-3">
-                            <input class="form-control" name="model" value="{{$material['model']}} required"/>
+                            <input class="form-control" name="model" value="{{$material['model']}}" required/>
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
@@ -80,15 +77,9 @@ $stocks = $compact['stocks'];
                         </div>
                     </div>
                 </div>
-                <!-- /.row (nested) -->
             </div>
-            <!-- /.panel-body -->
         </div>
-        <!-- /.panel -->
     </div>
-    <!-- /.col-lg-12 -->
 </div>
-<!-- /.row -->
 {!! Form::close()!!}
-<!--/form-->
 @stop  

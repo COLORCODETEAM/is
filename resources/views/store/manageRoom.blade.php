@@ -1,14 +1,11 @@
 @extends('store.app')
 @section('content')
-
 <form role="form">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">จัดการห้องแลป</h1>
         </div>
-        <!-- /.col-lg-12 -->
     </div>
-    <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -20,14 +17,11 @@
                                         type="button" class="btn btn-primary">เพิ่มห้องแลป</button></a>
                             </div>
                         </div>
-                        <!-- /.col-lg-5 (nested) -->
                     </div>
-                    <!-- /.row (nested) -->
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">รายการห้องแลป</div>
-                                <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <div class="dataTable_wrapper">
                                         <table class="table table-striped table-bordered table-hover"
@@ -47,7 +41,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <a href="{{route('editRoom',$room['id'])}}" class="form-control btn btn-default">แก้ไข</a>
+                                                                    <a href="{{route('editRoom',$room['id'])}}" class="loadingButton form-control btn btn-default">แก้ไข</a>
                                                                     <a href-link="{{route('delRoom',$room['id'])}}" class="form-control btn btn-danger" data-confirm="manage-page">ลบ</a>
                                                                 </div>
                                                             </div>
@@ -61,20 +55,13 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <!-- /.table-responsive -->
                                 </div>
-                                <!-- /.panel-body -->
                             </div>
                         </div>
                     </div>
-                    <!-- /.row (nested) -->
                 </div>
-                <!-- /.panel-body -->
             </div>
-            <!-- /.panel -->
         </div>
-        <!-- /.col-lg-12 -->
     </div>
-    <!-- /.row -->
 </form>
 @stop

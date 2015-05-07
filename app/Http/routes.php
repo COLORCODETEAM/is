@@ -41,6 +41,7 @@ Route::get('/delMaterial/{id}', ['as' => 'delMaterial', 'uses' => 'MaterialContr
 Route::get('/editMaterial/{id}', ['as' => 'editMaterial', 'uses' => 'MaterialController@edit']);
 Route::any('/updateMaterial/{id}', ['as' => 'updateMaterial', 'uses' => 'MaterialController@update']);
 Route::get('/listAvailableMaterialItems', 'MaterialController@listAvailableMaterialItems');
+Route::get('/materialInformation/{id}', ['as' => 'materialInformation', 'uses' => 'MaterialController@materialInformation']);
 
 // Device
 Route::get('/viewManageDevice', 'DeviceController@index');
@@ -50,6 +51,7 @@ Route::get('/delDevice/{id}', ['as' => 'delDevice', 'uses' => 'DeviceController@
 Route::get('/editDevice/{id}', ['as' => 'editDevice', 'uses' => 'DeviceController@edit']);
 Route::any('/updateDevice/{id}', ['as' => 'updateDevice', 'uses' => 'DeviceController@update']);
 Route::get('/listAvailableDeviceItems', 'DeviceController@listAvailableDeviceItems');
+Route::get('/deviceInformation/{id}', ['as' => 'deviceInformation', 'uses' => 'DeviceController@deviceInformation']);
 
 // Order
 Route::get('/viewManageOrder', 'OrderController@index');
@@ -89,12 +91,12 @@ Route::any('/updateBringMaterial/{id}', ['as' => 'updateBringMaterial', 'uses' =
 Route::get('/delBringMaterialDetail/{id}', ['as' => 'delBringMaterialDetail', 'uses' => 'BringMaterialController@destroyDetail']);
 
 // Mapping Computer
-//Route::get('/viewManageMappingComputer', 'MappingComputerController@index');
-//Route::get('/viewFormMappingComputer', 'MappingComputerController@create');
-//Route::post('/addMappingComputer', 'MappingComputerController@store');
-//Route::get('/delMappingComputer/{id}', ['as' => 'delMappingComputer', 'uses' => 'MappingComputerController@destroy']);
-//Route::get('/editMappingComputer/{id}', ['as' => 'editMappingComputer', 'uses' => 'MappingComputerController@edit']);
-//Route::any('/updateMappingComputer/{id}', ['as' => 'updateMappingComputer', 'uses' => 'MappingComputerController@update']);
+Route::get('/viewManageMappingComputer', 'MappingComputerController@index');
+Route::get('/viewFormMappingComputer', 'MappingComputerController@create');
+Route::post('/addMappingComputer', 'MappingComputerController@store');
+Route::get('/delMappingComputer/{id}', ['as' => 'delMappingComputer', 'uses' => 'MappingComputerController@destroy']);
+Route::get('/editMappingComputer/{id}', ['as' => 'editMappingComputer', 'uses' => 'MappingComputerController@edit']);
+Route::any('/updateMappingComputer/{id}', ['as' => 'updateMappingComputer', 'uses' => 'MappingComputerController@update']);
 
 // Repair Device
 Route::get('/viewManageRepair', 'RepairController@index');

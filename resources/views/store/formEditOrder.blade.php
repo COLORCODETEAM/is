@@ -10,9 +10,7 @@ $orderDetails = $compact['orderDetails'];
         <div class="col-lg-12">
             <h1 class="page-header">สั่งซื้อวัสดุ-อุปกรณ์ </h1>
         </div>
-        <!-- /.col-lg-12 -->
     </div>
-    <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -53,14 +51,12 @@ $orderDetails = $compact['orderDetails'];
                             </div>
                         </div>
                     </div>
-                    <!-- /.row (nested) -->
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     รายการสั่งซื้อ
                                 </div>
-                                <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <div class="table-responsive">
                                         <table id="items-table" class="table table-striped table-bordered table-hover">
@@ -93,11 +89,9 @@ $orderDetails = $compact['orderDetails'];
                                     </div>
                                     <button type="button" id="openOrderItemsBtn" class="pull-right btn btn-primary">Add Items</button>
                                 </div>
-                                <!-- /.panel-body -->
                             </div>
                         </div>
                     </div>
-                    <!-- /.row (nested) -->
                     <div class="form-horizontal">
                         <div class="row">
                             <div class="col-lg-4">
@@ -208,15 +202,10 @@ $orderDetails = $compact['orderDetails'];
                             </div>
                         </div>
                     </div>
-                    <!-- /.row (nested) -->
                 </div>
-                <!-- /.panel-body -->
             </div>
-            <!-- /.panel -->
         </div>
-        <!-- /.col-lg-12 -->
     </div>
-    <!-- /.row -->
 </form>
 {!! Form::close() !!}
 @stop

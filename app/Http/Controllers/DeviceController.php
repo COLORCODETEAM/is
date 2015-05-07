@@ -8,6 +8,7 @@ use App\Device;
 use App\DeviceType;
 use App\Stock;
 use Illuminate\Support\Facades\DB;
+use DateUtils;
 
 class DeviceController extends Controller {
 
@@ -154,6 +155,31 @@ class DeviceController extends Controller {
             
             $rows[] = $row;
         }
+        
+        return json_encode($rows);
+    }
+    
+    public function deviceInformation($id) {
+        $device = Device::find($id);        
+        
+        $row['stock_name'] = $device->stock->name;
+        $row['id'] = $device->id;
+        $row['device_type_id'] = $device->device_type_id;
+        $row['device_no'] = $device->device_no;
+        $row['brand'] = $device->brand;
+        $row['model'] = $device->model;
+        $row['ip_address'] = $device->ip_address;
+        $row['description'] = $device->description;
+        $row['serial_no'] = $device->serial_no;
+        $row['warranty'] = $device->warranty;
+        $row['amount'] = $device->amount;
+        $row['create_user'] = $device->create_user;
+        $row['create_date'] = $device->create_date;
+        $row['update_user'] = $device->update_user;
+        $row['update_date'] = $device->update_date;
+        $row['flag'] = $device->flag;
+               
+        $rows[] = $row;
         
         return json_encode($rows);
     }

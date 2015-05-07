@@ -5,9 +5,7 @@
     <div class="col-lg-12">
         <h1 class="page-header">ยืม-คืนอุปกรณ์ </h1>
     </div>
-    <!-- /.col-lg-12 -->
 </div>
-<!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -98,7 +96,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
@@ -121,14 +118,11 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- /.table-responsive -->
                                 <button type="button" id="openDeviceItemsBtn" page="lend-device" class="pull-right btn btn-primary">Add Items</button>
                             </div>
-                            <!-- /.panel-body -->
                         </div>
                     </div>
                 </div>
-                <!-- /.row (nested) -->
                 <div class="form-horizontal">
                     <div class="row">
                         <div class="col-lg-4">
@@ -159,14 +153,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.row (nested) -->
             </div>
-            <!-- /.panel-body -->
         </div>
-        <!-- /.panel -->
     </div>
-    <!-- /.col-lg-12 -->
 </div>
-<!-- /.row -->
 {!! Form::close()!!}
 @stop 

@@ -3,7 +3,7 @@
 <form role="form">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">รายการเบิก-จ่ายวัสดุ</h1>
+            <h1 class="page-header">รายการเครื่องคอมพิวเตอร์</h1>
         </div>
     </div>
     <div class="row">
@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('BringMaterialController@create')}}"><button type="button" class="btn btn-primary">เบิกวัสดุ</button></a>
+                                <a href="{{ action('RoomBookingController@create')}}"><button type="button" class="btn btn-primary">เพิ่มคอมพิวเตอร์</button></a>
                             </div>
                         </div>
                     </div>
@@ -21,39 +21,42 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    รายการเบิก-จ่ายวัสดุ
+                                    รายการคอมพิวเตอร์
                                 </div>
+                                <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <div class="dataTable_wrapper">
                                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                             <thead>
                                                 <tr>
                                                     <th></th>
-                                                    <th>Withdraw No.</th>
-                                                    <th>Date</th>
-                                                    <th>Person</th>
+                                                    <th>Computer No.</th>
+                                                    <th>Computer Name</th>
                                                     <th>Purpose</th>
-                                                    <th>Approvement</th>
+                                                    <th>Date</th>
+                                                    <th>Start time</th>
+                                                    <th>Finish time</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($bringMaterials as $bringMaterial)
+                                                @foreach($bookingRooms as $bookingRoom)
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <a href="{{route('editBringMaterial',$bringMaterial['id'])}}" class="loadingButton form-control btn btn-default">แก้ไข</a>
-                                                                    <a href-link="{{route('delBringMaterial',$bringMaterial['id'])}}" class="form-control btn btn-danger" data-confirm="manage-page">ลบ</a>
+                                                                    <a href="{{route('editRoomBooking',$bookingRoom->id)}}" class="loadingButton form-control btn btn-default">แก้ไข</a>
+                                                                    <a href-link="{{route('delRoomBooking',$bookingRoom->id)}}" class="form-control btn btn-danger" data-confirm="manage-page">ลบ</a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>{{$bringMaterial['bring_no']}}</td>
-                                                    <td>{{DateUtils::getDateFromStr($bringMaterial['create_date'])}}</td>
-                                                    <td>{{$bringMaterial['withdraw_person']}}</td>
-                                                    <td>{{$bringMaterial['purpose']}}</td>
-                                                    <td>{{($bringMaterial['approvement']=='1' ? 'OK':'CANCEL')}}</td>
+                                                    <td>{{$bookingRoom->booking_no}}</td>
+                                                    <td>{{$bookingRoom->room->room_no}}</td>
+                                                    <td>{{$bookingRoom->purpose}}</td>
+                                                    <td>{{DateUtils::getDateFromStr($bookingRoom->start_time)}}</td>
+                                                    <td>{{DateUtils::getTimeFromStr($bookingRoom->start_time)}}</td>
+                                                    <td>{{DateUtils::getTimeFromStr($bookingRoom->end_time)}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

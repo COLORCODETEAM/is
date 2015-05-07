@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Request;
-use App\Stock;
-use App\Device;
+use App\MappingComputer;
+use App\MappingComputerDetail;
+use DateUtils;
 
 class MappingComputerController extends Controller {
 
@@ -15,7 +16,9 @@ class MappingComputerController extends Controller {
      * @return Response
      */
     public function index() {
+        $data = Device::where('flag', '=', '1')->get();
         
+        return view('store.manageMappingComputer')->with('computers', $data);
     }
 
     /**

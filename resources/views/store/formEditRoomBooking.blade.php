@@ -11,9 +11,7 @@ $roomBookingDetails = $compact['bookingRoomDetails'];
         <div class="col-lg-12">
             <h1 class="page-header">จองห้อง และอุปกรณ์ </h1>
         </div>
-        <!-- /.col-lg-12 -->
     </div>
-    <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -58,7 +56,7 @@ $roomBookingDetails = $compact['bookingRoomDetails'];
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Purpose of use : </label>
                                     <div class="col-lg-6">
-				    <textarea class="form-control" rows="3" name="purpose">{{$roomBooking['events']}}</textarea>
+                                        <textarea class="form-control" rows="3" name="purpose">{{$roomBooking['events']}}</textarea>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
@@ -157,14 +155,12 @@ $roomBookingDetails = $compact['bookingRoomDetails'];
                             </div>
                         </div>
                     </div>
-                    <!-- /.row (nested) -->
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     Service/equipment needed
                                 </div>
-                                <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <div class="table-responsive">
                                         <table id="items-table" class="table table-striped table-bordered table-hover">
@@ -180,7 +176,14 @@ $roomBookingDetails = $compact['bookingRoomDetails'];
                                                 @foreach ($roomBookingDetails as $roomBookingDetail)
                                                 <tr>
                                             <input type="hidden" flag="new" name="hiddenRoomBookingDetailId[]" value="{{ $roomBookingDetail->id }}">
-                                            <td><a href-link="{{ route('delRoomBookingDetail',$roomBookingDetail->id) }}" class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>
+                                            <td class="col-lg-2">
+                                                <div class="col-lg-8" style="padding:0 0 0 5px;">
+                                                    <a href-link="{{ route('deviceInformation',$roomBookingDetail->device_id) }}" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>
+                                                </div>
+                                                <div class="col-lg-4" style="padding:0 0 0 5px;">
+                                                    <a href-link="{{ route('delRoomBookingDetail',$roomBookingDetail->id) }}" class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>
+                                                </div>
+                                            </td>
                                             <td>{{ $roomBookingDetail->device->device_no }}</td>
                                             <td>{{ $roomBookingDetail->device->description }}</td>
                                             <td><input class="form-control" name="amount[]" disabled value="{{ $roomBookingDetail->amount }}"/></td>
@@ -189,10 +192,8 @@ $roomBookingDetails = $compact['bookingRoomDetails'];
                                             </tbody>
                                         </table>
                                     </div>
-                                    <!-- /.table-responsive -->
                                     <button type="button" id="openDeviceItemsBtn" page="room-booking" class="pull-right btn btn-primary">Add Items</button>
                                 </div>
-                                <!-- /.panel-body -->
                             </div>
                         </div>
                     </div>
@@ -204,12 +205,8 @@ $roomBookingDetails = $compact['bookingRoomDetails'];
                         </div>
                     </div>
                 </div>
-                <!-- /.panel-body -->
             </div>
-            <!-- /.panel -->
         </div>
-        <!-- /.col-lg-12 -->
     </div>
-    <!-- /.row -->
 </form>
 @stop

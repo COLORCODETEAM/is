@@ -7,6 +7,7 @@ use Request;
 use App\Stock;
 use App\Material;
 use Illuminate\Support\Facades\DB;
+use DateUtils;
 
 class MaterialController extends Controller {
 
@@ -136,6 +137,28 @@ class MaterialController extends Controller {
             
             $rows[] = $row;
         }
+        
+        return json_encode($rows);
+    }
+    
+    public function materialInformation($id) {
+        $material = Material::find($id);        
+        
+        $row['stock_name'] = $material->stock->name;
+        $row['id'] = $material->id;
+        $row['material_no'] = $material->material_no;
+        $row['brand'] = $material->brand;
+        $row['model'] = $material->model;
+        $row['description'] = $material->description;
+        $row['serial_no'] = $material->serial_no;
+        $row['amount'] = $material->amount;
+        $row['create_user'] = $material->create_user;
+        $row['create_date'] = $material->create_date;
+        $row['update_user'] = $material->update_user;
+        $row['update_date'] = $material->update_date;
+        $row['flag'] = $material->flag;
+               
+        $rows[] = $row;
         
         return json_encode($rows);
     }
