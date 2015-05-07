@@ -55,15 +55,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="control-label col-lg-2">Withdraw person : </label>
-                                <div class="col-lg-3">
+                                <label class="control-label col-lg-4">Withdraw person : </label>
+                                <div class="col-lg-6">
                                     <input class="form-control" name="withdrawPerson" required/>
                                     <div class="help-block with-errors"></div>
                                 </div>
-                                <label class="control-label col-lg-2 col-lg-offset-1">Email address : </label>
-                                <div class="col-lg-3">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="control-label col-lg-4">Email address : </label>
+                                <div class="col-lg-6">
                                     <input class="form-control" name="email"/>
                                     <div class="help-block with-errors"></div>
                                 </div>

@@ -124,6 +124,7 @@ class RoomBookingController extends Controller {
         $bookingRoom->purpose = $input ['purpose'];
         $bookingRoom->description = $input ['description'];
         $bookingRoom->contact_person = $input ['contactPerson'];
+        $bookingRoom->email = $input ['email'];
         $bookingRoom->start_time = DateUtils::getConcatDBDateTime($input['eventDate'], $input ['startTime']);
         $bookingRoom->end_time = DateUtils::getConcatDBDateTime($input['eventDate'], $input ['endTime']);
         $bookingRoom->update_user = '1';

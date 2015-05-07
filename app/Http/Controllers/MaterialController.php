@@ -124,7 +124,8 @@ class MaterialController extends Controller {
 
     public function listAvailableMaterialItems() {
         $materials = DB::select('select * from view_availableMaterial');
-
+        $rows = '';
+        
         foreach ($materials as $material) {
             $row['id'] = $material->id;
             $row['stockName'] = $material->stock_name;
@@ -142,7 +143,7 @@ class MaterialController extends Controller {
     }
     
     public function materialInformation($id) {
-        $material = Material::find($id);        
+        $material = Material::find($id);   
         
         $row['stock_name'] = $material->stock->name;
         $row['id'] = $material->id;

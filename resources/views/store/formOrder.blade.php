@@ -78,8 +78,9 @@
                     </div>
                     <div class="form-horizontal">
                         <div class="row">
-                            <div class="col-lg-4">
-                                <div class="form-group">
+                            <div class="col-lg-12">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
                                     <label class="control-label col-lg-6">Order by : </label>
                                     <div class="col-lg-6">
                                         <input class="form-control" name="orderBy" required/>
@@ -87,10 +88,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-8">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-3">Date of Order : </label>
-                                    <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-6">Date of Order : </label>
+                                        <div class="col-lg-6">
                                         <div class=" input-group">
                                             <input class="form-control datepicker" name="orderDate" value="{{DateUtils::getDate()}}" required/>
                                             <span class="input-group-addon">
@@ -101,9 +102,11 @@
                                     </div>
                                 </div>
                             </div>
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-12">
+                                <div class="col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label col-lg-6">Approvement : </label>
                                     <div class="col-lg-6">
@@ -115,10 +118,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-8">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-3">Date of Approved : </label>
-                                    <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-6">Date of Approved : </label>
+                                        <div class="col-lg-6">
                                         <div class=" input-group">
                                             <input class="form-control datepicker" name="approvedDate" value="{{DateUtils::getDate()}}" required/>
                                             <span class="input-group-addon">
@@ -128,10 +131,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-12">
+                                <div class="col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label col-lg-6">Received by : </label>
                                     <div class="col-lg-6">
@@ -140,12 +145,39 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label class="control-label col-lg-3">Date of Received : </label>
-                                    <div class="col-lg-6">
+                                        <label class="control-label col-lg-6">Date of Received : </label>
+                                        <div class="col-lg-6">
                                         <div class=" input-group">
                                             <input class="form-control datepicker" name="receivedDate" value="{{DateUtils::getDate()}}" required/>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-6">Checked by : </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="checkedBy"/>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-6">Date of Checked : </label>
+                                        <div class="col-lg-6">
+                                        <div class=" input-group">
+                                            <input class="form-control datepicker" name="checkedDate" value="{{DateUtils::getDate()}}" required/>
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
@@ -155,30 +187,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-6">Checked by : </label>
-                                    <div class="col-lg-6">
-                                        <input class="form-control" name="checkedBy"/>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-8">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-3">Date of Checked : </label>
-                                    <div class="col-lg-6">
-                                        <div class=" input-group">
-                                            <input class="form-control datepicker" name="receivedDate" value="{{DateUtils::getDate()}}" required/>
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </span>
-                                            <div class="help-block with-errors"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-12">

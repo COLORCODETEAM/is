@@ -105,7 +105,7 @@
                                     <li><a href="{{ action('StockController@index')}}">จัดการคลัง</a></li>
                                     <li><a href="{{ action('MaterialController@index')}}">จัดการวัสดุ</a></li>
                                     <li><a href="{{ action('DeviceController@index')}}">จัดการอุปกรณ์</a></li>
-                                    <li><a href="{{ action('DeviceController@index')}}">จัดการเครื่องคอมพิวเตอร์</a></li>
+                                    <!--<li><a href="{{-- action('MappingComputerController@index')--}}">จัดการเครื่องคอมพิวเตอร์</a></li>-->
                                     <li><a href="{{ action('RoomController@index') }}"> จัดการห้องแลป</a></li>
                                 </ul></li>
                             <li><a href="{{ action('OrderController@index') }}"><i
@@ -201,7 +201,7 @@
                     var btn = $(this).button('loading');
                         setTimeout(function () {
                             btn.button('reset');
-                        }, 6000); 
+                        }, 5000); 
                 });
                 
                 // ================== fullcalendar ================== 
@@ -264,7 +264,6 @@
                                 '<td>' +val.description+ '</td>' +
                                 '<td>' +val.serial_no+ '</td>' +
                                 '<td>' +val.warranty+ '</td>' +
-                                '<td>' +val.amount+ '</td>' +
                             '</tr>';
                             rows += row;
                         });
@@ -294,7 +293,6 @@
                                 '<td>' +val.model+ '</td>' +
                                 '<td>' +val.description+ '</td>' +
                                 '<td>' +val.serial_no+ '</td>' +
-                                '<td>' +val.amount+ '</td>' +
                             '</tr>';
                             rows += row;
                         });
@@ -388,7 +386,7 @@
                                                 '</td>' +
                                                 '<td>' + device_no + '</td>' +
                                                 '<td>' + description + '</td>' +
-                                                '<td><input class="form-control" name="amount[]"/></td>' +
+                                                '<td><input class="form-control" name="amount[]" value="1"/></td>' +
                                               '</tr>';
                                         break;
                                     case 'lend-device':
@@ -404,7 +402,7 @@
                                                 '</td>' +
                                                 '<td>' + device_no + '</td>' +
                                                 '<td>' + description + '</td>' +
-                                                '<td><input class="form-control" name="amount[]"/></td>' +
+                                                '<td><input class="form-control" name="amount[]" value="1"/></td>' +
                                               '</tr>';
                                         break;
                                 }
@@ -740,7 +738,6 @@
                                         <th>Item Description</th>
                                         <th>Serial No.</th>
                                         <th>Warranty</th>
-                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -772,7 +769,6 @@
                                         <th>Model</th>
                                         <th>Item Description</th>
                                         <th>Serial No.</th>
-                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>

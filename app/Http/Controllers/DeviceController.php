@@ -141,6 +141,7 @@ class DeviceController extends Controller {
 
     public function listAvailableDeviceItems() {
         $devices = DB::select('select * from view_availableDevice');
+        $rows = '';
 
         foreach ($devices as $device) {
             $row['id'] = $device->id;
@@ -160,7 +161,7 @@ class DeviceController extends Controller {
     }
     
     public function deviceInformation($id) {
-        $device = Device::find($id);        
+        $device = Device::find($id); 
         
         $row['stock_name'] = $device->stock->name;
         $row['id'] = $device->id;

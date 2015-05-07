@@ -116,18 +116,20 @@ class RepairController extends Controller {
         $repairDevice->save();
         
         // save details
-        $items = $input ['hiddenDeviceId'];
-        $i = 0;
-        foreach ($items as $item) {
-            $detail = new RepairDeviceDetail();
-            $detail->device_id = $item;
-            $detail->symptom = $input ['symptom'][$i];
-            $detail->flag = '1';
-            
-            $details[] = $detail;
-            $i++;
+        if (isset($input ['hiddenDeviceId'])) {
+            $items = $input ['hiddenDeviceId'];
+            $i = 0;
+            foreach ($items as $item) {
+                $detail = new RepairDeviceDetail();
+                $detail->device_id = $item;
+                $detail->symptom = $input ['symptom'][$i];
+                $detail->flag = '1';
+
+                $details[] = $detail;
+                $i++;
+            }
+            $repairDevice->repairDeviceDetail()->saveMany($details);
         }
-        $repairDevice->repairDeviceDetail()->saveMany($details);
         
         return redirect('viewManageRepair');
     }
