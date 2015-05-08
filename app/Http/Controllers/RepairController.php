@@ -17,7 +17,7 @@ class RepairController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = RepairDevice::where('flag', '=', '1')->get();
+        $data = RepairDevice::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
         
         return view('store.manageRepair')->with('repairDevices', $data);
     }

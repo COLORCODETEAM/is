@@ -17,7 +17,7 @@ class OrderController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = Order::where('flag', '=', '1')->get();
+        $data = Order::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
         
         return view('store.manageOrder')->with('orders', $data);
     }

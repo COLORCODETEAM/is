@@ -18,7 +18,7 @@ class LendDeviceController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = LendDevice::where('flag', '=', '1')->get();
+        $data = LendDevice::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
         
         return view('store.manageLendDevice')->with('lendDevices', $data);
     }

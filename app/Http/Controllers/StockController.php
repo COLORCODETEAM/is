@@ -15,7 +15,7 @@ class StockController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = Stock::where('flag', '=', '1')->get();
+        $data = Stock::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
         
         return view('store.manageStock')->with('stocks', $data);
     }

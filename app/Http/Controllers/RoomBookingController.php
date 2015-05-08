@@ -17,7 +17,7 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function index() {
-        $data =  BookingRoom::where('flag', '=', '1')->get();
+        $data =  BookingRoom::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
 
         return view('store.manageRoomBooking')->with('bookingRooms', $data);
     }

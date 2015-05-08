@@ -18,7 +18,7 @@ class DeviceController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = Device::where('flag', '=', '1')->get();
+        $data = Device::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
         
         return view('store.manageDevice')->with('devices', $data);
     }
@@ -140,7 +140,7 @@ class DeviceController extends Controller {
     }
 
     public function listAvailableDeviceItems() {
-        $devices = DB::select('select * from view_availableDevice');
+        $devices = DB::select('SELECT * FROM view_availableDevice ORDER BY create_date DESC');
         $rows = '';
 
         foreach ($devices as $device) {

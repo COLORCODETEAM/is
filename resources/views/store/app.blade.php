@@ -104,6 +104,8 @@
                 @endif
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
+                        @if(Auth::check())
+                        @if(Auth::user()->id == '1')
                         <ul class="nav" id="side-menu">
                             <li><a href><i class="fa fa-folder-open fa-fw"></i> การจัดการ<span
                                         class="fa arrow"></span></a>
@@ -125,6 +127,13 @@
                             <li><a href="{{ action('RepairController@index')}}"><i
                                         class="fa fa-wrench fa-fw"></i> แจ้งซ่อมอุปกรณ์</a></li>
                         </ul>
+                        @elseif (Auth::user()->id == '3')
+                            <ul class="nav" id="side-menu">
+                                <li><a href="{{ action('RepairController@index')}}"><i
+                                            class="fa fa-wrench fa-fw"></i> แจ้งซ่อมอุปกรณ์</a></li>
+                            </ul>
+                        @endif
+                        @endif
                     </div>
                     <!-- /.sidebar-collapse -->
                 </div>

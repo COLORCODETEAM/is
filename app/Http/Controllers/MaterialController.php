@@ -17,7 +17,7 @@ class MaterialController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = Material::where('flag', '=', '1')->get();
+        $data = Material::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
         
         return view('store.manageMaterial')->with('materials', $data);
     }
@@ -123,7 +123,7 @@ class MaterialController extends Controller {
     }
 
     public function listAvailableMaterialItems() {
-        $materials = DB::select('select * from view_availableMaterial');
+        $materials = DB::select('SELECT * FROM view_availableMaterial ORDER BY create_date DESC');
         $rows = '';
         
         foreach ($materials as $material) {

@@ -15,7 +15,7 @@ class RoomController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = Room::where('flag', '=', '1')->get();
+        $data = Room::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
         
         return view('store.manageRoom')->with('rooms', $data);
     }

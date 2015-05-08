@@ -17,7 +17,7 @@ class BringMaterialController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = BringMaterial::where('flag', '=', '1')->get();
+        $data = BringMaterial::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
                 
         return view('store.manageBringMaterial')->with('bringMaterials', $data);
     }
