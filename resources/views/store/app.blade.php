@@ -78,7 +78,7 @@
                         และห้องแลป</a>
                 </div>
                 <!-- /.navbar-header -->
-
+                @if(Auth::check())
                 <ul class="nav navbar-top-links navbar-right">
                     <li style="padding-left: 15px;"><span> สวัสดี, Admin</span></li>
                     <li class="dropdown"><a class="dropdown-toggle"
@@ -89,13 +89,19 @@
                             <li><a href="#"><i class="fa fa-user fa-fw"></i> ตั้งค่า
                                     ข้อมูลผู้ใช้</a></li>
                             <li class="divider"></li>
-                            <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>
+                            <li><a href="{{action('Auth\AuthController@getLogout')}}"><i class="fa fa-sign-out fa-fw"></i>
                                     ออกจากระบบ</a></li>
                         </ul> <!-- /.dropdown-user --></li>
                     <!-- /.dropdown -->
                 </ul>
                 <!-- /.navbar-top-links -->
+                @else
 
+                <ul class="nav navbar-top-links navbar-right">
+                    <li style="padding-left: 15px;"><span>You are not signed in. Please <a href="{{action('Auth\AuthController@getLogin')}}">Login</a> Or <a href="{{action('Auth\AuthController@getRegister')}}">Register</a></span></li>
+
+                </ul>
+                @endif
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
@@ -105,7 +111,7 @@
                                     <li><a href="{{ action('StockController@index')}}">จัดการคลัง</a></li>
                                     <li><a href="{{ action('MaterialController@index')}}">จัดการวัสดุ</a></li>
                                     <li><a href="{{ action('DeviceController@index')}}">จัดการอุปกรณ์</a></li>
-                                    <!--<li><a href="{{-- action('MappingComputerController@index')--}}">จัดการเครื่องคอมพิวเตอร์</a></li>-->
+                                    <li><a href="{{ action('DeviceController@index')}}">จัดการเครื่องคอมพิวเตอร์</a></li>
                                     <li><a href="{{ action('RoomController@index') }}"> จัดการห้องแลป</a></li>
                                 </ul></li>
                             <li><a href="{{ action('OrderController@index') }}"><i
@@ -141,7 +147,7 @@
         <!-- Bootstrap validator -->
         <script
         src="{{ asset('store/components/bootstrap-validator/dist/validator.min.js')}}"></script>
-        
+
         <!-- Datepicker 1.4.0 -->
         <script
         src="{{ asset('store/components/bootstrap-datepicker-1.4.0/js/bootstrap-datepicker.min.js')}}"></script>
@@ -170,385 +176,387 @@
         src="{{ asset('store/components/fullcalendar/fullcalendar.min.js')}}"></script>
 
         <script>
-            $(document).ready(function () {
+$(document).ready(function () {
 
-                // ================== validator ================== 
-                $('form').validator().on('submit', function (e) {
-                    if (e.isDefaultPrevented()) {
-                      // handle the invalid form...
-                    } else {
-                        // Add loading button
-                        var btn = $('button[type="submit"]').button('loading');
-                        setTimeout(function () {
-                            btn.button('reset');
-                        }, 6000); 
-                    }
-                });
-                $('#orderItemsPopupForm').validator().on('submit', function (e) {
-                    if (e.isDefaultPrevented()) {
-                      // handle the invalid form...
-                    } else {
-                        // Add loading button
-                        var btn = $('button[type="submit"]').button('loading');
-                        setTimeout(function () {
-                            btn.button('reset');
-                        }, 5000); 
-                    }
-                });
-                
-                // ================== Loading button ================== 
-                $('.loadingButton').on('click', function(e){
-                    var btn = $(this).button('loading');
-                        setTimeout(function () {
-                            btn.button('reset');
-                        }, 5000); 
-                });
-                
-                // ================== fullcalendar ================== 
-                $('#event_calendar').fullCalendar({
-                    defaultView: 'agendaDay',
-                    editable: false,
-                    eventLimit: true, // allow "more" link when too many events
-                    events: "{{url('bookingCalendar')}}"
-                });
- 
-                // ================ Table responsive =============== 
-                $('#dataTables-example').DataTable({
-                    responsive: true
-                });
-                
-                // ================== datepicker ================== 
-                $('.datepicker').datepicker({
-                    format: 'dd/mm/yyyy'
-                });
+    // ================== validator ================== 
+    $('form').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+            // handle the invalid form...
+        } else {
+            // Add loading button
+            var btn = $('button[type="submit"]').button('loading');
+            setTimeout(function () {
+                btn.button('reset');
+            }, 6000);
+        }
+    });
+    $('#orderItemsPopupForm').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+            // handle the invalid form...
+        } else {
+            // Add loading button
+            var btn = $('button[type="submit"]').button('loading');
+            setTimeout(function () {
+                btn.button('reset');
+            }, 5000);
+        }
+    });
 
-                // ================== timepicker ================== 
-                $('.timepicker').timepicker();
+    // ================== Loading button ================== 
+    $('.loadingButton').on('click', function (e) {
+        var btn = $(this).button('loading');
+        setTimeout(function () {
+            btn.button('reset');
+        }, 6000);
+    });
 
-                // =============== Confirm popup =================
-                $('body').on('click', 'a[data-confirm]', function(e) {
-                    var type = $(this).attr('data-confirm');
+    // ================== fullcalendar ================== 
+    $('#event_calendar').fullCalendar({
+        defaultView: 'agendaDay',
+        editable: false,
+        eventLimit: true, // allow "more" link when too many events
+        events: "{{url('bookingCalendar')}}"
+    });
 
-                    switch (type) {
-                        case 'manage-page':
-                            var href = $(this).attr('href-link');
-                            $('#confirmDeletePopupYesBtn').attr('href', href);
-                            break;
-                        case 'table-items':
-                            var node = $(this).parent().parent().parent();
-                            var href = $(this).attr('href-link');
-                            $('#confirmDeletePopupYesBtn').click(function(e) {
-                                node.remove();
-                                $.getJSON(href, function (data) {
-                                   // TODO
-                                });
-                                $('#confirmDeletePopup').modal('hide');
-                            });
-                            break;
-                    }
-                    $('#confirmDeletePopup').modal('show');
-                });
-                
-                // =========== Device item detail popup ============
-                $('body').on('click', '.deviceItemDetailPopup', function(e) {
-                    var btn = $(this).button('loading');
-                    var href = $(this).attr('href-link');
-                    var rows = '';
+    // ================ Table responsive =============== 
+    $('#dataTables-example').DataTable({
+        responsive: true
+    });
+
+    // ================== datepicker ================== 
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy'
+    });
+
+    // ================== timepicker ================== 
+    $('.timepicker').timepicker();
+
+    // =============== Confirm popup =================
+    $('body').on('click', 'a[data-confirm]', function (e) {
+        var type = $(this).attr('data-confirm');
+
+        switch (type) {
+            case 'manage-page':
+                var href = $(this).attr('href-link');
+                $('#confirmDeletePopupYesBtn').attr('href', href);
+                break;
+            case 'table-items':
+                var node = $(this).parent().parent().parent();
+                var href = $(this).attr('href-link');
+                $('#confirmDeletePopupYesBtn').click(function (e) {
+                    node.remove();
                     $.getJSON(href, function (data) {
-                        $.each( data, function( i, val ) {
-                            var row = '<tr>' +
-                                '<td>' +val.stock_name+ '</td>' +
-                                '<td>' +val.device_no+ '</td>' +
-                                '<td>' +val.brand+ '</td>' +
-                                '<td>' +val.model+ '</td>' +
-                                '<td>' +val.description+ '</td>' +
-                                '<td>' +val.serial_no+ '</td>' +
-                                '<td>' +val.warranty+ '</td>' +
-                            '</tr>';
-                            rows += row;
-                        });
-                    }).done(function(e) {
-                        $('#dataTables-deviceItemDetailPopup tbody').empty();
-                        $('#dataTables-deviceItemDetailPopup tbody').append(rows);
-                        $('#deviceItemDetailPopup').modal({
-                            show: 'true'
-                        });
+                        // TODO
                     });
-                    setTimeout(function () {
-                        btn.button('reset');
-                    }, 3000);
+                    $('#confirmDeletePopup').modal('hide');
                 });
-                
-                // =========== Material item detail popup ===========
-                $('body').on('click', '.materialItemDetailPopup', function(e) {
-                    var btn = $(this).button('loading');
-                    var href = $(this).attr('href-link');
-                    var rows = '';
-                    $.getJSON(href, function (data) {
-                        $.each( data, function( i, val ) {
-                            var row = '<tr>' +
-                                '<td>' +val.stock_name+ '</td>' +
-                                '<td>' +val.material_no+ '</td>' +
-                                '<td>' +val.brand+ '</td>' +
-                                '<td>' +val.model+ '</td>' +
-                                '<td>' +val.description+ '</td>' +
-                                '<td>' +val.serial_no+ '</td>' +
-                            '</tr>';
-                            rows += row;
-                        });
-                    }).done(function(e) {
-                        $('#dataTables-materialItemDetailPopup tbody').empty();
-                        $('#dataTables-materialItemDetailPopup tbody').append(rows);
-                        $('#materialItemDetailPopup').modal({
-                            show: 'true'
-                        });
-                    });
-                    setTimeout(function () {
-                        btn.button('reset');
-                    }, 3000);
-                });
+                break;
+        }
+        $('#confirmDeletePopup').modal('show');
+    });
 
-                // ============== Device items popup ==============
-                $('#openDeviceItemsBtn').on('click', function(e) {
-                    var btn = $(this).button('loading');
-                    var rows = '';
-                    // Load data
-                    $.getJSON("{{url('listAvailableDeviceItems')}}", function (data) {
-                        $.each( data, function( i, val ) {
-                            var row = '<tr>' +
-                                '<input type="hidden" name="hiddenDeviceIdPopup" value="' +val.id+ '">' +
-                                '<td><input type="checkbox" name="itemCbx[]"></td>' +
-                                '<td>' +val.stockName+ '</td>' +
-                                '<td>' +val.deviceNo+ '</td>' +
-                                '<td>' +val.brand+ '</td>' +
-                                '<td>' +val.model+ '</td>' +
-                                '<td>' +val.description+ '</td>' +
-                                '<td>' +val.serialNo+ '</td>' +
-                                '<td>' +val.warranty+ '</td>' +
-                                '<td>' +val.amount+ '</td>' +
-                            '</tr>';
-                            rows += row;
-                        });
-                    }).done(function(e) {
-                        $('#dataTables-deviceItemsPopup tbody').empty();
-                        $('#dataTables-deviceItemsPopup tbody').append(rows);
-                        $('#dataTables-deviceItemsPopup').dataTable({
+    // =========== Device item detail popup ============
+    $('body').on('click', '.deviceItemDetailPopup', function (e) {
+        var btn = $(this).button('loading');
+        var href = $(this).attr('href-link');
+        var rows = '';
+        $.getJSON(href, function (data) {
+            $.each(data, function (i, val) {
+                var row = '<tr>' +
+                        '<td>' + val.stock_name + '</td>' +
+                        '<td>' + val.device_no + '</td>' +
+                        '<td>' + val.brand + '</td>' +
+                        '<td>' + val.model + '</td>' +
+                        '<td>' + val.description + '</td>' +
+                        '<td>' + val.serial_no + '</td>' +
+                        '<td>' + val.warranty + '</td>' +
+                        '<td>' + val.amount + '</td>' +
+                        '</tr>';
+                rows += row;
+            });
+        }).done(function (e) {
+            $('#dataTables-deviceItemDetailPopup tbody').empty();
+            $('#dataTables-deviceItemDetailPopup tbody').append(rows);
+            $('#deviceItemDetailPopup').modal({
+                show: 'true'
+            });
+        });
+        setTimeout(function () {
+            btn.button('reset');
+        }, 3000);
+    });
+
+    // =========== Material item detail popup ===========
+    $('body').on('click', '.materialItemDetailPopup', function (e) {
+        var btn = $(this).button('loading');
+        var href = $(this).attr('href-link');
+        var rows = '';
+        $.getJSON(href, function (data) {
+            $.each(data, function (i, val) {
+                var row = '<tr>' +
+                        '<td>' + val.stock_name + '</td>' +
+                        '<td>' + val.material_no + '</td>' +
+                        '<td>' + val.brand + '</td>' +
+                        '<td>' + val.model + '</td>' +
+                        '<td>' + val.description + '</td>' +
+                        '<td>' + val.serial_no + '</td>' +
+                        '<td>' + val.amount + '</td>' +
+                        '</tr>';
+                rows += row;
+            });
+        }).done(function (e) {
+            $('#dataTables-materialItemDetailPopup tbody').empty();
+            $('#dataTables-materialItemDetailPopup tbody').append(rows);
+            $('#materialItemDetailPopup').modal({
+                show: 'true'
+            });
+        });
+        setTimeout(function () {
+            btn.button('reset');
+        }, 3000);
+    });
+
+    // ============== Device items popup ==============
+    $('#openDeviceItemsBtn').on('click', function (e) {
+        var btn = $(this).button('loading');
+        var rows = '';
+        // Load data
+        $.getJSON("{{url('listAvailableDeviceItems')}}", function (data) {
+            $.each(data, function (i, val) {
+                var row = '<tr>' +
+                        '<input type="hidden" name="hiddenDeviceIdPopup" value="' + val.id + '">' +
+                        '<td><input type="checkbox" name="itemCbx[]"></td>' +
+                        '<td>' + val.stockName + '</td>' +
+                        '<td>' + val.deviceNo + '</td>' +
+                        '<td>' + val.brand + '</td>' +
+                        '<td>' + val.model + '</td>' +
+                        '<td>' + val.description + '</td>' +
+                        '<td>' + val.serialNo + '</td>' +
+                        '<td>' + val.warranty + '</td>' +
+                        '<td>' + val.amount + '</td>' +
+                        '</tr>';
+                rows += row;
+            });
+        }).done(function (e) {
+            $('#dataTables-deviceItemsPopup tbody').empty();
+            $('#dataTables-deviceItemsPopup tbody').append(rows);
+            $('#dataTables-deviceItemsPopup').dataTable({
 //                            "scrollX": true, 
-                            "responsive": true,
-                            "bDestroy": true,
-                            "lengthMenu": [[5], [5]]
-                        });
-                        $('#deviceItemsPopup').modal({
-                            show: 'true'
-                        });
-                        // Add items to main-page
-                        $('#addDeviceItemsBtn').unbind('click');
-                        $('#addDeviceItemsBtn').on('click', function (e) {
-                            var page = $('#openDeviceItemsBtn').attr('page');
-                            var nodeCheck = $('#dataTables-deviceItemsPopup tbody input:checked').parent().parent();
+                "responsive": true,
+                "bDestroy": true,
+                "lengthMenu": [[5], [5]]
+            });
+            $('#deviceItemsPopup').modal({
+                show: 'true'
+            });
+            // Add items to main-page
+            $('#addDeviceItemsBtn').unbind('click');
+            $('#addDeviceItemsBtn').on('click', function (e) {
+                var page = $('#openDeviceItemsBtn').attr('page');
+                var nodeCheck = $('#dataTables-deviceItemsPopup tbody input:checked').parent().parent();
 
-                            nodeCheck.each(function () {
-                                var device_id = $(this).find('input[name="hiddenDeviceIdPopup"]').val();
-                                var row = $(this).find('td').first();
-                                var device_no = row.next().next().text();
-                                var description = row.next().next().next().next().next().text();
-                                var serial_no = row.next().next().next().next().next().next().text();
+                nodeCheck.each(function () {
+                    var device_id = $(this).find('input[name="hiddenDeviceIdPopup"]').val();
+                    var row = $(this).find('td').first();
+                    var device_no = row.next().next().text();
+                    var description = row.next().next().next().next().next().text();
+                    var serial_no = row.next().next().next().next().next().next().text();
 
-                                var row = '';
-                                switch (page) {
-                                    case 'repair':
-                                        row = '<tr>' +
-                                                '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
-                                                '<td class="col-lg-2">' +
-                                                    '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
-                                                        '<a href-link="http://localhost/is/public/deviceInformation/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
-                                                    '</div>' +
-                                                    '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
-                                                        '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
-                                                    '</div>' +
-                                                '</td>' +
-                                                '<td>' + device_no + '</td>' +
-                                                '<td>' + description + '</td>' +
-                                                '<td>' + serial_no + '</td>' +
-                                                '<td><input class="form-control" name="symptom[]"/></td>' +
-                                              '</tr>';
-                                        break;
-                                    case 'room-booking':
-                                        row = '<tr>' +
-                                                '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
-                                                '<td class="col-lg-2">' +
-                                                    '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
-                                                        '<a href-link="http://localhost/is/public/deviceInformation/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
-                                                    '</div>' +
-                                                    '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
-                                                        '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
-                                                    '</div>' +
-                                                '</td>' +
-                                                '<td>' + device_no + '</td>' +
-                                                '<td>' + description + '</td>' +
-                                                '<td><input class="form-control" name="amount[]" value="1"/></td>' +
-                                              '</tr>';
-                                        break;
-                                    case 'lend-device':
-                                        row = '<tr>' +
-                                                '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
-                                                '<td class="col-lg-2">' +
-                                                    '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
-                                                        '<a href-link="http://localhost/is/public/deviceInformation/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
-                                                    '</div>' +
-                                                    '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
-                                                        '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
-                                                    '</div>' +
-                                                '</td>' +
-                                                '<td>' + device_no + '</td>' +
-                                                '<td>' + description + '</td>' +
-                                                '<td><input class="form-control" name="amount[]" value="1"/></td>' +
-                                              '</tr>';
-                                        break;
-                                }
-                                $('#items-table tbody').append(row);
-                            });
-                        });
-                    });
-                    setTimeout(function () {
-                        btn.button('reset');
-                    }, 5000);
-                });
-                
-                // ============== Material items popup ===============
-                $('#openMaterialItemsBtn').on('click', function(e) {
-                    var btn = $(this).button('loading');
-                    var rows = '';
-                    // Load data
-                    $.getJSON("{{url('listAvailableMaterialItems')}}", function (data) {
-                        $.each( data, function( i, val ) {
-                            var row = '<tr>' +
-                                '<input type="hidden" name="hiddenMaterialIdPopup" value="' +val.id+ '">' +
-                                '<td><input type="checkbox" name="itemCbx[]"></td>' +
-                                '<td>' +val.stockName+ '</td>' +
-                                '<td>' +val.materialNo+ '</td>' +
-                                '<td>' +val.brand+ '</td>' +
-                                '<td>' +val.model+ '</td>' +
-                                '<td>' +val.description+ '</td>' +
-                                '<td>' +val.serialNo+ '</td>' +
-                                '<td>' +val.amount+ '</td>' +
-                            '</tr>';
-                            rows += row;
-                        });
-                    }).done(function(e) {
-                        $('#dataTables-materialItemsPopup tbody').empty();
-                        $('#dataTables-materialItemsPopup tbody').append(rows);
-                        $('#dataTables-materialItemsPopup').dataTable({
-//                            "scrollX": true, 
-                            "responsive": true,
-                            "bDestroy": true,
-                            "lengthMenu": [[5], [5]]
-                        });
-                        $('#materialItemsPopup').modal({
-                            show: 'true'
-                        });
-                        // Add items to main-page
-                        $('#addMaterialItemsBtn').unbind('click');
-                        $('#addMaterialItemsBtn').on('click', function (e) {
-                            var page = $('#openMaterialItemsBtn').attr('page');
-                            var nodeCheck = $('#dataTables-materialItemsPopup tbody input:checked').parent().parent();
-
-                            nodeCheck.each(function () {
-                                var material_id = $(this).find('input[name="hiddenMaterialIdPopup"]').val();
-                                var row = $(this).find('td').first();
-                                var material_no = row.next().next().text();
-                                var description = row.next().next().next().next().next().text();
-                                var amount = row.next().next().next().next().next().next().next().text();
-
-                                var row = '';
-                                switch (page) {
-                                    case 'bring':
-                                        row = '<tr>' +
-                                                '<input type="hidden" flag="new" name="hiddenMaterialId[]" value="' + material_id + '">' +
-                                                '<td class="col-lg-2">' +
-                                                    '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
-                                                        '<a href-link="http://localhost/is/public/materialInformation/' + material_id + '" class="materialItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
-                                                    '</div>' +
-                                                    '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
-                                                        '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
-                                                    '</div>' +
-                                                '</td>' +
-                                                '<td>' + material_no + '</td>' +
-                                                '<td>' + description + '</td>' +
-                                                '<td><input class="form-control" name="amount[]" value="' +amount+ '"/></td>' +
-                                                '<td>' +
-                                                    '<select class="form-control" name="status[]">' +
-                                                    '<option value="1">OK</option>' +
-                                                    '<option value="0">CANCEL</option>' +
-                                                    '</select>' +
-                                                '</td>' +
-                                              '</tr>';
-                                        break;
-                                }
-                                $('#items-table tbody').append(row);
-                            });
-                        });
-                    });  
-                    setTimeout(function () {
-                        btn.button('reset');
-                    }, 5000); 
-                });
-                  
-                // ============== Order items popup ================
-                $('#openOrderItemsBtn').on('click', function(e) {
-                    $("input[name='itemNoPopup']").val('');
-                    $("input[name='descriptionPopup']").val('');
-                    $("input[name='amountPopup']").val('');
-                    $("input[name='unitPricePopup']").val('');
-                    $("input[name='totalPopup']").val('');
-                    $("input[name='remarkPopup']").val('');
-                    $('#addOrderItemsBtn').unbind('click');
-                    $('input[name="amountPopup"]').unbind('change');
-                    $('input[name="unitPricePopup"]').unbind('change');
-                    var btn = $(this).button('loading');
-                    $('#orderItemsPopup').modal({
-                        show: 'true'
-                    });
-                    
-                    // Add event Amount*Unit price = Total
-                    $('input[name="unitPricePopup"]').on('change', function(e) {
-                        $('input[name="totalPopup"]').val($('input[name="amountPopup"]').val()*$('input[name="unitPricePopup"]').val());
-                    });
-                    $('input[name="amountPopup"]').on('change', function(e) {
-                        $('input[name="totalPopup"]').val($('input[name="amountPopup"]').val()*$('input[name="unitPricePopup"]').val());
-                    });
-                  
-                    // Add items to main-page
-                    $('#addOrderItemsBtn').on('click', function (e) {
-                        var item_no = $("input[name='itemNoPopup']").val();
-                        var description = $("input[name='descriptionPopup']").val();
-                        var amount = $("input[name='amountPopup']").val();
-                        var unitPrice = $("input[name='unitPricePopup']").val();
-                        var total = $("input[name='totalPopup']").val();
-                        var remark = $("input[name='remarkPopup']").val();
-
-                        var row = '<tr>' +
-                            '<input type="hidden" name="itemNo[]" value="' + item_no + '">' +
-                            '<input type="hidden" name="description[]" value="' + description + '">' +
-                            '<input type="hidden" name="amount[]" value="' + amount + '">' +
-                            '<input type="hidden" name="unitPrice[]" value="' + unitPrice + '">' +
-                            '<input type="hidden" name="total[]" disabled value="' + total + '">' +
-                            '<input type="hidden" name="remark[]" value="' + remark + '">' +
-                            '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
-                            '<td>' + item_no + '</td>' +
-                            '<td>' + description + '</td>' +
-                            '<td>' + amount + '</td>' +
-                            '<td>' + unitPrice + '</td>' +
-                            '<td>' + total + '</td>' +
-                            '<td>' + remark + '</td>' +
-                          '</tr>';
-                        $('#items-table tbody').append(row);
-                    });  
-                    setTimeout(function () {
-                        btn.button('reset');
-                    }, 3000); 
+                    var row = '';
+                    switch (page) {
+                        case 'repair':
+                            row = '<tr>' +
+                                    '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
+                                    '<td class="col-lg-2">' +
+                                    '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
+                                    '<a href-link="http://localhost/is/public/deviceInformation/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
+                                    '</div>' +
+                                    '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
+                                    '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
+                                    '</div>' +
+                                    '</td>' +
+                                    '<td>' + device_no + '</td>' +
+                                    '<td>' + description + '</td>' +
+                                    '<td>' + serial_no + '</td>' +
+                                    '<td><input class="form-control" name="symptom[]"/></td>' +
+                                    '</tr>';
+                            break;
+                        case 'room-booking':
+                            row = '<tr>' +
+                                    '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
+                                    '<td class="col-lg-2">' +
+                                    '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
+                                    '<a href-link="http://localhost/is/public/deviceInformation/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
+                                    '</div>' +
+                                    '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
+                                    '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
+                                    '</div>' +
+                                    '</td>' +
+                                    '<td>' + device_no + '</td>' +
+                                    '<td>' + description + '</td>' +
+                                    '<td><input class="form-control" name="amount[]"/></td>' +
+                                    '</tr>';
+                            break;
+                        case 'lend-device':
+                            row = '<tr>' +
+                                    '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
+                                    '<td class="col-lg-2">' +
+                                    '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
+                                    '<a href-link="http://localhost/is/public/deviceInformation/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
+                                    '</div>' +
+                                    '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
+                                    '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
+                                    '</div>' +
+                                    '</td>' +
+                                    '<td>' + device_no + '</td>' +
+                                    '<td>' + description + '</td>' +
+                                    '<td><input class="form-control" name="amount[]"/></td>' +
+                                    '</tr>';
+                            break;
+                    }
+                    $('#items-table tbody').append(row);
                 });
             });
+        });
+        setTimeout(function () {
+            btn.button('reset');
+        }, 5000);
+    });
+
+    // ============== Material items popup ===============
+    $('#openMaterialItemsBtn').on('click', function (e) {
+        var btn = $(this).button('loading');
+        var rows = '';
+        // Load data
+        $.getJSON("{{url('listAvailableMaterialItems')}}", function (data) {
+            $.each(data, function (i, val) {
+                var row = '<tr>' +
+                        '<input type="hidden" name="hiddenMaterialIdPopup" value="' + val.id + '">' +
+                        '<td><input type="checkbox" name="itemCbx[]"></td>' +
+                        '<td>' + val.stockName + '</td>' +
+                        '<td>' + val.materialNo + '</td>' +
+                        '<td>' + val.brand + '</td>' +
+                        '<td>' + val.model + '</td>' +
+                        '<td>' + val.description + '</td>' +
+                        '<td>' + val.serialNo + '</td>' +
+                        '<td>' + val.amount + '</td>' +
+                        '</tr>';
+                rows += row;
+            });
+        }).done(function (e) {
+            $('#dataTables-materialItemsPopup tbody').empty();
+            $('#dataTables-materialItemsPopup tbody').append(rows);
+            $('#dataTables-materialItemsPopup').dataTable({
+//                            "scrollX": true, 
+                "responsive": true,
+                "bDestroy": true,
+                "lengthMenu": [[5], [5]]
+            });
+            $('#materialItemsPopup').modal({
+                show: 'true'
+            });
+            // Add items to main-page
+            $('#addMaterialItemsBtn').unbind('click');
+            $('#addMaterialItemsBtn').on('click', function (e) {
+                var page = $('#openMaterialItemsBtn').attr('page');
+                var nodeCheck = $('#dataTables-materialItemsPopup tbody input:checked').parent().parent();
+
+                nodeCheck.each(function () {
+                    var material_id = $(this).find('input[name="hiddenMaterialIdPopup"]').val();
+                    var row = $(this).find('td').first();
+                    var material_no = row.next().next().text();
+                    var description = row.next().next().next().next().next().text();
+                    var amount = row.next().next().next().next().next().next().next().text();
+
+                    var row = '';
+                    switch (page) {
+                        case 'bring':
+                            row = '<tr>' +
+                                    '<input type="hidden" flag="new" name="hiddenMaterialId[]" value="' + material_id + '">' +
+                                    '<td class="col-lg-2">' +
+                                    '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
+                                    '<a href-link="http://localhost/is/public/materialInformation/' + material_id + '" class="materialItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
+                                    '</div>' +
+                                    '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
+                                    '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
+                                    '</div>' +
+                                    '</td>' +
+                                    '<td>' + material_no + '</td>' +
+                                    '<td>' + description + '</td>' +
+                                    '<td><input class="form-control" name="amount[]" value="' + amount + '"/></td>' +
+                                    '<td>' +
+                                    '<select class="form-control" name="status[]">' +
+                                    '<option value="1">OK</option>' +
+                                    '<option value="0">CANCEL</option>' +
+                                    '</select>' +
+                                    '</td>' +
+                                    '</tr>';
+                            break;
+                    }
+                    $('#items-table tbody').append(row);
+                });
+            });
+        });
+        setTimeout(function () {
+            btn.button('reset');
+        }, 5000);
+    });
+
+    // ============== Order items popup ================
+    $('#openOrderItemsBtn').on('click', function (e) {
+        $("input[name='itemNoPopup']").val('');
+        $("input[name='descriptionPopup']").val('');
+        $("input[name='amountPopup']").val('');
+        $("input[name='unitPricePopup']").val('');
+        $("input[name='totalPopup']").val('');
+        $("input[name='remarkPopup']").val('');
+        $('#addOrderItemsBtn').unbind('click');
+        $('input[name="amountPopup"]').unbind('change');
+        $('input[name="unitPricePopup"]').unbind('change');
+        var btn = $(this).button('loading');
+        $('#orderItemsPopup').modal({
+            show: 'true'
+        });
+
+        // Add event Amount*Unit price = Total
+        $('input[name="unitPricePopup"]').on('change', function (e) {
+            $('input[name="totalPopup"]').val($('input[name="amountPopup"]').val() * $('input[name="unitPricePopup"]').val());
+        });
+        $('input[name="amountPopup"]').on('change', function (e) {
+            $('input[name="totalPopup"]').val($('input[name="amountPopup"]').val() * $('input[name="unitPricePopup"]').val());
+        });
+
+        // Add items to main-page
+        $('#addOrderItemsBtn').on('click', function (e) {
+            var item_no = $("input[name='itemNoPopup']").val();
+            var description = $("input[name='descriptionPopup']").val();
+            var amount = $("input[name='amountPopup']").val();
+            var unitPrice = $("input[name='unitPricePopup']").val();
+            var total = $("input[name='totalPopup']").val();
+            var remark = $("input[name='remarkPopup']").val();
+
+            var row = '<tr>' +
+                    '<input type="hidden" name="itemNo[]" value="' + item_no + '">' +
+                    '<input type="hidden" name="description[]" value="' + description + '">' +
+                    '<input type="hidden" name="amount[]" value="' + amount + '">' +
+                    '<input type="hidden" name="unitPrice[]" value="' + unitPrice + '">' +
+                    '<input type="hidden" name="total[]" disabled value="' + total + '">' +
+                    '<input type="hidden" name="remark[]" value="' + remark + '">' +
+                    '<td><a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a></td>' +
+                    '<td>' + item_no + '</td>' +
+                    '<td>' + description + '</td>' +
+                    '<td>' + amount + '</td>' +
+                    '<td>' + unitPrice + '</td>' +
+                    '<td>' + total + '</td>' +
+                    '<td>' + remark + '</td>' +
+                    '</tr>';
+            $('#items-table tbody').append(row);
+        });
+        setTimeout(function () {
+            btn.button('reset');
+        }, 3000);
+    });
+});
         </script>
 
         <!-- Confirm modal popup -->
@@ -569,7 +577,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Device modal popup -->
         <div id="deviceItemsPopup" class="modal fade">
             <div class="modal-dialog modal-lg">
@@ -595,7 +603,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -606,7 +614,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Material modal popup -->
         <div id="materialItemsPopup" class="modal fade">
             <div class="modal-dialog modal-lg">
@@ -631,7 +639,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -642,7 +650,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Order modal popup -->
         <div id="orderItemsPopup" class="modal fade">
             <form id="orderItemsPopupForm">
@@ -717,7 +725,7 @@
                 </div>
             </form>
         </div>
-        
+
         <!-- Device item detail popup -->
         <div id="deviceItemDetailPopup" class="modal fade">
             <div class="modal-dialog modal-lg">
@@ -738,10 +746,11 @@
                                         <th>Item Description</th>
                                         <th>Serial No.</th>
                                         <th>Warranty</th>
+                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -749,7 +758,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Material item detail popup -->
         <div id="materialItemDetailPopup" class="modal fade">
             <div class="modal-dialog modal-lg">
@@ -769,10 +778,11 @@
                                         <th>Model</th>
                                         <th>Item Description</th>
                                         <th>Serial No.</th>
+                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -780,7 +790,7 @@
                 </div>
             </div>
         </div>
-        
+
     </body>
 
 </html>
