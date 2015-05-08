@@ -86,9 +86,9 @@
                                 class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#"><i class="fa fa-user fa-fw"></i> ตั้งค่า
+<!--                            <li><a href="#"><i class="fa fa-user fa-fw"></i> ตั้งค่า
                                     ข้อมูลผู้ใช้</a></li>
-                            <li class="divider"></li>
+                            <li class="divider"></li>-->
                             <li><a href="{{action('Auth\AuthController@getLogout')}}"><i class="fa fa-sign-out fa-fw"></i>
                                     ออกจากระบบ</a></li>
                         </ul> <!-- /.dropdown-user --></li>
@@ -98,7 +98,7 @@
                 @else
 
                 <ul class="nav navbar-top-links navbar-right">
-                    <li style="padding-left: 15px;"><span>You are not signed in. Please <a href="{{action('Auth\AuthController@getLogin')}}">Login</a> Or <a href="{{action('Auth\AuthController@getRegister')}}">Register</a></span></li>
+                    <li style="padding-left: 15px;"><span>You are not signed in. Please <a href="{{action('Auth\AuthController@getLogin')}}"><button type="button" class="btn btn-primary">Login</button></a> Or <a href="{{action('Auth\AuthController@getRegister')}}">Register</a></span></li>
 
                 </ul>
                 @endif
@@ -115,7 +115,21 @@
                                     <li><a href="{{ action('DeviceController@index')}}">จัดการอุปกรณ์</a></li>
                                     <li><a href="{{ action('DeviceController@index')}}">จัดการเครื่องคอมพิวเตอร์</a></li>
                                     <li><a href="{{ action('RoomController@index') }}"> จัดการห้องแลป</a></li>
-                                </ul></li>
+                                </ul>
+                            </li>
+                            <li><a href="{{ action('OrderController@index') }}"><i
+                                        class="fa fa-shopping-cart fa-fw"></i> สั่งซื้อวัสดุ-อุปกรณ์</a></li>
+                            <li><a href="{{ action('RoomBookingController@index')}}"><i
+                                        class="fa fa-calendar fa-fw"></i> จองห้องแลป และอุปกรณ์</a></li>
+                            <li><a href="{{ action('BringMaterialController@index')}}"><i
+                                        class="fa fa-list-alt fa-fw"></i> เบิก-จ่ายวัสดุ</a></li>
+                            <li><a href="{{ action('LendDeviceController@index')}}"><i
+                                        class="fa fa-edit fa-fw"></i> ยืม-คืนอุปกรณ์</a></li>
+                            <li><a href="{{ action('RepairController@index')}}"><i
+                                        class="fa fa-wrench fa-fw"></i> แจ้งซ่อมอุปกรณ์</a></li>
+                        </ul>
+                        @elseif(Auth::user()->id == '2')
+                        <ul class="nav" id="side-menu">
                             <li><a href="{{ action('OrderController@index') }}"><i
                                         class="fa fa-shopping-cart fa-fw"></i> สั่งซื้อวัสดุ-อุปกรณ์</a></li>
                             <li><a href="{{ action('RoomBookingController@index')}}"><i
