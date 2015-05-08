@@ -80,7 +80,7 @@
                 <!-- /.navbar-header -->
                 @if(Auth::check())
                 <ul class="nav navbar-top-links navbar-right">
-                    <li style="padding-left: 15px;"><span> สวัสดี, Admin</span></li>
+                    <li style="padding-left: 15px;"><span> สวัสดี, {{Auth::user()->firstname}}  {{Auth::user()->lastname}}</span></li>
                     <li class="dropdown"><a class="dropdown-toggle"
                                             data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i
                                 class="fa fa-caret-down"></i>

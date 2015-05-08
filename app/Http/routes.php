@@ -11,12 +11,9 @@
   |
  */
 
-// Home
-Route::get('home', 'HomeController@index');
-
 // User
 Route::get('/', 'UserController@index');
-
+Route::get('home', 'UserController@index');
 // Room
 Route::get('/viewManageRoom', 'RoomController@index');
 Route::get('/viewFormRoom', 'RoomController@create');
