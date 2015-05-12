@@ -104,8 +104,7 @@
                 @endif
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
-                        @if(Auth::check())
-                        @if(Auth::user()->id == '1')
+                        @if(Helper::isManager())
                         <ul class="nav" id="side-menu">
                             <li><a href><i class="fa fa-folder-open fa-fw"></i> การจัดการ<span
                                         class="fa arrow"></span></a>
@@ -117,18 +116,9 @@
                                     <li><a href="{{ action('RoomController@index') }}"> จัดการห้องแลป</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ action('OrderController@index') }}"><i
-                                        class="fa fa-shopping-cart fa-fw"></i> สั่งซื้อวัสดุ-อุปกรณ์</a></li>
-                            <li><a href="{{ action('RoomBookingController@index')}}"><i
-                                        class="fa fa-calendar fa-fw"></i> จองห้องแลป และอุปกรณ์</a></li>
-                            <li><a href="{{ action('BringMaterialController@index')}}"><i
-                                        class="fa fa-list-alt fa-fw"></i> เบิก-จ่ายวัสดุ</a></li>
-                            <li><a href="{{ action('LendDeviceController@index')}}"><i
-                                        class="fa fa-edit fa-fw"></i> ยืม-คืนอุปกรณ์</a></li>
-                            <li><a href="{{ action('RepairController@index')}}"><i
-                                        class="fa fa-wrench fa-fw"></i> แจ้งซ่อมอุปกรณ์</a></li>
                         </ul>
-                        @elseif(Auth::user()->id == '2')
+                        @endif
+                        @if(Helper::isManager() || Helper::isSupport())
                         <ul class="nav" id="side-menu">
                             <li><a href="{{ action('OrderController@index') }}"><i
                                         class="fa fa-shopping-cart fa-fw"></i> สั่งซื้อวัสดุ-อุปกรณ์</a></li>
@@ -138,15 +128,13 @@
                                         class="fa fa-list-alt fa-fw"></i> เบิก-จ่ายวัสดุ</a></li>
                             <li><a href="{{ action('LendDeviceController@index')}}"><i
                                         class="fa fa-edit fa-fw"></i> ยืม-คืนอุปกรณ์</a></li>
-                            <li><a href="{{ action('RepairController@index')}}"><i
-                                        class="fa fa-wrench fa-fw"></i> แจ้งซ่อมอุปกรณ์</a></li>
                         </ul>
-                        @elseif (Auth::user()->id == '3')
+                        @endif
+                        @if (Helper::isManager() || Helper::isSupport() || Helper::isUser())
                             <ul class="nav" id="side-menu">
                                 <li><a href="{{ action('RepairController@index')}}"><i
                                             class="fa fa-wrench fa-fw"></i> แจ้งซ่อมอุปกรณ์</a></li>
                             </ul>
-                        @endif
                         @endif
                     </div>
                     <!-- /.sidebar-collapse -->

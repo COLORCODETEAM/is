@@ -12,26 +12,36 @@
  * @author dev
  */
 class Helper {
+
     //put your code here
     public static function isManager() {
-            $fg = false;
-//            if (Auth::check())
-//            {
-//                $user = User::find(Auth::user()->id);
-//                if ($user->userRole()->name == 'It-manager') {
-//                    $fg = true;
-//                }
-//            }
-            return false;
+        $fg = false;
+        if (Auth::check()) {
+            if (Auth::user()->userRole->name == 'It-manager') {
+                $fg = true;
+            }
         }
-        
-        public function isSupport() {
-            
-            return true;
+        return $fg;
+    }
+
+    public static function isSupport() {
+        $fg = false;
+        if (Auth::check()) {
+            if (Auth::user()->userRole->name == 'support') {
+                $fg = true;
+            }
         }
-        
-        public function isUser() {
-            
-            return true;
+        return $fg;
+    }
+
+    public static function isUser() {
+        $fg = false;
+        if (Auth::check()) {
+            if (Auth::user()->userRole->name == 'user') {
+                $fg = true;
+            }
         }
+        return $fg;
+    }
+
 }
