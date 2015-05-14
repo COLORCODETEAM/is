@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('LendDeviceController@create')}}"><button type="button" class="btn btn-primary">ยืมอุปกรณ์</button></a>
+                                <a href="{{ action('LendDeviceController@create')}}" class="loadingButton btn btn-primary">ยืมอุปกรณ์</a>
                             </div>
                         </div>
                     </div>

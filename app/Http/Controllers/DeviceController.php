@@ -7,8 +7,10 @@ use Request;
 use App\Device;
 use App\DeviceType;
 use App\Stock;
+use App\UserStock;
 use Illuminate\Support\Facades\DB;
 use DateUtils;
+use Helper;
 
 class DeviceController extends Controller {
 
@@ -18,8 +20,9 @@ class DeviceController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = Device::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
-        
+        $data = Device::whereIn('stock_id', Helper::loginUserStocks())
+                        ->where('flag', '=', '1')
+                        ->orderBy('create_date', 'desc')->get();
         return view('store.manageDevice')->with('devices', $data);
     }
 
@@ -29,9 +32,13 @@ class DeviceController extends Controller {
      * @return Response
      */
     public function create() {
-        $stocks = Stock::where('flag', '=', '1')->get();
+        $userStocks = UserStock::where('users_id', '=', Helper::loginUser())
+                ->get(array('stock_id'))
+                ->toArray();
+        $stocks = Stock::whereIn('id', $userStocks)
+                        ->where('flag', '=', '1')->get();
         $deviceTypes = DeviceType::all()->toArray();
-        
+
         return view('store.formDevice')->with('compact', compact('stocks', 'deviceTypes'));
     }
 
@@ -53,9 +60,9 @@ class DeviceController extends Controller {
         $device->serial_no = $input ['serialNo'];
         $device->warranty = $input ['warranty'];
         $device->amount = $input ['amount'];
-        $device->create_user = '1';
+        $device->create_user = Helper::loginUser();
         $device->create_date = DateUtils::getDBDateTime();
-        $device->update_user = '1';
+        $device->update_user = Helper::loginUser();
         $device->update_date = DateUtils::getDBDateTime();
         $device->flag = '1';
         $device->save();
@@ -80,25 +87,29 @@ class DeviceController extends Controller {
      */
     public function edit($id) {
         $data = Device::find($id);
-        $stocks = Stock::where('flag', '=', '1')->get();
+        $userStocks = UserStock::where('users_id', '=', Helper::loginUser())
+                ->get(array('stock_id'))
+                ->toArray();
+        $stocks = Stock::whereIn('id', $userStocks)
+                        ->where('flag', '=', '1')->get();
         $deviceTypes = DeviceType::where('flag', '=', '1')->get();
-        
-        foreach ( $stocks as &$tmp ) {
-            if ($data['stock_id']==$tmp['id']) {
+
+        foreach ($stocks as &$tmp) {
+            if ($data['stock_id'] == $tmp['id']) {
                 $tmp['selected'] = 'selected';
             } else {
                 $tmp['selected'] = '';
             }
         }
-        
-        foreach ( $deviceTypes as &$tmp ) {
-            if ($data['device_type_id']==$tmp['id']) {
+
+        foreach ($deviceTypes as &$tmp) {
+            if ($data['device_type_id'] == $tmp['id']) {
                 $tmp['selected'] = 'selected';
             } else {
                 $tmp['selected'] = '';
             }
         }
-        
+
         return view('store.formEditDevice')->with('compact', compact('data', 'stocks', 'deviceTypes'));
     }
 
@@ -121,7 +132,7 @@ class DeviceController extends Controller {
         $device->serial_no = $input ['serialNo'];
         $device->warranty = $input ['warranty'];
         $device->amount = $input ['amount'];
-        $device->update_user = '1';
+        $device->update_user = Helper::loginUser();
         $device->update_date = DateUtils::getDBDateTime();
         $device->save();
         return redirect('viewManageDevice');
@@ -135,12 +146,18 @@ class DeviceController extends Controller {
      */
     public function destroy($id) {
         Device::where('id', '=', $id)->update(['flag' => '0']);
-        
+
         return redirect('viewManageDevice');
     }
 
     public function listAvailableDeviceItems() {
-        $devices = DB::select('SELECT * FROM view_availableDevice ORDER BY create_date DESC');
+        $devices = DB::select('SELECT * '
+                        . 'FROM view_availableDevice '
+                        . 'WHERE stock_id IN ('
+                        . '     SELECT stock_id'
+                        . '     FROM user_stock'
+                        . '     WHERE users_id=' . Helper::loginUser() . ')'
+                        . 'ORDER BY create_date DESC');
         $rows = '';
 
         foreach ($devices as $device) {
@@ -153,16 +170,16 @@ class DeviceController extends Controller {
             $row['serialNo'] = $device->serial_no;
             $row['warranty'] = $device->warranty;
             $row['amount'] = $device->amount;
-            
+
             $rows[] = $row;
         }
-        
+
         return json_encode($rows);
     }
-    
+
     public function deviceInformation($id) {
-        $device = Device::find($id); 
-        
+        $device = Device::find($id);
+
         $row['stock_name'] = $device->stock->name;
         $row['id'] = $device->id;
         $row['device_type_id'] = $device->device_type_id;
@@ -179,9 +196,10 @@ class DeviceController extends Controller {
         $row['update_user'] = $device->update_user;
         $row['update_date'] = $device->update_date;
         $row['flag'] = $device->flag;
-               
+
         $rows[] = $row;
-        
+
         return json_encode($rows);
     }
+
 }

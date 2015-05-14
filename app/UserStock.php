@@ -10,10 +10,10 @@ class UserStock extends Model {
     public $timestamps = false;
     
     public function user() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'users_id');
     }
     
     public function stock() {
-        return $this->belongsTo('App\Stock');
+        return $this->belongsTo('App\Stock', 'stock_id');
     }
 }

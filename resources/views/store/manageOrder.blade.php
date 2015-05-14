@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('OrderController@create')}}"><button type="button" class="btn btn-primary">สั่งซื้อ</button></a>
+                                <a href="{{ action('OrderController@create')}}" class="loadingButton btn btn-primary">สั่งซื้อ</a>
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use App\Room;
 use DateUtils;
+use Helper;
 
 class RoomController extends Controller {
 
@@ -40,9 +41,9 @@ class RoomController extends Controller {
         $room->room_no = $input ['roomNo'];
         $room->name = $input ['roomName'];
         $room->description = $input ['description'];
-        $room->create_user = '1';
+        $room->create_user = Helper::loginUser();
         $room->create_date = DateUtils::getDBDateTime();
-        $room->update_user = '1';
+        $room->update_user = Helper::loginUser();
         $room->update_date = DateUtils::getDBDateTime();
         $room->flag = '1';
         $room->save();
@@ -83,7 +84,7 @@ class RoomController extends Controller {
         $room->room_no = $input ['roomNo'];
         $room->name = $input ['roomName'];
         $room->description = $input ['description'];
-        $room->update_user = '1';
+        $room->update_user = Helper::loginUser();
         $room->update_date = DateUtils::getDBDateTime();
         $room->save();
         return redirect('viewManageRoom');

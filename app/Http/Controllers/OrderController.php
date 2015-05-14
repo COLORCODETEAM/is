@@ -8,6 +8,7 @@ use App\Order;
 use App\OrderDetail;
 use App\DeviceType;
 use DateUtils;
+use Helper;
 
 class OrderController extends Controller {
 
@@ -17,8 +18,9 @@ class OrderController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = Order::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
-        
+        $data = Order::where('flag', '=', '1')
+                        ->where('create_user', '=', Helper::loginUser())
+                        ->orderBy('create_date', 'desc')->get();
         return view('store.manageOrder')->with('orders', $data);
     }
 
@@ -27,7 +29,7 @@ class OrderController extends Controller {
      *
      * @return Response
      */
-    public function create() {        
+    public function create() {
         return view('store.formOrder');
     }
 
@@ -43,19 +45,19 @@ class OrderController extends Controller {
         $order->purpose = $input ['purpose'];
         $order->approvement = $input ['approvement'];
         $order->approved_date = DateUtils::getDBDateTimeFromStr($input ['approvedDate']);
-        $order->order_by = $input ['orderBy'];  
-        $order->order_date = DateUtils::getDBDateTimeFromStr($input ['orderDate']); 
-        $order->received_by = $input ['receivedBy'];  
-        $order->received_date = DateUtils::getDBDateTimeFromStr($input ['receivedDate']);  
-        $order->checked_by = $input ['checkedBy'];  
+        $order->order_by = $input ['orderBy'];
+        $order->order_date = DateUtils::getDBDateTimeFromStr($input ['orderDate']);
+        $order->received_by = $input ['receivedBy'];
+        $order->received_date = DateUtils::getDBDateTimeFromStr($input ['receivedDate']);
+        $order->checked_by = $input ['checkedBy'];
         $order->checked_date = DateUtils::getDBDateTimeFromStr($input ['checkedDate']);
-        $order->create_user = '1';
+        $order->create_user = Helper::loginUser();
         $order->create_date = DateUtils::getDBDateTime();
-        $order->update_user = '1';
+        $order->update_user = Helper::loginUser();
         $order->update_date = DateUtils::getDBDateTime();
         $order->flag = '1';
         $order->save();
-        
+
         // save details
         if (isset($input ['itemNo'])) {
             $items = $input ['itemNo'];
@@ -67,9 +69,9 @@ class OrderController extends Controller {
                 $detail->amount = $input ['amount'][$i];
                 $detail->unit_price = $input ['unitPrice'][$i];
                 $detail->remark = $input ['remark'][$i];
-                $detail->create_user = '1';
+                $detail->create_user = Helper::loginUser();
                 $detail->create_date = DateUtils::getDBDateTime();
-                $detail->update_user = '1';
+                $detail->update_user = Helper::loginUser();
                 $detail->update_date = DateUtils::getDBDateTime();
                 $detail->flag = '1';
 
@@ -78,7 +80,7 @@ class OrderController extends Controller {
             }
             $order->orderDetail()->saveMany($details);
         }
-        
+
         return redirect('viewManageOrder');
     }
 
@@ -103,7 +105,7 @@ class OrderController extends Controller {
         $orderDetails = OrderDetail::where('flag', '=', '1')
                 ->where('order_id', '=', $id)
                 ->get();
-        
+
         return view('store.formEditOrder')->with('compact', compact('data', 'orderDetails'));
     }
 
@@ -120,16 +122,16 @@ class OrderController extends Controller {
         $order->purpose = $input ['purpose'];
         $order->approvement = $input ['approvement'];
         $order->approved_date = DateUtils::getDBDateTimeFromStr($input ['approvedDate']);
-        $order->order_by = $input ['orderBy'];  
-        $order->order_date = DateUtils::getDBDateTimeFromStr($input ['orderDate']); 
-        $order->received_by = $input ['receivedBy'];  
-        $order->received_date = DateUtils::getDBDateTimeFromStr($input ['receivedDate']);  
-        $order->checked_by = $input ['checkedBy'];  
+        $order->order_by = $input ['orderBy'];
+        $order->order_date = DateUtils::getDBDateTimeFromStr($input ['orderDate']);
+        $order->received_by = $input ['receivedBy'];
+        $order->received_date = DateUtils::getDBDateTimeFromStr($input ['receivedDate']);
+        $order->checked_by = $input ['checkedBy'];
         $order->checked_date = DateUtils::getDBDateTimeFromStr($input ['checkedDate']);
-        $order->update_user = '1';
+        $order->update_user = Helper::loginUser();
         $order->update_date = DateUtils::getDBDateTime();
         $order->save();
-        
+
         // save details
         if (isset($input ['itemNo'])) {
             $items = $input ['itemNo'];
@@ -141,9 +143,9 @@ class OrderController extends Controller {
                 $detail->amount = $input ['amount'][$i];
                 $detail->unit_price = $input ['unitPrice'][$i];
                 $detail->remark = $input ['remark'][$i];
-                $detail->create_user = '1';
+                $detail->create_user = Helper::loginUser();
                 $detail->create_date = DateUtils::getDBDateTime();
-                $detail->update_user = '1';
+                $detail->update_user = Helper::loginUser();
                 $detail->update_date = DateUtils::getDBDateTime();
                 $detail->flag = '1';
 
@@ -152,7 +154,7 @@ class OrderController extends Controller {
             }
             $order->orderDetail()->saveMany($details);
         }
-        
+
         return redirect('viewManageOrder');
     }
 
@@ -165,12 +167,12 @@ class OrderController extends Controller {
     public function destroy($id) {
         Order::where('id', '=', $id)->update(['flag' => '0']);
         OrderDetail::where('order_id', '=', $id)->update(['flag' => '0']);
-        
+
         return redirect('viewManageOrder');
     }
 
     public function destroyDetail($id) {
         OrderDetail::where('id', '=', $id)->update(['flag' => '0']);
     }
-    
+
 }

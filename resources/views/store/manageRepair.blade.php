@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('RepairController@create')}}"><button type="button" class="btn btn-primary">แจ้งซ่อม</button></a>
+                                <a href="{{ action('RepairController@create')}}" class="loadingButton btn btn-primary">แจ้งซ่อม</a>
                             </div>
                         </div>
                     </div>

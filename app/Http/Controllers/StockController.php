@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use App\Stock;
 use DateUtils;
+use Helper;
 
 class StockController extends Controller {
 
@@ -40,9 +41,9 @@ class StockController extends Controller {
         $stock->stock_no = $input ['stockNo'];
         $stock->name = $input ['stockName'];
         $stock->description = $input ['description'];
-        $stock->create_user = '1';
+        $stock->create_user = Helper::loginUser();
         $stock->create_date = DateUtils::getDBDateTime();
-        $stock->update_user = '1';
+        $stock->update_user = Helper::loginUser();
         $stock->update_date = DateUtils::getDBDateTime();
         $stock->flag = '1';
         $stock->save();
@@ -83,7 +84,7 @@ class StockController extends Controller {
         $stock->stock_no = $input ['stockNo'];
         $stock->name = $input ['stockName'];
         $stock->description = $input ['description'];
-        $stock->update_user = '1';
+        $stock->update_user = Helper::loginUser();
         $stock->update_date = DateUtils::getDBDateTime();
         $stock->save();
         return redirect('viewManageStock');

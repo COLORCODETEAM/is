@@ -104,21 +104,24 @@
                 @endif
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
-                        @if(Helper::isManager())
+                        @if(Helper::isManager() || Helper::isSupport() || Helper::isAdmin())
                         <ul class="nav" id="side-menu">
                             <li><a href><i class="fa fa-folder-open fa-fw"></i> การจัดการ<span
                                         class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
+                                    @if(Helper::isManager() || Helper::isAdmin())
                                     <li><a href="{{ action('StockController@index')}}">จัดการคลัง</a></li>
+                                    <li><a href="{{ action('RoomController@index') }}"> จัดการห้องแลป</a></li>
+                                    <li><a href="{{ action('UserStockController@index') }}"> จัดการผู้ใช้-คลัง</a></li>
+                                    @endif
                                     <li><a href="{{ action('MaterialController@index')}}">จัดการวัสดุ</a></li>
                                     <li><a href="{{ action('DeviceController@index')}}">จัดการอุปกรณ์</a></li>
-                                    <li><a href="{{ action('DeviceController@index')}}">จัดการเครื่องคอมพิวเตอร์</a></li>
-                                    <li><a href="{{ action('RoomController@index') }}"> จัดการห้องแลป</a></li>
+                                    <li><a href="{{ action('MappingComputerController@index')}}">จัดการเครื่องคอมพิวเตอร์</a></li>
                                 </ul>
                             </li>
                         </ul>
                         @endif
-                        @if(Helper::isManager() || Helper::isSupport())
+                        @if(Helper::isManager() || Helper::isSupport() || Helper::isAdmin())
                         <ul class="nav" id="side-menu">
                             <li><a href="{{ action('OrderController@index') }}"><i
                                         class="fa fa-shopping-cart fa-fw"></i> สั่งซื้อวัสดุ-อุปกรณ์</a></li>
@@ -130,7 +133,7 @@
                                         class="fa fa-edit fa-fw"></i> ยืม-คืนอุปกรณ์</a></li>
                         </ul>
                         @endif
-                        @if (Helper::isManager() || Helper::isSupport() || Helper::isUser())
+                        @if (Helper::isManager() || Helper::isSupport() || Helper::isUser() || Helper::isAdmin())
                             <ul class="nav" id="side-menu">
                                 <li><a href="{{ action('RepairController@index')}}"><i
                                             class="fa fa-wrench fa-fw"></i> แจ้งซ่อมอุปกรณ์</a></li>

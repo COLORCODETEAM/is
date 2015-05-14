@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('BringMaterialController@create')}}"><button type="button" class="btn btn-primary">เบิกวัสดุ</button></a>
+                                <a href="{{ action('BringMaterialController@create')}}" class="loadingButton btn btn-primary">เบิกวัสดุ</a>
                             </div>
                         </div>
                     </div>

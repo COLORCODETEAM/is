@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('RoomBookingController@create')}}"><button type="button" class="btn btn-primary">เพิ่มคอมพิวเตอร์</button></a>
+                                <a href="{{ action('RoomBookingController@create')}}" class="loadingButton btn btn-primary">เพิ่มคอมพิวเตอร์</a>
                             </div>
                         </div>
                     </div>

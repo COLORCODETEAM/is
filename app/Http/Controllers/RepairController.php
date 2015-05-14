@@ -8,6 +8,7 @@ use App\Device;
 use App\RepairDevice;
 use App\RepairDeviceDetail;
 use DateUtils;
+use Helper;
 
 class RepairController extends Controller {
 
@@ -17,8 +18,9 @@ class RepairController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = RepairDevice::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
-        
+        $data = RepairDevice::where('flag', '=', '1')
+                        ->where('create_user', '=', Helper::loginUser())
+                        ->orderBy('create_date', 'desc')->get();
         return view('store.manageRepair')->with('repairDevices', $data);
     }
 
@@ -45,13 +47,13 @@ class RepairController extends Controller {
         $repairDevice->approved_date = DateUtils::getDBDateTimeFromStr($input ['approvedDate']);
         $repairDevice->received_by = $input ['receivedBy'];
         $repairDevice->received_date = DateUtils::getDBDateTimeFromStr($input ['receivedDate']);
-        $repairDevice->create_user = '1';
+        $repairDevice->create_user = Helper::loginUser();
         $repairDevice->create_date = DateUtils::getDBDateTime();
-        $repairDevice->update_user = '1';
+        $repairDevice->update_user = Helper::loginUser();
         $repairDevice->update_date = DateUtils::getDBDateTime();
         $repairDevice->flag = '1';
         $repairDevice->save();
-        
+
         // save details
         if (isset($input ['hiddenDeviceId'])) {
             $items = $input ['hiddenDeviceId'];
@@ -67,7 +69,7 @@ class RepairController extends Controller {
             }
             $repairDevice->repairDeviceDetail()->saveMany($details);
         }
-        
+
         return redirect('viewManageRepair');
     }
 
@@ -92,7 +94,7 @@ class RepairController extends Controller {
         $repairDeviceDetails = RepairDeviceDetail::where('flag', '=', '1')
                 ->where('repair_device_id', '=', $id)
                 ->get();
-        
+
         return view('store.formEditRepair')->with('compact', compact('data', 'repairDeviceDetails'));
     }
 
@@ -111,10 +113,10 @@ class RepairController extends Controller {
         $repairDevice->approved_date = DateUtils::getDBDateTimeFromStr($input ['approvedDate']);
         $repairDevice->received_by = $input ['receivedBy'];
         $repairDevice->received_date = DateUtils::getDBDateTimeFromStr($input ['receivedDate']);
-        $repairDevice->update_user = '1';
+        $repairDevice->update_user = Helper::loginUser();
         $repairDevice->update_date = DateUtils::getDBDateTime();
         $repairDevice->save();
-        
+
         // save details
         if (isset($input ['hiddenDeviceId'])) {
             $items = $input ['hiddenDeviceId'];
@@ -130,7 +132,7 @@ class RepairController extends Controller {
             }
             $repairDevice->repairDeviceDetail()->saveMany($details);
         }
-        
+
         return redirect('viewManageRepair');
     }
 
@@ -143,11 +145,12 @@ class RepairController extends Controller {
     public function destroy($id) {
         RepairDevice::where('id', '=', $id)->update(['flag' => '0']);
         RepairDeviceDetail::where('repair_device_id', '=', $id)->update(['flag' => '0']);
-        
+
         return redirect('viewManageRepair');
     }
 
     public function destroyDetail($id) {
         RepairDeviceDetail::where('id', '=', $id)->update(['flag' => '0']);
     }
+
 }

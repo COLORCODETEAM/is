@@ -9,6 +9,7 @@ use App\LendDevice;
 use App\LendDeviceType;
 use App\LendDeviceDetail;
 use DateUtils;
+use Helper;
 
 class LendDeviceController extends Controller {
 
@@ -18,8 +19,9 @@ class LendDeviceController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = LendDevice::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
-        
+        $data = LendDevice::where('flag', '=', '1')
+                        ->where('create_user', '=', Helper::loginUser())
+                        ->orderBy('create_date', 'desc')->get();
         return view('store.manageLendDevice')->with('lendDevices', $data);
     }
 
@@ -48,13 +50,13 @@ class LendDeviceController extends Controller {
         $lendDevice->end_time = DateUtils::getDBDateTimeFromStr($input ['endTime']);
         $lendDevice->approvement = $input ['approvement'];
         $lendDevice->remark = $input ['remark'];
-        $lendDevice->create_user = '1';
+        $lendDevice->create_user = Helper::loginUser();
         $lendDevice->create_date = DateUtils::getDBDateTime();
-        $lendDevice->update_user = '1';
+        $lendDevice->update_user = Helper::loginUser();
         $lendDevice->update_date = DateUtils::getDBDateTime();
         $lendDevice->flag = '1';
         $lendDevice->save();
-        
+
         // save details
         if (isset($input ['hiddenDeviceId'])) {
             $items = $input ['hiddenDeviceId'];
@@ -69,7 +71,7 @@ class LendDeviceController extends Controller {
             }
             $lendDevice->lendDeviceDetail()->saveMany($details);
         }
-        
+
         return redirect('viewManageLendDevice');
     }
 
@@ -94,7 +96,7 @@ class LendDeviceController extends Controller {
         $lendDeviceDetails = LendDeviceDetail::where('flag', '=', '1')
                 ->where('lend_device_id', '=', $id)
                 ->get();
-                
+
         return view('store.formEditLendDevice')->with('compact', compact('data', 'lendDeviceDetails'));
     }
 
@@ -115,10 +117,10 @@ class LendDeviceController extends Controller {
         $lendDevice->end_time = DateUtils::getDBDateTimeFromStr($input ['endTime']);
         $lendDevice->approvement = $input ['approvement'];
         $lendDevice->remark = $input ['remark'];
-        $lendDevice->update_user = '1';
+        $lendDevice->update_user = Helper::loginUser();
         $lendDevice->update_date = DateUtils::getDBDateTime();
         $lendDevice->save();
-        
+
         // save details
         if (isset($input ['hiddenDeviceId'])) {
             $items = $input ['hiddenDeviceId'];
@@ -133,7 +135,7 @@ class LendDeviceController extends Controller {
             }
             $lendDevice->lendDeviceDetail()->saveMany($details);
         }
-        
+
         return redirect('viewManageLendDevice');
     }
 
@@ -143,14 +145,15 @@ class LendDeviceController extends Controller {
      * @param int $id        	
      * @return Response
      */
-    public function destroy($id) {        
+    public function destroy($id) {
         LendDevice::where('id', '=', $id)->update(['flag' => '0']);
         LendDeviceDetail::where('lend_device_id', '=', $id)->update(['flag' => '0']);
-        
+
         return redirect('viewManageLendDevice');
     }
 
     public function destroyDetail($id) {
         LendDeviceDetail::where('id', '=', $id)->update(['flag' => '0']);
     }
+
 }

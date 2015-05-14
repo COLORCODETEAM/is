@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('RoomBookingController@create')}}"><button type="button" class="btn btn-primary">จองห้องแลป</button></a>
+                                <a href="{{ action('RoomBookingController@create')}}" class="loadingButton btn btn-primary">จองห้องแลป</a>
                             </div>
                         </div>
                     </div>
@@ -41,6 +41,9 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($bookingRooms as $bookingRoom)
+                                                <?php
+                                                $room = $bookingRoom->room;
+                                                ?>
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
@@ -53,7 +56,7 @@
                                                         </div>
                                                     </td>
                                                     <td>{{$bookingRoom->booking_no}}</td>
-                                                    <td>{{$bookingRoom->room->room_no}}</td>
+                                                    <td>{{$room->room_no}}</td>
                                                     <td>{{$bookingRoom->purpose}}</td>
                                                     <td>{{$bookingRoom->contact_person}}</td>
                                                     <td>{{DateUtils::getDateFromStr($bookingRoom->start_time)}}</td>

@@ -8,6 +8,7 @@ use App\Room;
 use App\BookingRoom;
 use App\BookingRoomDetail;
 use DateUtils;
+use Helper;
 
 class RoomBookingController extends Controller {
 
@@ -17,7 +18,9 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function index() {
-        $data =  BookingRoom::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
+        $data =  BookingRoom::where('flag', '=', '1')
+                ->orWhere('create_user', '=', Helper::loginUser())
+                ->orderBy('create_date', 'desc')->get();
 
         return view('store.manageRoomBooking')->with('bookingRooms', $data);
     }
@@ -50,9 +53,9 @@ class RoomBookingController extends Controller {
         $bookingRoom->email = $input ['email'];
         $bookingRoom->start_time = DateUtils::getConcatDBDateTime($input['eventDate'], $input ['startTime']);
         $bookingRoom->end_time = DateUtils::getConcatDBDateTime($input['eventDate'], $input ['endTime']);
-        $bookingRoom->create_user = '1';
+        $bookingRoom->create_user = Helper::loginUser();
         $bookingRoom->create_date = DateUtils::getDBDateTime();
-        $bookingRoom->update_user = '1';
+        $bookingRoom->update_user = Helper::loginUser();
         $bookingRoom->update_date = DateUtils::getDBDateTime();
         $bookingRoom->flag = '1';
         $bookingRoom->save();
@@ -127,7 +130,7 @@ class RoomBookingController extends Controller {
         $bookingRoom->email = $input ['email'];
         $bookingRoom->start_time = DateUtils::getConcatDBDateTime($input['eventDate'], $input ['startTime']);
         $bookingRoom->end_time = DateUtils::getConcatDBDateTime($input['eventDate'], $input ['endTime']);
-        $bookingRoom->update_user = '1';
+        $bookingRoom->update_user = Helper::loginUser();
         $bookingRoom->update_date = DateUtils::getDBDateTime();
         $bookingRoom->save();
         
@@ -170,6 +173,7 @@ class RoomBookingController extends Controller {
         $bookingRooms = BookingRoom::where('start_time', '>=', date('Y-m-d').' 00:00:00')
                                     ->orWhere('start_time', '<=', date('Y-m-d').' 23:59:59')
                                     ->get();
+        $events = '';
         
         foreach ($bookingRooms as $bookingRoom) {
             $tmp['id'] = $bookingRoom->id;

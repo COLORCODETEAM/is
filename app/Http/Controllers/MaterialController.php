@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Request;
 use App\Stock;
 use App\Material;
+use App\MaterialType;
+use App\UserStock;
 use Illuminate\Support\Facades\DB;
 use DateUtils;
+use Helper;
 
 class MaterialController extends Controller {
 
@@ -17,8 +20,9 @@ class MaterialController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = Material::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
-        
+        $data = Material::whereIn('stock_id', Helper::loginUserStocks())
+                ->where('flag', '=', '1')
+                ->orderBy('create_date', 'desc')->get();    
         return view('store.manageMaterial')->with('materials', $data);
     }
 
@@ -28,9 +32,14 @@ class MaterialController extends Controller {
      * @return Response
      */
     public function create() {
-        $data = Stock::where('flag', '=', '1')->get();
+        $userStocks = UserStock::where('users_id', '=', Helper::loginUser())
+                ->get(array('stock_id'))
+                ->toArray();
+        $stocks = Stock::whereIn('id', $userStocks)
+                ->where('flag', '=', '1')->get();
+        $materialTypes = MaterialType::all()->toArray();
         
-        return view('store.formMaterial')->with('stocks', $data);
+        return view('store.formMaterial')->with('compact', compact('stocks', 'materialTypes'));
     }
 
     /**
@@ -42,15 +51,16 @@ class MaterialController extends Controller {
         $input = Request::all();
         $material = new Material ();
         $material->stock_id = $input ['stockId'];
+        $material->material_type_id = $input ['materialTypeId'];
         $material->material_no = $input ['materialNo'];
         $material->brand = $input ['brand'];
         $material->model = $input ['model'];
         $material->description = $input ['description'];
         $material->serial_no = $input ['serialNo'];
         $material->amount = $input ['amount'];
-        $material->create_user = '1';
+        $material->create_user = Helper::loginUser();
         $material->create_date = DateUtils::getDBDateTime();
-        $material->update_user = '1';
+        $material->update_user = Helper::loginUser();
         $material->update_date = DateUtils::getDBDateTime();
         $material->flag = '1';
         $material->save();
@@ -75,7 +85,12 @@ class MaterialController extends Controller {
      */
     public function edit($id) {
         $data = Material::find($id);
-        $stocks = Stock::where('flag', '=', '1')->get();
+        $userStocks = UserStock::where('users_id', '=', Helper::loginUser())
+                ->get(array('stock_id'))
+                ->toArray();
+        $stocks = Stock::whereIn('id', $userStocks)
+                ->where('flag', '=', '1')->get();
+        $materialTypes = MaterialType::where('flag', '=', '1')->get();
         
         foreach ( $stocks as &$tmp ) {
             if ($data['stock_id']==$tmp['id']) {
@@ -84,8 +99,16 @@ class MaterialController extends Controller {
                 $tmp['selected'] = '';
             }
         }
-                            
-        return view('store.formEditMaterial')->with('compact', compact('data', 'stocks'));
+        
+        foreach ( $materialTypes as &$tmp ) {
+            if ($data['material_type_id']==$tmp['id']) {
+                $tmp['selected'] = 'selected';
+            } else {
+                $tmp['selected'] = '';
+            }
+        }
+        
+        return view('store.formEditMaterial')->with('compact', compact('data', 'stocks', 'materialTypes'));
     }
 
     /**
@@ -98,13 +121,14 @@ class MaterialController extends Controller {
         $input = Request::all();
         $material = Material::find($id);
         $material->stock_id = $input ['stockId'];
+        $material->material_type_id = $input ['materialTypeId'];
         $material->material_no = $input ['materialNo'];
         $material->brand = $input ['brand'];
         $material->model = $input ['model'];
         $material->description = $input ['description'];
         $material->serial_no = $input ['serialNo'];
         $material->amount = $input ['amount'];
-        $material->update_user = '1';
+        $material->update_user = Helper::loginUser();
         $material->update_date = DateUtils::getDBDateTime();
         $material->save();
         return redirect('viewManageMaterial');
@@ -123,7 +147,13 @@ class MaterialController extends Controller {
     }
 
     public function listAvailableMaterialItems() {
-        $materials = DB::select('SELECT * FROM view_availableMaterial ORDER BY create_date DESC');
+        $materials = DB::select('SELECT * '
+                . 'FROM view_availableMaterial '
+                . 'WHERE stock_id IN ('
+                . '     SELECT stock_id'
+                . '     FROM user_stock'
+                . '     WHERE users_id=' .Helper::loginUser(). ')'
+                . 'ORDER BY create_date DESC');
         $rows = '';
         
         foreach ($materials as $material) {
@@ -147,6 +177,7 @@ class MaterialController extends Controller {
         
         $row['stock_name'] = $material->stock->name;
         $row['id'] = $material->id;
+        $row['material_type_id'] = $material->material_type_id;
         $row['material_no'] = $material->material_no;
         $row['brand'] = $material->brand;
         $row['model'] = $material->model;

@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('StockController@create')}}"><button type="button" class="btn btn-primary">เพิ่มคลัง</button></a>
+                                <a href="{{ action('StockController@create')}}" class="loadingButton btn btn-primary">เพิ่มคลัง</a>
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ use App\Material;
 use App\BringMaterial;
 use App\BringMaterialDetail;
 use DateUtils;
+use Helper;
 
 class BringMaterialController extends Controller {
 
@@ -17,8 +18,9 @@ class BringMaterialController extends Controller {
      * @return Response
      */
     public function index() {
-        $data = BringMaterial::where('flag', '=', '1')->orderBy('create_date', 'desc')->get();
-                
+        $data = BringMaterial::where('flag', '=', '1')
+                        ->where('create_user', '=', Helper::loginUser())
+                        ->orderBy('create_date', 'desc')->get();
         return view('store.manageBringMaterial')->with('bringMaterials', $data);
     }
 
@@ -46,13 +48,13 @@ class BringMaterialController extends Controller {
         $bringMaterial->email = $input ['email'];
         $bringMaterial->approvement = $input ['approvement'];
         $bringMaterial->remark = $input ['remark'];
-        $bringMaterial->create_user = '1';
+        $bringMaterial->create_user = Helper::loginUser();
         $bringMaterial->create_date = DateUtils::getDBDateTime();
-        $bringMaterial->update_user = '1';
+        $bringMaterial->update_user = Helper::loginUser();
         $bringMaterial->update_date = DateUtils::getDBDateTime();
         $bringMaterial->flag = '1';
         $bringMaterial->save();
-        
+
         // save details
         if (isset($input ['hiddenMaterialId'])) {
             $items = $input ['hiddenMaterialId'];
@@ -69,7 +71,7 @@ class BringMaterialController extends Controller {
             }
             $bringMaterial->bringMaterialDetail()->saveMany($details);
         }
-        
+
         return redirect('viewManageBringMaterial');
     }
 
@@ -94,7 +96,7 @@ class BringMaterialController extends Controller {
         $bringMaterialDetails = BringMaterialDetail::where('flag', '=', '1')
                 ->where('bring_material_id', '=', $id)
                 ->get();
-                
+
         return view('store.formEditBringMaterial')->with('compact', compact('data', 'bringMaterialDetails'));
     }
 
@@ -114,10 +116,10 @@ class BringMaterialController extends Controller {
         $bringMaterial->email = $input ['email'];
         $bringMaterial->approvement = $input ['approvement'];
         $bringMaterial->remark = $input ['remark'];
-        $bringMaterial->update_user = '1';
+        $bringMaterial->update_user = Helper::loginUser();
         $bringMaterial->update_date = DateUtils::getDBDateTime();
         $bringMaterial->save();
-        
+
         // save details
         if (isset($input ['hiddenBringMaterialDetailId'])) {
             $items = $input ['hiddenBringMaterialDetailId'];
@@ -146,7 +148,7 @@ class BringMaterialController extends Controller {
             }
             $bringMaterial->bringMaterialDetail()->saveMany($details);
         }
-        
+
         return redirect('viewManageBringMaterial');
     }
 
@@ -159,11 +161,12 @@ class BringMaterialController extends Controller {
     public function destroy($id) {
         BringMaterial::where('id', '=', $id)->update(['flag' => '0']);
         BringMaterialDetail::where('bring_material_id', '=', $id)->update(['flag' => '0']);
-        
+
         return redirect('viewManageBringMaterial');
     }
-    
+
     public function destroyDetail($id) {
         BringMaterialDetail::where('id', '=', $id)->update(['flag' => '0']);
     }
+
 }

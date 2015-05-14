@@ -3,7 +3,7 @@
 <form role="form">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">รายการวัสดุ</h1>
+            <h1 class="page-header">รายการผู้ใช้-คลัง</h1>
         </div>
     </div>
     <div class="row">
@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('MaterialController@create')}}" class="loadingButton btn btn-primary">เพิ่มวัสดุ</a>
+                                <a href="{{ action('UserStockController@create')}}" class="loadingButton btn btn-primary">เพิ่มผู้ใช้-คลัง</a>
                             </div>
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    รายการวัสดุ
+                                    รายการผู้ใช้-คลัง
                                 </div>
                                 <div class="panel-body">
                                     <div class="dataTable_wrapper">
@@ -29,31 +29,31 @@
                                             <thead>
                                                 <tr>
                                                     <th></th>
-                                                    <th>Item No.</th>
-                                                    <th>Item Brand</th>
-                                                    <th>Item Model</th>
-                                                    <th>Item Description</th>
-                                                    <th>Amount</th>
+                                                    <th>Stock No.</th>
+                                                    <th>Stock Name</th>
+                                                    <th>Firstname Lastname</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($materials as $material)
+                                                @foreach($userStocks as $userStock)
+                                                <?php
+                                                $stock = $userStock->stock;
+                                                $user = $userStock->user;                                                
+                                                ?>
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <a href="{{route('editMaterial',$material['id'])}}" class="loadingButton form-control btn btn-default">แก้ไข</a>
-                                                                    <a href-link="{{route('delMaterial',$material['id'])}}" class="form-control btn btn-danger" data-confirm="manage-page">ลบ</a>
+                                                                    <a href="{{route('editUserStock',$userStock->id)}}" class="loadingButton form-control btn btn-default">แก้ไข</a>
+                                                                    <a href-link="{{route('delUserStock',$userStock->id)}}" class="form-control btn btn-danger" data-confirm="manage-page">ลบ</a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>{{$material['material_no']}}</td>
-                                                    <td>{{$material['brand']}}</td>
-                                                    <td>{{$material['model']}}</td>
-                                                    <td>{{$material['description']}}</td>
-                                                    <td>{{$material['amount']}}</td>
+                                                    <td>{{$stock->stock_no}}</td>
+                                                    <td>{{$stock->name}}</td>
+                                                    <td>{{$user->firstname}} {{$user->lastname}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

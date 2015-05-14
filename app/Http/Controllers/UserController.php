@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\BookingRoom;
 use DateUtils;
+use Helper;
 
 class UserController extends Controller {
 

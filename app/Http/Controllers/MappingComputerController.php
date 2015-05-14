@@ -7,6 +7,7 @@ use Request;
 use App\MappingComputer;
 use App\MappingComputerDetail;
 use DateUtils;
+use Helper;
 
 class MappingComputerController extends Controller {
 

@@ -104,6 +104,14 @@ Route::get('/editRepair/{id}', ['as' => 'editRepair', 'uses' => 'RepairControlle
 Route::any('/updateRepair/{id}', ['as' => 'updateRepair', 'uses' => 'RepairController@update']);
 Route::get('/delRepairDetail/{id}', ['as' => 'delRepairDetail', 'uses' => 'RepairController@destroyDetail']);
 
+// User-Stock
+Route::get('/viewManageUserStock', 'UserStockController@index');
+Route::get('/viewFormUserStock', 'UserStockController@create');
+Route::post('/addUserStock', 'UserStockController@store');
+Route::get('/delUserStock/{id}', ['as' => 'delUserStock', 'uses' => 'UserStockController@destroy']);
+Route::get('/editUserStock/{id}', ['as' => 'editUserStock', 'uses' => 'UserStockController@edit']);
+Route::any('/updateUserStock/{id}', ['as' => 'updateUserStock', 'uses' => 'UserStockController@update']);
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',

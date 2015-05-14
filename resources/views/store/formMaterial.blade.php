@@ -1,5 +1,9 @@
 @extends('store.app')
 @section('content')
+<?php
+$stocks = $compact['stocks'];
+$materialTypes = $compact['materialTypes'];
+?>
 {!! Form::open(array('url'=>'addMaterial')) !!}
 <div class="row">
     <div class="col-lg-12">
@@ -20,6 +24,17 @@
                             <select class="form-control" name="stockId" required>
                                 @foreach($stocks as $stock)
                                 <option value="{{$stock['id']}}">{{$stock['name']}}</option>
+                                @endforeach
+                            </select>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Material Type : </label>
+                        <div class="col-lg-3">
+                            <select class="form-control" name="materialTypeId" required>
+                                @foreach($materialTypes as $materialType)
+                                <option value="{{$materialType['id']}}">{{$materialType['name']}}</option>
                                 @endforeach
                             </select>
                             <div class="help-block with-errors"></div>

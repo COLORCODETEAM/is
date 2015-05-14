@@ -3,6 +3,7 @@
 <?php
 $material = $compact['data'];
 $stocks = $compact['stocks'];
+$materialTypes = $compact['materialTypes'];
 ?>
 {!! Form::open( ['route'=>['updateMaterial',$material['id'] ]])  !!}
 <div class="row">
@@ -24,6 +25,17 @@ $stocks = $compact['stocks'];
                             <select class="form-control" name="stockId" required>
                                 @foreach($stocks as $stock)
                                 <option value="{{$stock['id']}}" {{$stock['selected']}}>{{$stock['name']}}</option>
+                                @endforeach
+                            </select>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Material Type : </label>
+                        <div class="col-lg-3">
+                            <select class="form-control" name="materialTypeId" required>
+                                @foreach($materialTypes as $materialType)
+                                <option value="{{$materialType['id']}}" {{$materialType['selected']}}>{{$materialType['name']}}</option>
                                 @endforeach
                             </select>
                             <div class="help-block with-errors"></div>
