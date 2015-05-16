@@ -20,6 +20,7 @@ class UserStockController extends Controller {
      */
     public function index() {
         $data = UserStock::where('flag', '=', '1')->get();
+        
         return view('store.manageUserStock')->with('userStocks', $data);
     }
 
@@ -29,9 +30,9 @@ class UserStockController extends Controller {
      * @return Response
      */
     public function create() {
-        $users = DB::select('SELECT * FROM view_availableUsers');
+        $data = DB::select('SELECT * FROM view_availableUsers');
         
-        return view('store.formUserStock')->with('users', $users);
+        return view('store.formUserStock')->with('users', $data);
     }
 
     /**
@@ -43,8 +44,8 @@ class UserStockController extends Controller {
         $input = Request::all();
         $userStock = new UserStock ();
         $userStock->stock_id = $input ['stockId'];
-        $userStock->user_id = $input ['userId'];
-        $userStock->device_no = $input ['name'];
+        $userStock->users_id = $input ['userId'];
+        $userStock->name = $input ['name'];
         $userStock->description = $input ['description'];
         $userStock->flag = '1';
         $userStock->save();
@@ -69,8 +70,32 @@ class UserStockController extends Controller {
      */
     public function edit($id) {
         $data = UserStock::find($id);
+        $users = DB::select('SELECT * FROM view_availableUsers');
+        $stocks = DB::select('SELECT * FROM view_availableStock WHERE user_id=' .$data['users_id']);
+        $stock_userStock = $data->stock;
+
+        // duplicate user checking
+        $check = true;
+        foreach ( $users as &$tmp ) {
+            $tmp = (array) $tmp;
+            $tmp['selected'] = '';
+             
+            if ($data->users_id==$tmp['id']) {
+                $check = false;
+                $tmp['selected'] = 'selected';
+            }
+        }
+        if ($check) {
+            $tmp = $data->user;
+            $user['id'] = $tmp['id'];
+            $user['firstname'] = $tmp['firstname'];
+            $user['lastname'] = $tmp['lastname'];
+            $user['selected'] = 'selected';
+            
+            $users[] = $user;
+        }
         
-        return view('store.formEditUserStock')->with('compact', compact('data', 'stocks', 'user'));
+        return view('store.formEditUserStock')->with('compact', compact('data', 'users', 'stocks', 'stock_userStock'));
     }
 
     /**
@@ -81,10 +106,10 @@ class UserStockController extends Controller {
      */
     public function update($id) {
         $input = Request::all();
-        $userStock = Device::find($id);
+        $userStock = UserStock::find($id);
         $userStock->stock_id = $input ['stockId'];
-        $userStock->user_id = $input ['userId'];
-        $userStock->device_no = $input ['name'];
+        $userStock->users_id = $input ['userId'];
+        $userStock->name = $input ['name'];
         $userStock->description = $input ['description'];
         $userStock->flag = '1';
         $userStock->save();
@@ -105,13 +130,13 @@ class UserStockController extends Controller {
     }
 
     public function getAvailableStock($id) {
-        $stocks = DB::select('SELECT * FROM view_availableStock WHERE user_id='+$id);
+        $stocks = DB::select('SELECT * FROM view_availableStock WHERE user_id=' .$id);
         $rows = '';
 
         foreach ($stocks as $stock) {
             $row['id'] = $stock->id;
             $row['stockNo'] = $stock->stock_no;
-            $row['stockName'] = $stock->stock_name;
+            $row['stockName'] = $stock->name;
 
             $rows[] = $row;
         }

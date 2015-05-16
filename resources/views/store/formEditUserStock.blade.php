@@ -2,8 +2,9 @@
 @section('content')
 <?php
 $stocks = $compact['stocks'];
-$users = $compact['user'];
+$users = $compact['users'];
 $userStock = $compact['data'];
+$stock_userStock = $compact['stock_userStock'];
 ?>
 {!! Form::open( ['route'=>['updateUserStock',$userStock['id'] ]])  !!}
 <form role="form">
@@ -23,9 +24,9 @@ $userStock = $compact['data'];
                         <div class="form-group">
                             <label class="control-label col-lg-2">User : </label>
                             <div class="col-lg-3">
-                                <select class="form-control" name="userId" required>
-                                    @foreach($users as $users)
-                                    <option value="{{$users['id']}}">{{$users['firstname']}} {{$users['lastname']}}</option>
+                                <select class="form-control" id="userPickup" name="userId" required>
+                                    @foreach($users as $user)
+                                    <option value="{{$user['id']}}" {{$user['selected']}}>{{$user['firstname']}} {{$user['lastname']}}</option>
                                     @endforeach
                                 </select>
                                 <div class="help-block with-errors"></div>
@@ -34,10 +35,8 @@ $userStock = $compact['data'];
                         <div class="form-group">
                             <label class="control-label col-lg-2">Stock : </label>
                             <div class="col-lg-3">
-                                <select class="form-control" name="stockId" required>
-                                    @foreach($stocks as $stock)
-                                    <option value="{{$stock['id']}}">{{$stock['name']}}</option>
-                                    @endforeach
+                                <select class="form-control" id="stockPickup" name="stockId" required>
+                                    <option value="{{$stock_userStock->id}}" selected>{{$stock_userStock->stock_no}}</option>
                                 </select>
                                 <div class="help-block with-errors"></div>
                             </div>
@@ -45,14 +44,14 @@ $userStock = $compact['data'];
                         <div class="form-group">
                             <label class="control-label col-lg-2">Name : </label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="name" required/>
+                                <input class="form-control" name="name" value="{{$userStock['name']}}" required/>
                                 <div class="help-block with-errors"></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Description : </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control" rows="3" name="description"></textarea>
+                                <textarea class="form-control" rows="3" name="description">{{$userStock['description']}}</textarea>
                                 <div class="help-block with-errors"></div>
                             </div>
                         </div>

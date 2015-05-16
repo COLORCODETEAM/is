@@ -245,6 +245,21 @@ $(document).ready(function () {
     // ================== timepicker ================== 
     $('.timepicker').timepicker();
 
+    // =========== Auto Pickup User-Stock ==============
+    $('#userPickup').on('change', function(e) {
+        $('#stockPickup').find('option').remove();
+        var href = "{{url('getAvailableStock')}}/" +$(this).find('option:selected').val();
+        var rows = '';
+        $.getJSON(href, function (data) {
+            $.each(data, function (i, val) {
+                var row = '<option value="' +val.id+ '">' +val.stockNo+ '</option>';
+                rows += row;
+            });
+        }).done(function (e) {
+            $('#stockPickup').append(rows);
+        });
+    });
+    
     // =============== Confirm popup =================
     $('body').on('click', 'a[data-confirm]', function (e) {
         var type = $(this).attr('data-confirm');
@@ -408,7 +423,7 @@ $(document).ready(function () {
                                     '</td>' +
                                     '<td>' + device_no + '</td>' +
                                     '<td>' + description + '</td>' +
-                                    '<td><input class="form-control" name="amount[]"/></td>' +
+                                    '<td><input class="form-control" name="amount[]" value="1"/></td>' +
                                     '</tr>';
                             break;
                         case 'lend-device':
@@ -424,8 +439,10 @@ $(document).ready(function () {
                                     '</td>' +
                                     '<td>' + device_no + '</td>' +
                                     '<td>' + description + '</td>' +
-                                    '<td><input class="form-control" name="amount[]"/></td>' +
+                                    '<td><input class="form-control" name="amount[]" value="1"/></td>' +
                                     '</tr>';
+                            break;
+                        case 'mapping-computer':
                             break;
                     }
                     $('#items-table tbody').append(row);
@@ -497,7 +514,7 @@ $(document).ready(function () {
                                     '</td>' +
                                     '<td>' + material_no + '</td>' +
                                     '<td>' + description + '</td>' +
-                                    '<td><input class="form-control" name="amount[]" value="' + amount + '"/></td>' +
+                                    '<td><input class="form-control" name="amount[]" value="1"/></td>' +
                                     '<td>' +
                                     '<select class="form-control" name="status[]">' +
                                     '<option value="1">OK</option>' +
@@ -760,7 +777,6 @@ $(document).ready(function () {
                                         <th>Item Description</th>
                                         <th>Serial No.</th>
                                         <th>Warranty</th>
-                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -792,7 +808,6 @@ $(document).ready(function () {
                                         <th>Model</th>
                                         <th>Item Description</th>
                                         <th>Serial No.</th>
-                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>

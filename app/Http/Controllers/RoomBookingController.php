@@ -71,6 +71,7 @@ class RoomBookingController extends Controller {
                 $detail->flag = '1';
 
                 $details[] = $detail;
+                $i++;
             }
             $bookingRoom->bookingRoomDetail()->saveMany($details);
         }
@@ -145,6 +146,7 @@ class RoomBookingController extends Controller {
                 $detail->flag = '1';
 
                 $details[] = $detail;
+                $i++;
             }
             $bookingRoom->bookingRoomDetail()->saveMany($details);
         }

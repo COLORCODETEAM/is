@@ -1,8 +1,5 @@
 @extends('store.app')
 @section('content')
-<?php
-$users = $compact['users'];
-?>
 {!! Form::open(array('url'=>'addUserStock')) !!}
 <form role="form">
     <div class="row">
@@ -21,9 +18,10 @@ $users = $compact['users'];
                         <div class="form-group">
                             <label class="control-label col-lg-2">User : </label>
                             <div class="col-lg-3">
-                                <select class="form-control" name="userId" required>
-                                    @foreach($users as $users)
-                                    <option value="{{$users['id']}}">{{$users['firstname']}} {{$users['lastname']}}</option>
+                                <select class="form-control" id="userPickup" name="userId" required>
+                                    <option></option>
+                                    @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->firstname}} {{$user->lastname}}</option>
                                     @endforeach
                                 </select>
                                 <div class="help-block with-errors"></div>
@@ -32,10 +30,8 @@ $users = $compact['users'];
                         <div class="form-group">
                             <label class="control-label col-lg-2">Stock : </label>
                             <div class="col-lg-3">
-                                <select class="form-control" name="stockId" required>
+                                <select class="form-control" id="stockPickup" name="stockId" required>
                                     
-                                    <!--<option value="{{-- $stock['id'] --}}">{{-- $stock['name'] --}}</option>-->
-                                   
                                 </select>
                                 <div class="help-block with-errors"></div>
                             </div>

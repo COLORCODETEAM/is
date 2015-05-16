@@ -68,6 +68,7 @@ class LendDeviceController extends Controller {
                 $detail->flag = '1';
 
                 $details[] = $detail;
+                $i++;
             }
             $lendDevice->lendDeviceDetail()->saveMany($details);
         }
@@ -132,6 +133,7 @@ class LendDeviceController extends Controller {
                 $detail->flag = '1';
 
                 $details[] = $detail;
+                $i++;
             }
             $lendDevice->lendDeviceDetail()->saveMany($details);
         }

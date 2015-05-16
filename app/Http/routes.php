@@ -111,6 +111,7 @@ Route::post('/addUserStock', 'UserStockController@store');
 Route::get('/delUserStock/{id}', ['as' => 'delUserStock', 'uses' => 'UserStockController@destroy']);
 Route::get('/editUserStock/{id}', ['as' => 'editUserStock', 'uses' => 'UserStockController@edit']);
 Route::any('/updateUserStock/{id}', ['as' => 'updateUserStock', 'uses' => 'UserStockController@update']);
+Route::get('/getAvailableStock/{id}', ['as' => 'getAvailableStock', 'uses' => 'UserStockController@getAvailableStock']);
 
 Route::controllers([
     'auth' => 'Auth\AuthController',
