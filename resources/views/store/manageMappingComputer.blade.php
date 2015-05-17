@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-lg-1">
                             <div class="form-group">
-                                <a href="{{ action('RoomBookingController@create')}}" class="loadingButton btn btn-primary">เพิ่มคอมพิวเตอร์</a>
+                                <a href="{{ action('MappingComputerController@create')}}" class="loadingButton btn btn-primary">เพิ่มคอมพิวเตอร์</a>
                             </div>
                         </div>
                     </div>
@@ -30,33 +30,37 @@
                                             <thead>
                                                 <tr>
                                                     <th></th>
-                                                    <th>Computer No.</th>
-                                                    <th>Computer Name</th>
-                                                    <th>Purpose</th>
-                                                    <th>Date</th>
-                                                    <th>Start time</th>
-                                                    <th>Finish time</th>
+                                                    <th>Name</th>
+                                                    <th>IP</th>
+                                                    <th>OS</th>
+                                                    <th>CPU</th>
+                                                    <th>RAM</th>
+                                                    <th>HDD</th>
+                                                    <th>VGA</th>
+                                                    <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($bookingRooms as $bookingRoom)
+                                                @foreach($computers as $computer)
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
-                                                                    <a href="{{route('editRoomBooking',$bookingRoom->id)}}" class="loadingButton form-control btn btn-default">แก้ไข</a>
-                                                                    <a href-link="{{route('delRoomBooking',$bookingRoom->id)}}" class="form-control btn btn-danger" data-confirm="manage-page">ลบ</a>
+                                                                    <a href="{{route('editMappingComputer',$computer->id)}}" class="loadingButton form-control btn btn-default">แก้ไข</a>
+                                                                    <a href-link="{{route('delMappingComputer',$computer->id)}}" class="form-control btn btn-danger" data-confirm="manage-page">ลบ</a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>{{$bookingRoom->booking_no}}</td>
-                                                    <td>{{$bookingRoom->room->room_no}}</td>
-                                                    <td>{{$bookingRoom->purpose}}</td>
-                                                    <td>{{DateUtils::getDateFromStr($bookingRoom->start_time)}}</td>
-                                                    <td>{{DateUtils::getTimeFromStr($bookingRoom->start_time)}}</td>
-                                                    <td>{{DateUtils::getTimeFromStr($bookingRoom->end_time)}}</td>
+                                                    <td>{{$computer->computer_name}}</td>
+                                                    <td>{{$computer->ip}}</td>
+                                                    <td>{{$computer->os}}</td>
+                                                    <td>{{$computer->cpu}}</td>
+                                                    <td>{{$computer->ram}}</td>
+                                                    <td>{{$computer->hdd}}</td>
+                                                    <td>{{$computer->video_card}}</td>
+                                                    <td>{{($computer->status=='1' ? 'WORKING':'NO')}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
