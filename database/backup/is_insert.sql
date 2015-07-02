@@ -1,26 +1,190 @@
-INSERT INTO `room` (`id`, `room_no`, `name`, `description`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`) VALUES (1,'Lab-1','Lab-1','Lab-1',1,'2015-04-27 02:50:39',1,'2015-04-27 02:51:52',1),(2,'Lab-2','Lab-2','Lab-2',1,'2015-04-27 02:51:10',1,'2015-04-27 02:52:07',1),(3,'Lab-3','Lab-3','Lab-3',1,'2015-04-27 02:51:37',1,'2015-04-27 02:51:37',1);
+--
+-- Dumping data for table `room`
+--
 
-INSERT INTO `stock` (`id`, `stock_no`, `name`, `description`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`) VALUES (1,'stock-1','stock-1','stock-1',1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1),(2,'stock-2','stock-2','stock-2',1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1),(3,'stock-3','stock-3','stock-3',1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1);
+LOCK TABLES `room` WRITE;
+/*!40000 ALTER TABLE `room` DISABLE KEYS */;
+INSERT INTO `room` (`id`, `room_no`, `name`, `description`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`) VALUES (1,'Lab-1','Lab-1','Lab-1',1,'2015-04-27 02:50:39',1,'2015-04-27 02:51:52',1),(2,'Lab-2','Lab-2','Lab-2',1,'2015-04-27 02:51:10',1,'2015-04-27 02:52:07',1);
+/*!40000 ALTER TABLE `room` ENABLE KEYS */;
+UNLOCK TABLES;
 
-INSERT INTO `material` (`id`, `material_no`, `brand`, `model`, `description`, `amount`, `unit_price`, `create_user`, `create_date`, `update_user`, `update_date`, `stock_id`, `flag`) VALUES (1,'Material-1','Material-1','Material-1','Material-1',10,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,0),(2,'Material-2','Material-2','Material-2','Material-2',20,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',2,0),(3,'Material-3','Material-3','Material-3','Material-3',30,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',3,0),(4,'Material-11','Material-11','Material-11','Material-11',10,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,1),(5,'Material-22','Material-22','Material-22','Material-22',20,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',2,1),(6,'Material-33','Material-33','Material-33','Material-33',30,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',3,1),(7,'Bring-1','Bring-1','Bring-1','Bring-1',1,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,1),(8,'Bring-11','Bring-11','Bring-11','Bring-11',11,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,1);
+--
+-- Dumping data for table `stock`
+--
 
-INSERT INTO `device_type` (`id`, `type_no`, `name`, `description`, `flag`) VALUES (1,'Monitor','Monitor','Monitor',1),(2,'Printer','Printer','Printer',1),(3,'Scanner','Scanner','Scanner',1);
-INSERT INTO `device` (`id`, `device_no`, `brand`, `model`, `ip_address`, `description`, `serial_no`, `warranty`, `amount`, `unit_price`, `remark`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`, `stock_id`, `device_type_id`) VALUES (1,'Monitor-1','Monitor-1','Monitor-1','192.168.1.1','Monitor-1','Monitor-1','Monitor-1',10,NULL,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',0,1,1),(2,'Printer-1','Printer-1','Printer-1','192.168.1.2','Printer-1','Printer-1','Printer-1',20,NULL,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',0,1,2),(3,'Scanner-1','Scanner-1','Scanner-1','192.168.1.3','Scanner-1','Scanner-1','Scanner-1',30,NULL,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',0,1,3),(4,'Monitor-2','Monitor-2','Monitor-2','192.168.2.1','Monitor-2','Monitor-2','Monitor-2',10,NULL,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,2,1),(5,'Printer-2','Printer-2','Printer-2','192.168.2.2','Printer-2','Printer-2','Printer-2',20,NULL,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,2,2),(6,'Scanner-2','Scanner-2','Scanner-2','192.168.2.3','Scanner-2','Scanner-2','Scanner-2',30,NULL,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,2,3),(7,'Booking-1','Booking-1','Booking-1','192.168.1.1','Booking-1','Booking-1','Booking-1',1,NULL,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,1,1),(8,'Booking-11','Booking-11','Booking-11','192.168.1.11','Booking-11','Booking-11','Booking-11',11,NULL,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,1,1),(9,'Lend-1','Lend-1','Lend-1','192.168.1.1','Lend-1','Lend-1','Lend-1',1,NULL,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,1,1),(10,'Lend-11','Lend-11','Lend-11','192.168.1.11','Lend-11','Lend-11','Lend-11',11,NULL,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,1,1),(11,'Repair-1','Repair-1','Repair-1','192.168.1.1','Repair-1','Repair-1','Repair-1',1,NULL,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,1,1),(12,'Repair-11','Repair-11','Repair-11','192.168.1.11','Repair-11','Repair-11','Repair-11',11,NULL,NULL,1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1,1,1);
+LOCK TABLES `stock` WRITE;
+/*!40000 ALTER TABLE `stock` DISABLE KEYS */;
+INSERT INTO `stock` (`id`, `stock_no`, `name`, `description`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`) VALUES (1,'High school','High school','High school',1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1),(2,'Elementary school','Elementary school','Elementary school',1,'2015-04-27 04:45:00',1,'2015-04-27 04:45:00',1);
+/*!40000 ALTER TABLE `stock` ENABLE KEYS */;
+UNLOCK TABLES;
 
-INSERT INTO `order` (`id`, `order_no`, `purpose`, `order_by`, `order_date`, `approvement`, `approved_date`, `received_by`, `received_date`, `checked_by`, `checked_date`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`) VALUES (1,'Order-1','Order-1','Order-1','2015-04-28 00:00:00',1,'2015-04-28 00:00:00','Order-1','2015-04-28 00:00:00','Order-1','2015-04-28',1,'2015-04-28 04:19:00',1,'2015-04-28 04:19:00',1),(2,'Order-2','Order-2','Order-2','2015-04-28 00:00:00',1,'2015-04-28 00:00:00','Order-2','2015-04-28 00:00:00','Order-2','2015-04-28',1,'2015-04-28 04:20:00',1,'2015-04-28 04:23:00',1);
-INSERT INTO `order_detail` (`id`, `item_no`, `description`, `amount`, `unit_price`, `remark`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`, `order_id`) VALUES (1,'Order-1','Order-1',1,NULL,'Order-1',1,'2015-04-28 00:00:00',1,'2015-04-28 00:00:00',1,1),(2,'Order-11','Order-11',11,NULL,'Order-11',1,'2015-04-28 00:00:00',1,'2015-04-28 00:00:00',0,1);
+--
+-- Dumping data for table `material_type`
+--
 
-INSERT INTO `repair_device` (`id`, `repair_no`, `person`, `approvement`, `approved_date`, `received_by`, `received_date`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`) VALUES (1,'Repair-1','Repair-1',1,'2015-04-28 00:00:00','Repair-1','2015-04-28 00:00:00',1,'2015-04-28 04:27:00',1,'2015-04-28 04:27:00',1),(2,'Repair-2','Repair-2',1,'2015-04-28 00:00:00','Repair-2','2015-04-28 00:00:00',1,'2015-04-28 04:28:00',1,'2015-04-28 04:28:00',1);
-INSERT INTO `repair_device_detail` (`id`, `item_no`, `symptom`, `flag`, `repair_device_id`, `device_id`) VALUES (1,'Repair-1','Repair-1',1,1,11),(2,'Repair-2','Repair-2',0,1,12);
+LOCK TABLES `material_type` WRITE;
+/*!40000 ALTER TABLE `material_type` DISABLE KEYS */;
+INSERT INTO `material_type` (`id`, `type_no`, `name`, `description`, `flag`) VALUES (1,'กระดาษ A4 (ลีม)','กระดาษ A4 (ลีม)','กระดาษ A4 (ลีม)',1),(2,'เทปใส','เทปใส','เทปใส',1),(3,'ลูกแม็ค','ลูกแม็ค','ลูกแม็ค',1),(4,'สายแลน','สายแลน','สายแลน',1),(5,'ม้วนสายแลน','ม้วนสายแลน','ม้วนสายแลน',1),(6,'หัวRJ','หัวRJ','หัวRJ',1),(7,'น๊อต','น๊อต','น๊อต',1),(8,'สาย VGA','สาย VGA','สาย VGA',1),(9,'สาย Power','สาย Power','สาย Power',1),(10,'สาย pair','สาย pair','สาย pair',1),(11,'ตลับสายไฟ','ตลับสายไฟ','ตลับสายไฟ',1),(12,'ลางสายแลน','ลางสายแลน','ลางสายแลน',1),(13,'หัวต่อ HDMI','หัวต่อ HDMI','หัวต่อ HDMI',1),(14,'หัวต่อ Video line','หัวต่อ Video line','หัวต่อ Video line',1),(15,'Tonner','Tonner','Tonner',1),(16,'ตลับหมึกสี Drum','ตลับหมึกสี Drum','ตลับหมึกสี Drum',1),(17,'Harddisk','Harddisk','Harddisk',1),(18,'Ram','Ram','Ram',1),(19,'Power Supply','Power Supply','Power Supply',1),(20,'CD/DVD','CD/DVD','CD/DVD',1),(21,'แผ่นรองเม้า','แผ่นรองเม้า','แผ่นรองเม้า',1),(22,'ตัวหุ้มสายไฟ','ตัวหุ้มสายไฟ','ตัวหุ้มสายไฟ',1),(23,'ใส้ไก่','ใส้ไก่','ใส้ไก่',1);
+/*!40000 ALTER TABLE `material_type` ENABLE KEYS */;
+UNLOCK TABLES;
 
-INSERT INTO `lend_device` (`id`, `lend_no`, `purpose`, `rent_person`, `email`, `start_time`, `end_time`, `approvement`, `remark`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`) VALUES (1,'Lend-1','Lend-1','Lend-1','Lend-1','2015-04-28 00:00:00','2015-04-28 00:00:00',1,'Lend-1',1,'2015-04-28 06:58:00',1,'2015-04-28 06:58:00',1),(2,'Lend-2','Lend-2','Lend-2','Lend-2','2015-04-29 00:00:00','2015-04-29 00:00:00',1,'Lend-2',1,'2015-04-28 07:01:00',1,'2015-04-28 07:01:00',1);
-INSERT INTO `lend_device_detail` (`id`, `item_no`, `description`, `amount`, `flag`, `lend_device_id`, `device_id`) VALUES (1,'Lend-1','Lend-1',1,1,1,9),(2,'Lend-11','Lend-11',11,0,1,10);
+--
+-- Dumping data for table `material`
+--
 
-INSERT INTO `booking_room` (`id`, `booking_no`, `events`, `purpose`, `description`, `contact_person`, `email`, `start_time`, `end_time`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`, `room_id`) VALUES (1,'Booking-1','Booking-1','Booking-1','Booking-1','Booking-1','Booking-1','2015-04-28 11:30:00','2015-04-28 12:30:00',1,'2015-04-28 04:21:00',1,'2015-04-28 04:23:00',1,1),(2,'Booking-2','Booking-2','Booking-2','Booking-2','Booking-2','Booking-2','2015-04-28 12:00:00','2015-04-28 13:30:00',1,'2015-04-28 04:22:00',1,'2015-04-28 04:22:00',1,2);
-INSERT INTO `booking_room_detail` (`id`, `device_no`, `description`, `amount`, `flag`, `booking_room_id`, `device_id`) VALUES (1,'Booking-1','Booking-1',1,1,1,7),(2,'Booking-2','Booking-2',11,0,1,8);
+LOCK TABLES `material` WRITE;
+/*!40000 ALTER TABLE `material` DISABLE KEYS */;
+INSERT INTO `material` (`id`, `material_no`, `brand`, `model`, `description`, `serial_no`, `amount`, `unit_price`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`, `stock_id`, `material_type_id`) VALUES (1,'กระดาษ A4-1-NO','กระดาษ A4-1-Brand','กระดาษ A4-1-Model','กระดาษ A4-1-Description','กระดาษ A4-1-SN',10,NULL,4,'2015-05-14 06:43:00',4,'2015-05-14 06:50:00',1,2,1),(2,'เทปใส-1-NO','เทปใส-1-Brand','เทปใส-1-Model','เทปใส-1-Description','เทปใส-1-SN',10,NULL,4,'2015-05-14 06:44:00',4,'2015-05-14 06:44:00',1,2,2),(3,'ลูกแม็ค-1-NO','ลูกแม็ค-1-Brand','ลูกแม็ค-1-Model','ลูกแม็ค-1-Description','ลูกแม็ค-1-SN',10,NULL,4,'2015-05-14 06:45:00',4,'2015-05-14 06:45:00',1,2,3),(4,'สายแลน-1-NO','สายแลน-1-Brand','สายแลน-1-Model','สายแลน-1-Description','สายแลน-1-SN',10,NULL,4,'2015-05-14 06:46:00',4,'2015-05-14 06:46:00',1,2,4),(5,'กระดาษ A4-2-NO','กระดาษ A4-2-Brand','กระดาษ A4-2-Model','กระดาษ A4-2-Description','กระดาษ A4-2-Sn',10,NULL,3,'2015-05-14 07:04:00',3,'2015-05-14 07:04:00',1,1,1),(6,'เทปใส-2-NO','เทปใส-2-Brand','เทปใส-2-Model','เทปใส-2-Description','เทปใส-2-Sn',10,NULL,3,'2015-05-14 07:05:00',3,'2015-05-14 07:05:00',1,1,2),(7,'ม้วนสายแลน-2-NO','ม้วนสายแลน-2-Brand','ม้วนสายแลน-2-Model','ม้วนสายแลน-2-Description','ม้วนสายแลน-2-SN',10,NULL,3,'2015-05-14 07:06:00',3,'2015-05-14 07:06:00',1,1,5),(8,'หัวRJ-2-NO','หัวRJ-2-Brand','หัวRJ-2-Model','หัวRJ-2-Description','หัวRJ-2-SN',10,NULL,3,'2015-05-14 07:07:00',3,'2015-05-14 07:07:00',1,1,6);
+/*!40000 ALTER TABLE `material` ENABLE KEYS */;
+UNLOCK TABLES;
 
-INSERT INTO `bring_material` (`id`, `bring_no`, `purpose`, `description`, `withdraw_person`, `email`, `approvement`, `remark`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`) VALUES (1,'Bring-1','Bring-1','Bring-1','Bring-1','Bring-1',1,'Bring-1',1,'2015-04-28 07:30:00',1,'2015-04-28 07:30:00',1),(2,'Bring-2','Bring-2','Bring-2','Bring-2','Bring-2',1,'Bring-2',1,'2015-04-28 07:31:00',1,'2015-04-28 07:31:00',1);
-INSERT INTO `bring_material_detail` (`id`, `item_no`, `description`, `amount`, `flag`, `bring_material_id`, `material_id`) VALUES (1,'Bring-1','Bring-1',1,1,1,7),(2,'Bring-2','Bring-2',11,0,1,8);
+--
+-- Dumping data for table `device_type`
+--
 
-INSERT INTO `user_role` (`id`, `role_no`, `name`, `description`) VALUES (1,'It-manager','It-manager','It-manager'),(2,'It-support','It-support','It-support');
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `phone`, `flag`, `user_role_id`) VALUES (1,'It-manager','It-manager','itmanager@mail.com','1234','0811111111',1,1),(2,'It-support','It-support','itsupport@mail.com','1234','0822222222',1,2);
+LOCK TABLES `device_type` WRITE;
+/*!40000 ALTER TABLE `device_type` DISABLE KEYS */;
+INSERT INTO `device_type` (`id`, `type_no`, `name`, `description`, `flag`) VALUES (1,'Monitor','Monitor','Monitor',1),(2,'Printer','Printer','Printer',1),(3,'Scanner','Scanner','Scanner',1),(4,'Projecter','Projecter','Projecter',1),(5,'Speaker','Speaker','Speaker',1),(6,'Splitter','Splitter','Splitter',1),(7,'External HDD','External HDD','External HDD',1),(8,'External LAN Card','External LAN Card','External LAN Card',1),(9,'External DVD','External DVD','External DVD',1),(10,'Camera','Camera','Camera',1),(11,'Video Camera','Video Camera','Video Camera',1),(12,'ขาตั้งกล้อง','ขาตั้งกล้อง','ขาตั้งกล้อง',1),(13,'ฉากตั้ง LCD','ฉากตั้ง LCD','ฉากตั้ง LCD',1),(14,'Headphone','Headphone','Headphone',1),(15,'Webcam','Webcam','Webcam',1),(16,'Mouse','Mouse','Mouse',1),(17,'Keyboard','Keyboard','Keyboard',1),(18,'Notebook','Notebook','Notebook',1),(19,'เครื่องทำ label','เครื่องทำ label','เครื่องทำ label',1),(20,'กรรไกร','กรรไกร','กรรไกร',1),(21,'คีม','คีม','คีม',1),(22,'ไขควง','ไขควง','ไขควง',1),(23,'คีมหนีบหัว lan','คีมหนีบหัว lan','คีมหนีบหัว lan',1),(24,'คัตเตอร์','คัตเตอร์','คัตเตอร์',1),(25,'ที่ตัดกระดาษ','ที่ตัดกระดาษ','ที่ตัดกระดาษ',1),(26,'ไม้บรรทัดเหล็ก','ไม้บรรทัดเหล็ก','ไม้บรรทัดเหล็ก',1),(27,'Notebook','Notebook','Notebook',1),(28,'แม็ก','แม็ก','แม็ก',1);
+/*!40000 ALTER TABLE `device_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `device`
+--
+
+LOCK TABLES `device` WRITE;
+/*!40000 ALTER TABLE `device` DISABLE KEYS */;
+INSERT INTO `device` (`id`, `device_no`, `brand`, `model`, `ip_address`, `description`, `serial_no`, `warranty`, `amount`, `unit_price`, `remark`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`, `stock_id`, `device_type_id`) VALUES (1,'Monitor-1-NO','Monitor-1-Brand','Monitor-1-Model','Monitor-1-IP','Monitor-1-Description','Monitor-1-SN','Monitor-1-Warranty',10,NULL,NULL,4,'2015-05-14 04:56:00',4,'2015-05-14 04:56:00',1,2,1),(2,'Printer-1-NO','Printer-1-Brand','Printer-1-Model','Printer-1-IP','Printer-1-Description','Printer-1-SN','Printer-1-Warranty',10,NULL,NULL,4,'2015-05-14 04:57:00',4,'2015-05-14 05:01:00',1,2,2),(3,'Scanner-1-NO','Scanner-1-Brand','Scanner-1-Model','Scanner-1-IP','Scanner-1-Description','Scanner-1-SN','Scanner-1-Warranty',10,NULL,NULL,4,'2015-05-14 04:58:00',4,'2015-05-14 05:02:00',1,2,3),(4,'Projector-1-NO','Projector-1-Brand','Projector-1-Model','Projector-1-IP','Projector-1-Description','Projector-1-SN','Projector-1-Warranty',10,NULL,NULL,4,'2015-05-14 04:59:00',4,'2015-05-14 05:04:00',1,2,4),(5,'Monitor-2-NO','Monitor-2-Brand','Monitor-2-Model','Monitor-2-IP','Monitor-2-Description','Monitor-2-SN','Monitor-2-Warranty',10,NULL,NULL,3,'2015-05-14 07:08:00',3,'2015-05-14 07:08:00',1,1,1),(6,'Printer-2-NO','Printer-2-Brand','Printer-2-Model','Printer-2-IP','Printer-2-Description','Printer-2-SN','Printer-2-Warranty',10,NULL,NULL,3,'2015-05-14 07:08:00',3,'2015-05-14 07:08:00',1,1,2),(7,'Speaker-2-NO','Speaker-2-Brand','Speaker-2-Model','Speaker-2-IP','Speaker-2-Description','Speaker-2-SN','Speaker-2-Warranty',10,NULL,NULL,3,'2015-05-14 07:09:00',3,'2015-05-14 07:09:00',1,1,5),(8,'Splitter-2-NO','Splitter-2-Brand','Splitter-2-Model','Splitter-2-IP','Splitter-2-Description','Splitter-2-SN','Splitter-2-Warranty',10,NULL,NULL,3,'2015-05-14 07:10:00',3,'2015-05-14 07:10:00',1,1,6);
+/*!40000 ALTER TABLE `device` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `order`
+--
+
+LOCK TABLES `order` WRITE;
+/*!40000 ALTER TABLE `order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `order_detail`
+--
+
+LOCK TABLES `order_detail` WRITE;
+/*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `repair_device`
+--
+
+LOCK TABLES `repair_device` WRITE;
+/*!40000 ALTER TABLE `repair_device` DISABLE KEYS */;
+/*!40000 ALTER TABLE `repair_device` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `repair_device_detail`
+--
+
+LOCK TABLES `repair_device_detail` WRITE;
+/*!40000 ALTER TABLE `repair_device_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `repair_device_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `lend_device`
+--
+
+LOCK TABLES `lend_device` WRITE;
+/*!40000 ALTER TABLE `lend_device` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lend_device` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `lend_device_detail`
+--
+
+LOCK TABLES `lend_device_detail` WRITE;
+/*!40000 ALTER TABLE `lend_device_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lend_device_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `booking_room`
+--
+
+LOCK TABLES `booking_room` WRITE;
+/*!40000 ALTER TABLE `booking_room` DISABLE KEYS */;
+/*!40000 ALTER TABLE `booking_room` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `booking_room_detail`
+--
+
+LOCK TABLES `booking_room_detail` WRITE;
+/*!40000 ALTER TABLE `booking_room_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `booking_room_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `bring_material`
+--
+
+LOCK TABLES `bring_material` WRITE;
+/*!40000 ALTER TABLE `bring_material` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bring_material` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `bring_material_detail`
+--
+
+LOCK TABLES `bring_material_detail` WRITE;
+/*!40000 ALTER TABLE `bring_material_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bring_material_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `mapping_computer`
+--
+
+LOCK TABLES `mapping_computer` WRITE;
+/*!40000 ALTER TABLE `mapping_computer` DISABLE KEYS */;
+INSERT INTO `mapping_computer` (`id`, `mapping_no`, `computer_name`, `serial_no`, `ip`, `os`, `product_key_os`, `brand`, `model`, `cpu`, `ram`, `video_card`, `hdd`, `cd_dvd`, `antivirus`, `status`, `room`, `remark`, `create_user`, `create_date`, `update_user`, `update_date`, `flag`, `room_id`) VALUES (2,'no','name','sn','1970-01-01 00:00','oss','1970-01-01 00:00','brand','model','cpu','ram','vga','hdd','cd',1,1,'123','33333',2,'2015-05-17 16:45:00',2,'2015-05-17 16:45:00',1,1),(3,'no','name','sn','1970-01-01 00:00','oss','1970-01-01 00:00','brand','model','cpu','ram','vga','hdd','cd',1,1,'123','33333',2,'2015-05-17 16:46:00',2,'2015-05-17 16:46:00',0,1),(4,'no2','name2','sn2','ip2','oss2','os2','brand2','model2','cpu2','ram2','vga2','hdd2','cd2',0,0,'1232','333332',2,'2015-05-17 16:46:00',2,'2015-05-17 17:35:00',1,2),(5,'no','name','sn','1970-01-01 00:00','oss','1970-01-01 00:00','brand','model','cpu','ram','vga','hdd','cd',1,1,'123','33333',2,'2015-05-17 16:48:00',2,'2015-05-17 16:48:00',0,1);
+/*!40000 ALTER TABLE `mapping_computer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `user_role`
+--
+
+LOCK TABLES `user_role` WRITE;
+/*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
+INSERT INTO `user_role` (`id`, `role_no`, `name`, `description`) VALUES (1,'admin','admin','admin'),(2,'manager','manager','manager'),(3,'support','support','support'),(4,'user','user','user');
+/*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `password`, `remember_token`, `phone`, `create_user`, `created_at`, `update_user`, `updated_at`, `flag`, `user_role_id`) VALUES (1,'admin','admin','admin@mail.com','$2y$10$xdhKqEX45bayqVAMOB/moOdC6zk4p6MyQHMpp0/zRRAAZnYr6vDqq','iAODcxRG43Z6cckab9PqfCDUHBXbgimuo4pRutDTX1WDbemNIKxZKUE0Eih5','811111111',0,'2015-05-07 17:00:00',0,'2015-05-07 17:00:00',1,1),(2,'manager','manager','manager@mail.com','$2y$10$7np7eqXwr5psfvp/ezH7DeXWzwkcTo.u3p9HoFtkck5bBHj1j6AhG','IqgxhGdHwpZFHZqOxRI1izm5JMQ5l0yu8oaQG75Pt2zipyi4gkx4zpUL5PkI','811111111',0,'2015-05-07 17:00:00',0,'2015-05-07 17:00:00',1,2),(3,'support','primary school','support.primaryschool@mail.com','$2y$10$xdhKqEX45bayqVAMOB/moOdC6zk4p6MyQHMpp0/zRRAAZnYr6vDqq','QfRpYFSSFBeJKk0GQ0I5hJpqqfw8pp8osIBQvnFsG7CtJaomgPbihYTJFasC','811111111',0,'2015-05-07 17:00:00',0,'2015-05-07 17:00:00',1,3),(4,'support','elementary school','support.elementaryschool@mail.com','$2y$10$xdhKqEX45bayqVAMOB/moOdC6zk4p6MyQHMpp0/zRRAAZnYr6vDqq','QfRpYFSSFBeJKk0GQ0I5hJpqqfw8pp8osIBQvnFsG7CtJaomgPbihYTJFasC','811111111',0,'2015-05-07 17:00:00',0,'2015-05-07 17:00:00',1,3),(5,'user','user','user@mail.com','$2y$10$P6Qt1vcqqtTCODdYpkShqezF19HHllykc/2oIJr/I8XvBds7UOq6G','feUYTCftKdZhbLJB9tH7gyvkIVRgfKcmWLG57BvyLg5D5LO2T6VRoWBX3GT3','811111111',0,'2015-05-07 17:00:00',0,'2015-05-07 17:00:00',1,4);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `user_stock`
+--
+
+LOCK TABLES `user_stock` WRITE;
+/*!40000 ALTER TABLE `user_stock` DISABLE KEYS */;
+INSERT INTO `user_stock` (`id`, `name`, `description`, `flag`, `stock_id`, `users_id`) VALUES (1,'Support High school','Support High school',1,1,3),(2,'Support Elementary school','Support Elementary school',1,2,4),(3,'Manager High School','Manager High School',1,1,2),(4,'Manager Elementary School','Manager Elementary School',1,2,2),(5,'Admin High School','Admin High School',1,1,1),(6,'Admin Elementary School','Admin Elementary School',1,2,1),(7,'User High School','User High School',1,1,5),(8,'User Elementary School','User Elementary School',1,2,5);
+/*!40000 ALTER TABLE `user_stock` ENABLE KEYS */;
+UNLOCK TABLES;
+
