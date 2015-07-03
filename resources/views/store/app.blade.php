@@ -8,7 +8,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>ระบบจัดการอุปกรณ์ และห้องแลป</title>
+        <title>ระบบสารสนเทศออนไลน์ (I.T. Support Online)</title>
 
         <!-- Bootstrap Core CSS -->
         <link
@@ -74,8 +74,7 @@
                             class="icon-bar"></span> <span class="icon-bar"></span> <span
                             class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{{ action('UserController@index')}}">ระบบจัดการอุปกรณ์
-                        และห้องแลป</a>
+                    <a class="navbar-brand" href="{{ action('UserController@index')}}">ระบบสารสนเทศออนไลน์ (I.T. Support Online)</a>
                 </div>
                 <!-- /.navbar-header -->
                 @if(Auth::check())
@@ -299,7 +298,7 @@ $(document).ready(function () {
                         '<td>' + val.description + '</td>' +
                         '<td>' + val.serial_no + '</td>' +
                         '<td>' + val.warranty + '</td>' +
-                        '<td>' + val.amount + '</td>' +
+                        //'<td>' + val.amount + '</td>' +
                         '</tr>';
                 rows += row;
             });
@@ -329,7 +328,8 @@ $(document).ready(function () {
                         '<td>' + val.model + '</td>' +
                         '<td>' + val.description + '</td>' +
                         '<td>' + val.serial_no + '</td>' +
-                        '<td>' + val.amount + '</td>' +
+                        '<td>' + val.warranty + '</td>' +
+                        //'<td>' + val.amount + '</td>' +
                         '</tr>';
                 rows += row;
             });
@@ -470,6 +470,7 @@ $(document).ready(function () {
                         '<td>' + val.model + '</td>' +
                         '<td>' + val.description + '</td>' +
                         '<td>' + val.serialNo + '</td>' +
+                        '<td>' + val.warranty + '</td>' +
                         '<td>' + val.amount + '</td>' +
                         '</tr>';
                 rows += row;
@@ -666,6 +667,7 @@ $(document).ready(function () {
                                         <th>Model</th>
                                         <th>Item Description</th>
                                         <th>Serial No.</th>
+                                        <th>Warranty</th>
                                         <th>Amount</th>
                                     </tr>
                                 </thead>
@@ -808,6 +810,7 @@ $(document).ready(function () {
                                         <th>Model</th>
                                         <th>Item Description</th>
                                         <th>Serial No.</th>
+                                        <th>Warranty</th>
                                     </tr>
                                 </thead>
                                 <tbody>

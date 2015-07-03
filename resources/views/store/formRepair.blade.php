@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label class="control-label col-lg-2">Repair person : </label>
+                                <label class="control-label col-lg-2">Contact person : </label>
                                 <div class="col-lg-3">
                                     <input class="form-control" name="person" required/>
                                     <div class="help-block with-errors"></div>

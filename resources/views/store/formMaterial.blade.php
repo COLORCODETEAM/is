@@ -76,6 +76,13 @@ $materialTypes = $compact['materialTypes'];
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="control-label col-lg-2">Warranty : </label>
+                        <div class="col-lg-3">
+                            <input class="form-control" name="warranty"/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label col-lg-2">Amount : </label>
                         <div class="col-lg-3">
                             <input class="form-control" name="amount" type="number" value="1" required/>

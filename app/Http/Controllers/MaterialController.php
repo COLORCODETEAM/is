@@ -57,6 +57,7 @@ class MaterialController extends Controller {
         $material->model = $input ['model'];
         $material->description = $input ['description'];
         $material->serial_no = $input ['serialNo'];
+        $material->warranty = $input ['warranty'];
         $material->amount = $input ['amount'];
         $material->create_user = Helper::loginUser();
         $material->create_date = DateUtils::getDBDateTime();
@@ -127,6 +128,7 @@ class MaterialController extends Controller {
         $material->model = $input ['model'];
         $material->description = $input ['description'];
         $material->serial_no = $input ['serialNo'];
+        $material->warranty = $input ['warranty'];
         $material->amount = $input ['amount'];
         $material->update_user = Helper::loginUser();
         $material->update_date = DateUtils::getDBDateTime();
@@ -164,6 +166,7 @@ class MaterialController extends Controller {
             $row['model'] = $material->model;
             $row['description'] = $material->description;
             $row['serialNo'] = $material->serial_no;
+            $row['warranty'] = $material->warranty;
             $row['amount'] = $material->amount;
             
             $rows[] = $row;
@@ -183,6 +186,7 @@ class MaterialController extends Controller {
         $row['model'] = $material->model;
         $row['description'] = $material->description;
         $row['serial_no'] = $material->serial_no;
+        $row['warranty'] = $material->warranty;
         $row['amount'] = $material->amount;
         $row['create_user'] = $material->create_user;
         $row['create_date'] = $material->create_date;
