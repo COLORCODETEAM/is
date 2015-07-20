@@ -1,5 +1,10 @@
 @extends('store.app')
 @section('content')
+<?php
+$users = $compact['users'];
+$documentNumber = $compact['documentNumber'];
+$rooms = $compact['rooms'];
+?>
 {!! Form::open(array('url'=>'addRoomBooking')) !!}
 <form role="form">
     <div class="row">
@@ -20,8 +25,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Booking No : </label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="bookingNo" required/>
-                                        <div class="help-block with-errors"></div>
+                                        <input class="form-control" value="{{$documentNumber}}" disabled/>
+                                        <input type="hidden" name="bookingNo" value="{{$documentNumber}}"/>
                                     </div>
                                 </div>
                             </div>
@@ -40,8 +45,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Events : </label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="events" required/>
-                                        <div class="help-block with-errors"></div>
+                                        <input class="form-control" name="events"/>
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +77,11 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Contact person : </label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="contactPerson" required/>
+                                        <select class="form-control" name="contactPerson" required>
+                                            @foreach($users as $user)
+                                            <option value="{{$user['id']}}">{{$user['firstname']}} {{$user['lastname']}}</option>
+                                            @endforeach
+                                        </select>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>

@@ -13,4 +13,8 @@ class LendDevice extends Model {
     {
         return $this->hasMany('App\LendDeviceDetail');
     }
+    
+    public function user() {
+        return $this->belongsTo('App\User', 'rent_person');
+    }
 }

@@ -8,6 +8,8 @@ use App\Material;
 use App\BringMaterial;
 use App\BringMaterialDetail;
 use DateUtils;
+use App\User;
+use App\RunningNumber;
 use Helper;
 
 class BringMaterialController extends Controller {
@@ -21,6 +23,7 @@ class BringMaterialController extends Controller {
         $data = BringMaterial::where('flag', '=', '1')
                         ->where('create_user', '=', Helper::loginUser())
                         ->orderBy('create_date', 'desc')->get();
+        
         return view('store.manageBringMaterial')->with('bringMaterials', $data);
     }
 
@@ -30,7 +33,9 @@ class BringMaterialController extends Controller {
      * @return Response
      */
     public function create() {
-        return view('store.formBringMaterial');
+        $documentNumber = Helper::get_running_number("3", "6");
+        $users = User::all()->toArray();
+        return view('store.formBringMaterial')->with('compact', compact('users', 'documentNumber'));
     }
 
     /**
@@ -96,8 +101,9 @@ class BringMaterialController extends Controller {
         $bringMaterialDetails = BringMaterialDetail::where('flag', '=', '1')
                 ->where('bring_material_id', '=', $id)
                 ->get();
-
-        return view('store.formEditBringMaterial')->with('compact', compact('data', 'bringMaterialDetails'));
+        $users = Helper::get_user_list(User::all()->toArray(), $data['withdraw_person']);
+        
+        return view('store.formEditBringMaterial')->with('compact', compact('data', 'bringMaterialDetails', 'users'));
     }
 
     /**
@@ -109,7 +115,6 @@ class BringMaterialController extends Controller {
     public function update($id) {
         $input = Request::all();
         $bringMaterial = BringMaterial::find($id);
-        $bringMaterial->bring_no = $input ['bringNo'];
         $bringMaterial->purpose = $input ['purpose'];
         $bringMaterial->description = $input ['description'];
         $bringMaterial->withdraw_person = $input ['withdrawPerson'];

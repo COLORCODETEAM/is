@@ -9,6 +9,7 @@ use App\LendDevice;
 use App\LendDeviceType;
 use App\LendDeviceDetail;
 use DateUtils;
+use App\User;
 use Helper;
 
 class LendDeviceController extends Controller {
@@ -22,6 +23,7 @@ class LendDeviceController extends Controller {
         $data = LendDevice::where('flag', '=', '1')
                         ->where('create_user', '=', Helper::loginUser())
                         ->orderBy('create_date', 'desc')->get();
+        
         return view('store.manageLendDevice')->with('lendDevices', $data);
     }
 
@@ -31,7 +33,9 @@ class LendDeviceController extends Controller {
      * @return Response
      */
     public function create() {
-        return view('store.formLendDevice');
+        $documentNumber = Helper::get_running_number("4", "6");
+        $users = User::all()->toArray();
+        return view('store.formLendDevice')->with('compact', compact('users', 'documentNumber'));
     }
 
     /**
@@ -97,8 +101,9 @@ class LendDeviceController extends Controller {
         $lendDeviceDetails = LendDeviceDetail::where('flag', '=', '1')
                 ->where('lend_device_id', '=', $id)
                 ->get();
+        $users = Helper::get_user_list(User::all()->toArray(), $data['rent_person']);
 
-        return view('store.formEditLendDevice')->with('compact', compact('data', 'lendDeviceDetails'));
+        return view('store.formEditLendDevice')->with('compact', compact('data', 'lendDeviceDetails', 'users'));
     }
 
     /**
@@ -110,7 +115,6 @@ class LendDeviceController extends Controller {
     public function update($id) {
         $input = Request::all();
         $lendDevice = LendDevice::find($id);
-        $lendDevice->lend_no = $input ['lendNo'];
         $lendDevice->purpose = $input ['purpose'];
         $lendDevice->rent_person = $input ['rentPerson'];
         $lendDevice->email = $input ['email'];

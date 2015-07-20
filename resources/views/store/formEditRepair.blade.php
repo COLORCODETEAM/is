@@ -3,6 +3,8 @@
 <?php
 $repairDevice = $compact['data'];
 $repairDeviceDetails = $compact['repairDeviceDetails'];
+$users = $compact['users'];
+$users_received = $compact['users_received'];
 ?>
 {!! Form::open( ['route'=>['updateRepair',$repairDevice['id'] ]])  !!}
 <div class="row">
@@ -23,8 +25,7 @@ $repairDeviceDetails = $compact['repairDeviceDetails'];
                             <div class="form-group">
                                 <label class="control-label col-lg-4">Repair No : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="repairNo" value="{{$repairDevice['repair_no']}}" required/>
-                                    <div class="help-block with-errors"></div>
+                                    <input class="form-control" name="repairNo" value="{{$repairDevice['repair_no']}}" disabled/>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +44,11 @@ $repairDeviceDetails = $compact['repairDeviceDetails'];
                             <div class="form-group">
                                 <label class="control-label col-lg-2">Contact person : </label>
                                 <div class="col-lg-3">
-                                    <input class="form-control" name="person" value="{{$repairDevice['person']}}" required/>
+                                    <select class="form-control" name="person" required>
+                                        @foreach($users as $user)
+                                        <option value="{{$user['id']}}" {{$user['selected']}}>{{$user['firstname']}} {{$user['lastname']}}</option>
+                                        @endforeach
+                                    </select>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>      
@@ -128,7 +133,11 @@ $repairDeviceDetails = $compact['repairDeviceDetails'];
                             <div class="form-group">
                                 <label class="control-label col-lg-6">Received by : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="receivedBy" value="{{$repairDevice['received_by']}}"/>
+                                    <select class="form-control" name="receivedBy">
+                                        @foreach($users_received as $user_received)
+                                        <option value="{{$user_received['id']}}" {{$user_received['selected']}}>{{$user_received['firstname']}} {{$user_received['lastname']}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>

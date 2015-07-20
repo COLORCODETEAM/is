@@ -29,9 +29,10 @@ class MappingComputerController extends Controller {
      * @return Response
      */
     public function create() {
+        $documentNumber = Helper::get_running_number("6", "6");
         $rooms = Room::where('flag', '=', '1')->get();
         
-        return view('store.formMappingComputer')->with('rooms', $rooms);
+        return view('store.formMappingComputer')->with('compact', compact('documentNumber', 'rooms'));
     }
 
     /**

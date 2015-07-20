@@ -13,4 +13,8 @@ class BringMaterial extends Model {
     {
         return $this->hasMany('App\BringMaterialDetail');
     }
+    
+    public function user() {
+        return $this->belongsTo('App\User', 'withdraw_person');
+    }
 }

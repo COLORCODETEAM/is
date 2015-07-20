@@ -3,6 +3,7 @@
 <?php
 $bringMaterial = $compact['data'];
 $bringMaterialDetails = $compact['bringMaterialDetails'];
+$users = $compact['users'];
 ?>
 {!! Form::open( ['route'=>['updateBringMaterial',$bringMaterial['id'] ]])  !!}
 <div class="row">
@@ -23,8 +24,7 @@ $bringMaterialDetails = $compact['bringMaterialDetails'];
                             <div class="form-group">
                                 <label class="control-label col-lg-4">Withdraw No : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="bringNo" value="{{$bringMaterial['bring_no']}}" required/>
-                                    <div class="help-block with-errors"></div>
+                                    <input class="form-control" name="bringNo" value="{{$bringMaterial['bring_no']}}" disabled/>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@ $bringMaterialDetails = $compact['bringMaterialDetails'];
                             <div class="form-group">
                                 <label class="control-label col-lg-2">Purpose of use : </label>
                                 <div class="col-lg-6">
-                                    <textarea class="form-control" rows="3" name="purpose" required>{{$bringMaterial['purpose']}}</textarea>
+                                    <textarea class="form-control" rows="3" name="purpose">{{$bringMaterial['purpose']}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,11 @@ $bringMaterialDetails = $compact['bringMaterialDetails'];
                             <div class="form-group">
                                 <label class="control-label col-lg-4">Withdraw person : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="withdrawPerson" value="{{$bringMaterial['withdraw_person']}}" required/>
+                                    <select class="form-control" name="withdrawPerson" required>
+                                        @foreach($users as $user)
+                                        <option value="{{$user['id']}}" {{$user['selected']}}>{{$user['firstname']}} {{$user['lastname']}}</option>
+                                        @endforeach
+                                    </select>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>

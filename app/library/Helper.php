@@ -12,6 +12,7 @@
  * @author dev
  */
 use App\UserStock;
+use App\RunningNumber;
 
 class Helper {
 
@@ -25,7 +26,7 @@ class Helper {
         }
         return $fg;
     }
-    
+
     public static function isManager() {
         $fg = false;
         if (Auth::check()) {
@@ -63,7 +64,7 @@ class Helper {
         }
         return $id;
     }
-    
+
     public static function loginUserStocks() {
         $stocks = '';
         if (Auth::check()) {
@@ -73,4 +74,54 @@ class Helper {
         }
         return $stocks;
     }
+
+    public static function loginUserAvatar() {
+        
+        return asset('store/avatar/'. Auth::user()->avatar);
+    }
+
+    public static function add_prefix($length, $value) {
+        return str_pad($value, $length, '0', STR_PAD_LEFT);
+    }
+
+    public static function get_running_number($documentType, $length) {
+        RunningNumber::where('type', '=', $documentType)
+                ->increment('number');
+        $data = RunningNumber::where('type', '=', $documentType)
+                ->first();
+        return $documentNumber = Helper::add_prefix($length, $data->number);
+    }
+
+    public static function get_user_list($users, $person) {
+        $selected = 0;
+        foreach ($users as &$tmp) {
+            if ($person == $tmp['id']) {
+                $tmp['selected'] = 'selected';
+                $selected++;
+            } else {
+                $tmp['selected'] = '';
+            }
+        }
+
+        if ($selected == 0) {
+            $tmp['id'] = '0';
+            $tmp['firstname'] = '';
+            $tmp['lastname'] = '';
+            $tmp['selected'] = 'selected';
+
+            array_unshift($users, $tmp);
+        }
+
+        return $users;
+    }
+
+    public static function upload_file($file) {
+        $destinationPath = base_path() .'/public/store/avatar/'; // upload path
+        $extension = $file->getClientOriginalExtension(); // getting image extension
+        $fileName = DateTime::getTimestamp(). rand(111111, 999999) .'.'. $extension; // renameing image
+        $file->move($destinationPath, $fileName); // uploading file to given path
+        
+        return $fileName;
+    }
+
 }

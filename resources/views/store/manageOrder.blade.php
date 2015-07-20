@@ -35,7 +35,7 @@
                                                     <th>Purpose</th>
                                                     <th>Order by</th>
                                                     <th>Received by</th>
-                                                    <th>Check by</th>
+                                                    <th>Checked by</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -54,9 +54,9 @@
                                                     <td>{{$order['order_no']}}</td>
                                                     <td>{{DateUtils::getDateFromStr($order['order_date'])}}</td>
                                                     <td>{{$order['purpose']}}</td>
-                                                    <td>{{$order['order_by']}}</td>
-                                                    <td>{{$order['received_by']}}</td>
-                                                    <td>{{$order['checked_by']}}</td>
+                                                    <td>{{$order->user->firstname}} {{$order->user->lastname}}</td>
+                                                    <td>{{$order->user_received->firstname}} {{$order->user_received->lastname}}</td>
+                                                    <td>{{$order->user_checked->firstname}} {{$order->user_checked->lastname}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

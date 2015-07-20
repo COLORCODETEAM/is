@@ -18,4 +18,8 @@ class BookingRoom extends Model {
     {
         return $this->hasMany('App\BookingRoomDetail');
     }
+    
+    public function user() {
+        return $this->belongsTo('App\User', 'contact_person');
+    }
 }

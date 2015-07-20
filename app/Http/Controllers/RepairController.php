@@ -8,6 +8,7 @@ use App\Device;
 use App\RepairDevice;
 use App\RepairDeviceDetail;
 use DateUtils;
+use App\User;
 use Helper;
 
 class RepairController extends Controller {
@@ -20,7 +21,9 @@ class RepairController extends Controller {
     public function index() {
         $data = RepairDevice::where('flag', '=', '1')
                         ->where('create_user', '=', Helper::loginUser())
-                        ->orderBy('create_date', 'desc')->get();
+                        ->orderBy('create_date', 'desc')
+                        ->get();
+        
         return view('store.manageRepair')->with('repairDevices', $data);
     }
 
@@ -30,7 +33,9 @@ class RepairController extends Controller {
      * @return Response
      */
     public function create() {
-        return view('store.formRepair');
+        $documentNumber = Helper::get_running_number("5", "6");
+        $users = User::all()->toArray();
+        return view('store.formRepair')->with('compact', compact('users', 'documentNumber'));
     }
 
     /**
@@ -94,8 +99,10 @@ class RepairController extends Controller {
         $repairDeviceDetails = RepairDeviceDetail::where('flag', '=', '1')
                 ->where('repair_device_id', '=', $id)
                 ->get();
-
-        return view('store.formEditRepair')->with('compact', compact('data', 'repairDeviceDetails'));
+        $users = Helper::get_user_list(User::all()->toArray(), $data['person']);
+        $users_received = Helper::get_user_list(User::all()->toArray(), $data['received_by']);
+        
+        return view('store.formEditRepair')->with('compact', compact('data', 'repairDeviceDetails', 'users', 'users_received'));
     }
 
     /**
@@ -107,7 +114,6 @@ class RepairController extends Controller {
     public function update($id) {
         $input = Request::all();
         $repairDevice = RepairDevice::find($id);
-        $repairDevice->repair_no = $input ['repairNo'];
         $repairDevice->person = $input ['person'];
         $repairDevice->approvement = $input ['approvement'];
         $repairDevice->approved_date = DateUtils::getDBDateTimeFromStr($input ['approvedDate']);

@@ -8,6 +8,8 @@ use App\Order;
 use App\OrderDetail;
 use App\DeviceType;
 use DateUtils;
+use App\User;
+use App\RunningNumber;
 use Helper;
 
 class OrderController extends Controller {
@@ -21,6 +23,7 @@ class OrderController extends Controller {
         $data = Order::where('flag', '=', '1')
                         ->where('create_user', '=', Helper::loginUser())
                         ->orderBy('create_date', 'desc')->get();
+        
         return view('store.manageOrder')->with('orders', $data);
     }
 
@@ -30,7 +33,9 @@ class OrderController extends Controller {
      * @return Response
      */
     public function create() {
-        return view('store.formOrder');
+        $documentNumber = Helper::get_running_number("1", "6");
+        $users = User::all()->toArray();
+        return view('store.formOrder')->with('compact', compact('users', 'documentNumber'));
     }
 
     /**
@@ -105,8 +110,12 @@ class OrderController extends Controller {
         $orderDetails = OrderDetail::where('flag', '=', '1')
                 ->where('order_id', '=', $id)
                 ->get();
-
-        return view('store.formEditOrder')->with('compact', compact('data', 'orderDetails'));
+        
+        $users = Helper::get_user_list(User::all()->toArray(), $data['order_by']);
+        $users_received = Helper::get_user_list(User::all()->toArray(), $data['received_by']);
+        $users_checked = Helper::get_user_list(User::all()->toArray(), $data['checked_by']);
+        
+        return view('store.formEditOrder')->with('compact', compact('data', 'orderDetails', 'users', 'users_received', 'users_checked'));
     }
 
     /**
@@ -118,7 +127,6 @@ class OrderController extends Controller {
     public function update($id) {
         $input = Request::all();
         $order = Order::find($id);
-        $order->order_no = $input ['orderNo'];
         $order->purpose = $input ['purpose'];
         $order->approvement = $input ['approvement'];
         $order->approved_date = DateUtils::getDBDateTimeFromStr($input ['approvedDate']);

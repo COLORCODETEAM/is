@@ -8,6 +8,7 @@ use App\Room;
 use App\BookingRoom;
 use App\BookingRoomDetail;
 use DateUtils;
+use App\User;
 use Helper;
 
 class RoomBookingController extends Controller {
@@ -31,9 +32,11 @@ class RoomBookingController extends Controller {
      * @return Response
      */
     public function create() {
+        $documentNumber = Helper::get_running_number("2", "6");
+        $users = User::all()->toArray();
         $rooms = Room::where('flag', '=', '1')->get();
         
-        return view('store.formRoomBooking')->with('rooms', $rooms);
+        return view('store.formRoomBooking')->with('compact', compact('users', 'documentNumber', 'rooms'));
     }
 
     /**
@@ -110,7 +113,9 @@ class RoomBookingController extends Controller {
             }
         }
         
-        return view('store.formEditRoomBooking')->with('compact', compact('data', 'rooms', 'bookingRoomDetails'));
+        $users = Helper::get_user_list(User::all()->toArray(), $data['contact_person']);
+        
+        return view('store.formEditRoomBooking')->with('compact', compact('data', 'rooms', 'bookingRoomDetails', 'users'));
     }
 
     /**
@@ -123,7 +128,6 @@ class RoomBookingController extends Controller {
         $input = Request::all();
         $bookingRoom = BookingRoom::find($id);
         $bookingRoom->room_id = $input ['roomId'];
-        $bookingRoom->booking_no = $input ['bookingNo'];
         $bookingRoom->events = $input ['events'];
         $bookingRoom->purpose = $input ['purpose'];
         $bookingRoom->description = $input ['description'];

@@ -51,7 +51,7 @@
                                                     </td>
                                                     <td>{{$bringMaterial['bring_no']}}</td>
                                                     <td>{{DateUtils::getDateFromStr($bringMaterial['create_date'])}}</td>
-                                                    <td>{{$bringMaterial['withdraw_person']}}</td>
+                                                    <td>{{$bringMaterial->user->firstname}} {{$bringMaterial->user->lastname}}</td>
                                                     <td>{{$bringMaterial['purpose']}}</td>
                                                     <td>{{($bringMaterial['approvement']=='1' ? 'OK':'CANCEL')}}</td>
                                                 </tr>

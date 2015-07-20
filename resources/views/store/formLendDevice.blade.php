@@ -1,5 +1,9 @@
 @extends('store.app')
 @section('content')
+<?php
+$users = $compact['users'];
+$documentNumber = $compact['documentNumber'];
+?>
 {!! Form::open(array('url'=>'addLendDevice')) !!}
 <div class="row">
     <div class="col-lg-12">
@@ -19,8 +23,8 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-4">Rent No : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="lendNo" required/>
-                                    <div class="help-block with-errors"></div>
+                                    <input class="form-control" value="{{$documentNumber}}" disabled/>
+                                    <input type="hidden" name="lendNo" value="{{$documentNumber}}"/>
                                 </div>
                             </div>
                         </div>
@@ -39,8 +43,7 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-2">Purpose of use : </label>
                                 <div class="col-lg-6">
-                                    <textarea class="form-control" rows="3" name="purpose" required></textarea>
-                                    <div class="help-block with-errors"></div>
+                                    <textarea class="form-control" rows="3" name="purpose"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +53,11 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-4">Rent person : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="rentPerson" required/>
+                                    <select class="form-control" name="rentPerson" required>
+                                        @foreach($users as $user)
+                                        <option value="{{$user['id']}}">{{$user['firstname']}} {{$user['lastname']}}</option>
+                                        @endforeach
+                                    </select>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>

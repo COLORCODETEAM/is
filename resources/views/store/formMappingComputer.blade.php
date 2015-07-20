@@ -1,5 +1,9 @@
 @extends('store.app')
 @section('content')
+<?php
+$documentNumber = $compact['documentNumber'];
+$rooms = $compact['rooms'];
+?>
 {!! Form::open(array('url'=>'addMappingComputer')) !!}
 <form role="form">
     <div class="row">
@@ -20,7 +24,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Mapping No : </label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="mappingNo" required/>
+                                        <input class="form-control" name="mappingNo" value="{{$documentNumber}}" disabled/>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>

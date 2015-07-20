@@ -36,10 +36,6 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($userStocks as $userStock)
-                                                <?php
-                                                $stock = $userStock->stock;
-                                                $user = $userStock->user;                                                
-                                                ?>
                                                 <tr class="odd gradeX">
                                                     <td>
                                                         <div class="row">
@@ -51,9 +47,9 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>{{$stock->stock_no}}</td>
-                                                    <td>{{$stock->name}}</td>
-                                                    <td>{{$user->firstname}} {{$user->lastname}}</td>
+                                                    <td>{{$userStock->stock->stock_no}}</td>
+                                                    <td>{{$userStock->stock->name}}</td>
+                                                    <td>{{$userStock->user->firstname}} {{$userStock->user->lastname}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

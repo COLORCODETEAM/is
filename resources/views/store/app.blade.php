@@ -79,6 +79,7 @@
                 <!-- /.navbar-header -->
                 @if(Auth::check())
                 <ul class="nav navbar-top-links navbar-right">
+                    <li><img src="{{Helper::loginUserAvatar()}}" width="30px" height="30px"</li>
                     <li style="padding-left: 15px;"><span> สวัสดี, {{Auth::user()->firstname}}  {{Auth::user()->lastname}}</span></li>
                     <li class="dropdown"><a class="dropdown-toggle"
                                             data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i
@@ -103,48 +104,60 @@
                 @endif
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
-                        @if(Helper::isManager() || Helper::isSupport() || Helper::isAdmin())
                         <ul class="nav" id="side-menu">
+                            @if(Helper::isAdmin() || Helper::isManager())
                             <li><a href><i class="fa fa-folder-open fa-fw"></i> การจัดการ<span
                                         class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    @if(Helper::isManager() || Helper::isAdmin())
+                                    @if(Helper::isAdmin() || Helper::isManager())
                                     <li><a href="{{ action('StockController@index')}}">จัดการคลัง</a></li>
+                                    @endif
+                                    @if(Helper::isAdmin() || Helper::isManager())
                                     <li><a href="{{ action('RoomController@index') }}"> จัดการห้องแลป</a></li>
+                                    @endif
+                                    @if(Helper::isAdmin() || Helper::isManager())
                                     <li><a href="{{ action('UserStockController@index') }}"> จัดการผู้ใช้-คลัง</a></li>
                                     @endif
+                                    @if(Helper::isAdmin() || Helper::isManager())
                                     <li><a href="{{ action('MaterialController@index')}}">จัดการวัสดุ</a></li>
+                                    @endif
+                                    @if(Helper::isAdmin() || Helper::isManager())
                                     <li><a href="{{ action('DeviceController@index')}}">จัดการอุปกรณ์</a></li>
+                                    @endif
+                                    @if(Helper::isAdmin() || Helper::isManager())
                                     <li><a href="{{ action('MappingComputerController@index')}}">จัดการเครื่องคอมพิวเตอร์</a></li>
+                                    @endif
                                 </ul>
                             </li>
-                        </ul>
-                        @endif
-                        @if(Helper::isManager() || Helper::isSupport() || Helper::isAdmin())
-                        <ul class="nav" id="side-menu">
+                            @endif
+                            @if(Helper::isAdmin() || Helper::isManager())
                             <li><a href="{{ action('OrderController@index') }}"><i
                                         class="fa fa-shopping-cart fa-fw"></i> สั่งซื้อวัสดุ-อุปกรณ์</a></li>
+                            @endif
+                            @if(Helper::isAdmin() || Helper::isManager())
                             <li><a href="{{ action('RoomBookingController@index')}}"><i
                                         class="fa fa-calendar fa-fw"></i> จองห้องแลป และอุปกรณ์</a></li>
+                            @endif  
+                            @if(Helper::isAdmin() || Helper::isManager())
                             <li><a href="{{ action('BringMaterialController@index')}}"><i
                                         class="fa fa-list-alt fa-fw"></i> เบิก-จ่ายวัสดุ</a></li>
+                            @endif            
+                            @if(Helper::isAdmin() || Helper::isManager())
                             <li><a href="{{ action('LendDeviceController@index')}}"><i
                                         class="fa fa-edit fa-fw"></i> ยืม-คืนอุปกรณ์</a></li>
+                            @endif
+                            @if(Helper::isAdmin() || Helper::isManager())
+                            <li><a href="{{ action('RepairController@index')}}"><i
+                                        class="fa fa-wrench fa-fw"></i> แจ้งซ่อมอุปกรณ์</a></li>
+                            @endif
                         </ul>
-                        @endif
-                        @if (Helper::isManager() || Helper::isSupport() || Helper::isUser() || Helper::isAdmin())
-                            <ul class="nav" id="side-menu">
-                                <li><a href="{{ action('RepairController@index')}}"><i
-                                            class="fa fa-wrench fa-fw"></i> แจ้งซ่อมอุปกรณ์</a></li>
-                            </ul>
-                        @endif
                     </div>
                     <!-- /.sidebar-collapse -->
                 </div>
                 <!-- /.navbar-static-side -->
             </nav>
 
-            <div id="page-banner"></div>
+            <div id="page-banner"><div id="page-banner-image"></div></div>
 
             <div id="page-wrapper">@yield('content')</div>
         </div>
@@ -588,6 +601,44 @@ $(document).ready(function () {
             btn.button('reset');
         }, 3000);
     });
+    
+    $("#file_upload").on("change",function(e){  
+        var files = this.files  
+        showThumbnail(files)          
+    });  
+  
+    function showThumbnail(files){  
+  
+        $("#thumbnail").html("");  
+        for(var i=0;i<files.length;i++){  
+            var file = files[i]  
+            var imageType = /image.*/  
+            if(!file.type.match(imageType)){  
+                //     console.log("Not an Image");  
+                continue;  
+            }  
+  
+            var image = document.createElement("img");  
+            var thumbnail = document.getElementById("thumbnail");  
+            image.file = file;  
+            thumbnail.appendChild(image)  
+  
+            var reader = new FileReader()  
+            reader.onload = (function(aImg){  
+                return function(e){  
+                    aImg.src = e.target.result;  
+                };  
+            }(image))  
+  
+            var ret = reader.readAsDataURL(file);  
+            var canvas = document.createElement("canvas");  
+            ctx = canvas.getContext("2d");  
+            image.onload= function(){  
+                ctx.drawImage(image,150,150)  
+            }  
+        } // end for loop  
+  
+    } // end showThumbnail  
 });
         </script>
 

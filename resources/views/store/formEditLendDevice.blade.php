@@ -3,6 +3,7 @@
 <?php
 $lendDevice = $compact['data'];
 $lendDeviceDetails = $compact['lendDeviceDetails'];
+$users = $compact['users'];
 ?>
 {!! Form::open( ['route'=>['updateLendDevice',$lendDevice['id'] ]])  !!}
 <div class="row">
@@ -23,8 +24,7 @@ $lendDeviceDetails = $compact['lendDeviceDetails'];
                             <div class="form-group">
                                 <label class="control-label col-lg-4">Rent No : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="lendNo" value="{{$lendDevice['lend_no']}}" required/>
-                                    <div class="help-block with-errors"></div>
+                                    <input class="form-control" name="lendNo" value="{{$lendDevice['lend_no']}}" disabled/>
                                 </div>
                             </div>
                         </div>
@@ -43,8 +43,7 @@ $lendDeviceDetails = $compact['lendDeviceDetails'];
                             <div class="form-group">
                                 <label class="control-label col-lg-2">Purpose of use : </label>
                                 <div class="col-lg-6">
-                                    <textarea class="form-control" rows="3" name="purpose" required>{{$lendDevice['purpose']}}</textarea>
-                                    <div class="help-block with-errors"></div>
+                                    <textarea class="form-control" rows="3" name="purpose">{{$lendDevice['purpose']}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +53,11 @@ $lendDeviceDetails = $compact['lendDeviceDetails'];
                             <div class="form-group">
                                 <label class="control-label col-lg-4">Rent person : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="rentPerson" value="{{$lendDevice['rent_person']}}" required/>
+                                    <select class="form-control" name="rentPerson" required>
+                                        @foreach($users as $user)
+                                        <option value="{{$user['id']}}" {{$user['selected']}}>{{$user['firstname']}} {{$user['lastname']}}</option>
+                                        @endforeach
+                                    </select>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>

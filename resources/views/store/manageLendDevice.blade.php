@@ -51,7 +51,7 @@
                                                         </div>
                                                     </td>
                                                     <td>{{$lendDevice['lend_no']}}</td>
-                                                    <td>{{$lendDevice['rent_person']}}</td>
+                                                    <td>{{$lendDevice->user->firstname}} {{$lendDevice->user->lastname}}</td>
                                                     <td>{{$lendDevice['purpose']}}</td>
                                                     <td>{{DateUtils::getDateFromStr($lendDevice['start_time'])}}</td>
                                                     <td>{{DateUtils::getDateFromStr($lendDevice['end_time'])}}</td>

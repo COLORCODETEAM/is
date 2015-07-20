@@ -19,14 +19,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var string
      */
     protected $table = 'users';
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['firstname', 'lastname', 'email', 'password', 'phone'];
+    protected $fillable = ['firstname', 'lastname', 'email', 'password', 'phone', 'avatar', 'create_user', 'created_at', 
+        'update_user', 'updated_at', 'user_role_id', 'flag'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -38,8 +39,29 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function userRole() {
         return $this->belongsTo('App\UserRole');
     }
-    
+
     public function userStock() {
         return $this->hasMany('App\UserStock');
     }
+
+    public function repairDevice() {
+        return $this->hasMany('App\RepairDevice');
+    }
+
+    public function lendDevice() {
+        return $this->hasMany('App\LendDevice');
+    }
+
+    public function bringMaterial() {
+        return $this->hasMany('App\BringMaterial');
+    }
+
+    public function bookingRoom() {
+        return $this->hasMany('App\BookingRoom');
+    }
+
+    public function order() {
+        return $this->hasMany('App\Order');
+    }
+
 }

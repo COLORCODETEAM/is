@@ -1,5 +1,9 @@
 @extends('store.app')
 @section('content')
+<?php
+$users = $compact['users'];
+$documentNumber = $compact['documentNumber'];
+?>
 {!! Form::open(array('url'=>'addRepair')) !!}
 <div class="row">
     <div class="col-lg-12">
@@ -19,8 +23,8 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-4">Repair No : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="repairNo" required/>
-                                    <div class="help-block with-errors"></div>
+                                    <input class="form-control disabled" value="{{$documentNumber}}" disabled/>
+                                    <input type="hidden" name="repairNo" value="{{$documentNumber}}"/>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +43,11 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-2">Contact person : </label>
                                 <div class="col-lg-3">
-                                    <input class="form-control" name="person" required/>
+                                    <select class="form-control" name="person" required>
+                                        @foreach($users as $user)
+                                        <option value="{{$user['id']}}">{{$user['firstname']}} {{$user['lastname']}}</option>
+                                        @endforeach
+                                    </select>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>      
@@ -97,7 +105,6 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </span>
-                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +115,12 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-6">Received by : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="receivedBy"/>
+                                    <select class="form-control" name="receivedBy">
+                                        <option></option>
+                                        @foreach($users as $user)
+                                        <option value="{{$user['id']}}">{{$user['firstname']}} {{$user['lastname']}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +134,6 @@
                                             <i class="fa fa-calendar"></i>
                                         </span>
                                     </div>
-                                    <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                         </div>

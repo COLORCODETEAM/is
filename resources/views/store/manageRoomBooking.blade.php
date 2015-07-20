@@ -32,8 +32,8 @@
                                                     <th></th>
                                                     <th>Booking No.</th>
                                                     <th>Room No.</th>
-                                                    <th>Contact person</th>
                                                     <th>Purpose</th>
+                                                    <th>Contact person</th>
                                                     <th>Date</th>
                                                     <th>Start time</th>
                                                     <th>Finish time</th>
@@ -58,7 +58,7 @@
                                                     <td>{{$bookingRoom->booking_no}}</td>
                                                     <td>{{$room->room_no}}</td>
                                                     <td>{{$bookingRoom->purpose}}</td>
-                                                    <td>{{$bookingRoom->contact_person}}</td>
+                                                    <td>{{$bookingRoom->user->firstname}} {{$bookingRoom->user->lastname}}</td>
                                                     <td>{{DateUtils::getDateFromStr($bookingRoom->start_time)}}</td>
                                                     <td>{{DateUtils::getTimeFromStr($bookingRoom->start_time)}}</td>
                                                     <td>{{DateUtils::getTimeFromStr($bookingRoom->end_time)}}</td>

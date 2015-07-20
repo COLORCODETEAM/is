@@ -1,5 +1,9 @@
 @extends('store.app')
 @section('content')
+<?php
+$users = $compact['users'];
+$documentNumber = $compact['documentNumber'];
+?>
 {!! Form::open(array('url'=>'addBringMaterial')) !!}
 <div class="row">
     <div class="col-lg-12">
@@ -19,8 +23,8 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-4">Withdraw No : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="bringNo" required/>
-                                    <div class="help-block with-errors"></div>
+                                    <input class="form-control" value="{{$documentNumber}}" disabled/>
+                                    <input type="hidden" name="bringNo" value="{{$documentNumber}}"/>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +63,11 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-4">Withdraw person : </label>
                                 <div class="col-lg-6">
-                                    <input class="form-control" name="withdrawPerson" required/>
+                                    <select class="form-control" name="withdrawPerson" required>
+                                        @foreach($users as $user)
+                                        <option value="{{$user['id']}}">{{$user['firstname']}} {{$user['lastname']}}</option>
+                                        @endforeach
+                                    </select>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>

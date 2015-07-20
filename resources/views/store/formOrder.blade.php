@@ -1,5 +1,9 @@
 @extends('store.app')
 @section('content')
+<?php
+$users = $compact['users'];
+$documentNumber = $compact['documentNumber'];
+?>
 {!! Form::open(array('url'=>'addOrder')) !!}
 <form>
     <div class="row">
@@ -20,8 +24,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Order No : </label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="orderNo" required/>
-                                        <div class="help-block with-errors"></div>
+                                        <input class="form-control" value="{{$documentNumber}}" disabled/>
+                                        <input type="hidden" name="orderNo" value="{{$documentNumber}}"/>
                                     </div>
                                 </div>
                             </div>
@@ -40,8 +44,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Purpose of request : </label>
                                     <div class="col-lg-6">
-                                        <textarea class="form-control" rows="3" name="purpose" required></textarea>
-                                        <div class="help-block with-errors"></div>
+                                        <textarea class="form-control" rows="3" name="purpose"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +86,11 @@
                                     <div class="form-group">
                                         <label class="control-label col-lg-6">Order by : </label>
                                         <div class="col-lg-6">
-                                            <input class="form-control" name="orderBy" required/>
+                                            <select class="form-control" name="orderBy" required>
+                                                @foreach($users as $user)
+                                                <option value="{{$user['id']}}">{{$user['firstname']}} {{$user['lastname']}}</option>
+                                                @endforeach
+                                            </select>
                                             <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -123,11 +130,10 @@
                                         <label class="control-label col-lg-6">Date of Approved : </label>
                                         <div class="col-lg-6">
                                             <div class=" input-group">
-                                                <input class="form-control datepicker" name="approvedDate" value="{{DateUtils::getDate()}}" required/>
+                                                <input class="form-control datepicker" name="approvedDate"/>
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </span>
-                                                <div class="help-block with-errors"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -140,8 +146,12 @@
                                     <div class="form-group">
                                         <label class="control-label col-lg-6">Received by : </label>
                                         <div class="col-lg-6">
-                                            <input class="form-control" name="receivedBy"/>
-                                            <div class="help-block with-errors"></div>
+                                            <select class="form-control" name="receivedBy">
+                                                <option></option>
+                                                @foreach($users as $user)
+                                                <option value="{{$user['id']}}">{{$user['firstname']}} {{$user['lastname']}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -150,11 +160,10 @@
                                         <label class="control-label col-lg-6">Date of Received : </label>
                                         <div class="col-lg-6">
                                             <div class=" input-group">
-                                                <input class="form-control datepicker" name="receivedDate" value="{{DateUtils::getDate()}}" required/>
+                                                <input class="form-control datepicker" name="receivedDate"/>
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </span>
-                                                <div class="help-block with-errors"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -167,8 +176,12 @@
                                     <div class="form-group">
                                         <label class="control-label col-lg-6">Checked by : </label>
                                         <div class="col-lg-6">
-                                            <input class="form-control" name="checkedBy"/>
-                                            <div class="help-block with-errors"></div>
+                                            <select class="form-control" name="checkedBy">
+                                                <option></option>
+                                                @foreach($users as $user)
+                                                <option value="{{$user['id']}}">{{$user['firstname']}} {{$user['lastname']}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -177,11 +190,10 @@
                                         <label class="control-label col-lg-6">Date of Checked : </label>
                                         <div class="col-lg-6">
                                             <div class=" input-group">
-                                                <input class="form-control datepicker" name="checkedDate" value="{{DateUtils::getDate()}}" required/>
+                                                <input class="form-control datepicker" name="checkedDate"/>
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </span>
-                                                <div class="help-block with-errors"></div>
                                             </div>
                                         </div>
                                     </div>

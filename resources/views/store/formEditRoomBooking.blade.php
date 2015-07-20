@@ -4,6 +4,7 @@
 $roomBooking = $compact['data'];
 $rooms = $compact['rooms'];
 $roomBookingDetails = $compact['bookingRoomDetails'];
+$users = $compact['users'];
 ?>
 {!! Form::open( ['route'=>['updateRoomBooking',$roomBooking['id'] ]])  !!}
 <form role="form">
@@ -25,8 +26,7 @@ $roomBookingDetails = $compact['bookingRoomDetails'];
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Booking No : </label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="bookingNo" value="{{$roomBooking['booking_no']}}" required/>
-                                        <div class="help-block with-errors"></div>
+                                        <input class="form-control" name="bookingNo" value="{{$roomBooking['booking_no']}}" disabled/>
                                     </div>
                                 </div>
                             </div>
@@ -45,8 +45,7 @@ $roomBookingDetails = $compact['bookingRoomDetails'];
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Events : </label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="events" value="{{$roomBooking['events']}}" required/>
-                                        <div class="help-block with-errors"></div>
+                                        <input class="form-control" name="events" value="{{$roomBooking['events']}}"/>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +77,11 @@ $roomBookingDetails = $compact['bookingRoomDetails'];
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Contact person : </label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="contactPerson" value="{{$roomBooking['contact_person']}}" required/>
+                                        <select class="form-control" name="contactPerson" required>
+                                            @foreach($users as $user)
+                                            <option value="{{$user['id']}}" {{$user['selected']}}>{{$user['firstname']}} {{$user['lastname']}}</option>
+                                            @endforeach
+                                        </select>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>

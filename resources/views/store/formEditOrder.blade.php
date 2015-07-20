@@ -3,6 +3,9 @@
 <?php
 $order = $compact['data'];
 $orderDetails = $compact['orderDetails'];
+$users = $compact['users'];
+$users_received = $compact['users_received'];
+$users_checked = $compact['users_checked'];
 ?>
 {!! Form::open( ['route'=>['updateOrder',$order['id'] ]])  !!}
 <form>
@@ -24,8 +27,7 @@ $orderDetails = $compact['orderDetails'];
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Order No : </label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="orderNo" value="{{$order['order_no']}}" required/>
-                                        <div class="help-block with-errors"></div>
+                                        <input class="form-control" name="orderNo" value="{{$order['order_no']}}" disabled/>
                                     </div>
                                 </div>
                             </div>
@@ -44,8 +46,7 @@ $orderDetails = $compact['orderDetails'];
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Purpose of request : </label>
                                     <div class="col-lg-6">
-                                        <textarea class="form-control" rows="3" name="purpose" required>{{$order['purpose']}}</textarea>
-                                        <div class="help-block with-errors"></div>
+                                        <textarea class="form-control" rows="3" name="purpose">{{$order['purpose']}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -99,8 +100,11 @@ $orderDetails = $compact['orderDetails'];
                                     <div class="form-group">
                                         <label class="control-label col-lg-6">Order by : </label>
                                         <div class="col-lg-6">
-                                            <input class="form-control" name="orderBy" value="{{$order['order_by']}}" required/>
-                                            <div class="help-block with-errors"></div>
+                                            <select class="form-control" name="orderBy">
+                                                @foreach($users as $user)
+                                                <option value="{{$user['id']}}" {{$user['selected']}}>{{$user['firstname']}} {{$user['lastname']}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -156,8 +160,11 @@ $orderDetails = $compact['orderDetails'];
                                     <div class="form-group">
                                         <label class="control-label col-lg-6">Received by : </label>
                                         <div class="col-lg-6">
-                                            <input class="form-control" name="receivedBy" value="{{$order['received_by']}}"/>
-                                            <div class="help-block with-errors"></div>
+                                            <select class="form-control" name="receivedBy">
+                                                @foreach($users_received as $user)
+                                                <option value="{{$user['id']}}" {{$user['selected']}}>{{$user['firstname']}} {{$user['lastname']}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -183,8 +190,11 @@ $orderDetails = $compact['orderDetails'];
                                     <div class="form-group">
                                         <label class="control-label col-lg-6">Checked by : </label>
                                         <div class="col-lg-6">
-                                            <input class="form-control" name="checkedBy" value="{{$order['checked_by']}}"/>
-                                            <div class="help-block with-errors"></div>
+                                            <select class="form-control" name="checkedBy">
+                                                @foreach($users_checked as $user)
+                                                <option value="{{$user['id']}}" {{$user['selected']}}>{{$user['firstname']}} {{$user['lastname']}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
