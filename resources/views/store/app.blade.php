@@ -105,6 +105,11 @@
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
+                            @if(Helper::isAdmin() || Helper::isManager() || Helper::isSupport() || Helper::isUser())
+                            <li><a href="{{ action('TaskController@index') }}"><i
+                                        class="fa fa-shopping-cart fa-fw"></i> รายการแจ้งงาน</a></li>
+                            @endif    
+                                   
                             @if(Helper::isAdmin() || Helper::isManager())
                             <li><a href><i class="fa fa-folder-open fa-fw"></i> การจัดการ<span
                                         class="fa arrow"></span></a>
@@ -130,23 +135,23 @@
                                 </ul>
                             </li>
                             @endif
-                            @if(Helper::isAdmin() || Helper::isManager())
+                            @if(Helper::isAdmin() || Helper::isManager() || Helper::isSupport())
                             <li><a href="{{ action('OrderController@index') }}"><i
                                         class="fa fa-shopping-cart fa-fw"></i> สั่งซื้อวัสดุ-อุปกรณ์</a></li>
                             @endif
-                            @if(Helper::isAdmin() || Helper::isManager())
+                            @if(Helper::isAdmin() || Helper::isManager() || Helper::isSupport())
                             <li><a href="{{ action('RoomBookingController@index')}}"><i
                                         class="fa fa-calendar fa-fw"></i> จองห้องแลป และอุปกรณ์</a></li>
                             @endif  
-                            @if(Helper::isAdmin() || Helper::isManager())
+                            @if(Helper::isAdmin() || Helper::isManager() || Helper::isSupport())
                             <li><a href="{{ action('BringMaterialController@index')}}"><i
                                         class="fa fa-list-alt fa-fw"></i> เบิก-จ่ายวัสดุ</a></li>
                             @endif            
-                            @if(Helper::isAdmin() || Helper::isManager())
+                            @if(Helper::isAdmin() || Helper::isManager() || Helper::isSupport())
                             <li><a href="{{ action('LendDeviceController@index')}}"><i
                                         class="fa fa-edit fa-fw"></i> ยืม-คืนอุปกรณ์</a></li>
                             @endif
-                            @if(Helper::isAdmin() || Helper::isManager())
+                            @if(Helper::isAdmin() || Helper::isManager() || Helper::isSupport())
                             <li><a href="{{ action('RepairController@index')}}"><i
                                         class="fa fa-wrench fa-fw"></i> แจ้งซ่อมอุปกรณ์</a></li>
                             @endif

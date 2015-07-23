@@ -113,6 +113,16 @@ Route::get('/editUserStock/{id}', ['as' => 'editUserStock', 'uses' => 'UserStock
 Route::any('/updateUserStock/{id}', ['as' => 'updateUserStock', 'uses' => 'UserStockController@update']);
 Route::get('/getAvailableStock/{id}', ['as' => 'getAvailableStock', 'uses' => 'UserStockController@getAvailableStock']);
 
+// Task
+Route::get('/viewManageTask', 'TaskController@index');
+Route::get('/viewFormRequestRoom', 'TaskController@createRequestRoom');
+Route::get('/viewFormRequestRepair', 'TaskController@createRequestRepair');
+Route::get('/viewFormRequestOther', 'TaskController@createRequestOther');
+Route::post('/addTask', 'TaskController@store');
+Route::get('/delTask/{id}', ['as' => 'delTask', 'uses' => 'TaskController@destroy']);
+Route::get('/editTask{id}', ['as' => 'editTask', 'uses' => 'TaskController@edit']);
+Route::any('/updateTask/{id}', ['as' => 'updateTask', 'uses' => 'TaskController@update']);
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',

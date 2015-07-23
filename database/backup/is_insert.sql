@@ -61,4 +61,4 @@ INSERT INTO `user_stock` (`id`, `name`, `description`, `flag`, `stock_id`, `user
 --
 -- Dumping data for table `running_number`
 --
-INSERT INTO `running_number` (`id`, `type`, `number`) VALUES (1,1,'0'),(2,2,'0'),(3,3,'0'),(4,4,'0'),(5,5,'0'),(6,6,'0');
+INSERT INTO `running_number` (`id`, `type`, `number`) VALUES (1,1,'0'),(2,2,'0'),(3,3,'0'),(4,4,'0'),(5,5,'0'),(6,6,'0'),(7,7,'0'),(8,8,'0'),(9,9,'0');
