@@ -101,7 +101,7 @@ class LendDeviceController extends Controller {
         $lendDeviceDetails = LendDeviceDetail::where('flag', '=', '1')
                 ->where('lend_device_id', '=', $id)
                 ->get();
-        $users = Helper::get_user_list(User::all()->toArray(), $data['rent_person']);
+        $users = Helper::get_selected_user_list(User::all()->toArray(), $data['rent_person']);
 
         return view('store.formEditLendDevice')->with('compact', compact('data', 'lendDeviceDetails', 'users'));
     }

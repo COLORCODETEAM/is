@@ -44,6 +44,7 @@ $documentNumber = $compact['documentNumber'];
                                 <label class="control-label col-lg-2">Purpose of use : </label>
                                 <div class="col-lg-6">
                                     <textarea class="form-control" rows="3" name="purpose"></textarea>
+                                    <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                         </div>

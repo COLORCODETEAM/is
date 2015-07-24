@@ -16,7 +16,7 @@ use App\RunningNumber;
 
 class Helper {
 
-    //put your code here
+    //Authentication & Authorization
     public static function isAdmin() {
         $fg = false;
         if (Auth::check()) {
@@ -76,9 +76,23 @@ class Helper {
     }
 
     public static function loginUserAvatar() {
-        
-        return asset('store/avatar/'. Auth::user()->avatar);
+
+        return asset('store/avatar/' . Auth::user()->avatar);
     }
+
+    public static function canEditDocument($userID) {
+        return Helper::checkNotDisabled(Helper::loginUser() == $userID ? true : false);
+    }
+
+    public static function canAssignDocument() {
+        return Helper::checkNotDisabled(Helper::isManager());
+    }
+
+    public static function checkNotDisabled($flag) {
+        return $flag ? '' : 'disabled';
+    }
+
+    //===================================================================================
 
     public static function add_prefix($length, $value) {
         return str_pad($value, $length, '0', STR_PAD_LEFT);
@@ -92,7 +106,7 @@ class Helper {
         return $documentNumber = Helper::add_prefix($length, $data->number);
     }
 
-    public static function get_user_list($users, $person) {
+    public static function get_selected_user_list($users, $person) {
         $selected = 0;
         foreach ($users as &$tmp) {
             if ($person == $tmp['id']) {
@@ -111,17 +125,36 @@ class Helper {
 
             array_unshift($users, $tmp);
         }
-
         return $users;
     }
 
     public static function upload_file($file) {
-        $destinationPath = base_path() .'/public/store/avatar/'; // upload path
+        $destinationPath = base_path() . '/public/store/avatar/'; // upload path
         $extension = $file->getClientOriginalExtension(); // getting image extension
-        $fileName = DateTime::getTimestamp(). rand(111111, 999999) .'.'. $extension; // renameing image
+        $fileName = DateTime::getTimestamp() . rand(111111, 999999) . '.' . $extension; // renameing image
         $file->move($destinationPath, $fileName); // uploading file to given path
-        
+
         return $fileName;
+    }
+
+    public static function get_arr_priority() {
+        return array("1" => "A little",
+            "2" => "Some",
+            "3" => "Normal",
+            "4" => "High",
+            "5" => "Highest");
+    }
+
+    public static function get_selected_room_list($rooms, $roomID) {
+        foreach ($rooms as &$tmp) {
+            if ($roomID == $tmp['id']) {
+                $tmp['selected'] = 'selected';
+            } else {
+                $tmp['selected'] = '';
+            }
+        }
+
+        return $rooms;
     }
 
 }

@@ -152,6 +152,7 @@ $documentNumber = $compact['documentNumber'];
                                                 <option value="{{$user['id']}}">{{$user['firstname']}} {{$user['lastname']}}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -164,6 +165,7 @@ $documentNumber = $compact['documentNumber'];
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </span>
+                                                <div class="help-block with-errors"></div>
                                             </div>
                                         </div>
                                     </div>

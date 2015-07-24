@@ -4,19 +4,18 @@
 $users = $compact['users'];
 $documentNumber = $compact['documentNumber'];
 $priority = $compact['priority'];
-$rooms = $compact['rooms'];
 ?>
 {!! Form::open(array('url'=>'addTask')) !!}
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">แจ้งขอจองห้อง</h1>
+        <h1 class="page-header">แจ้งขอความช่วยเหลืออื่นๆ</h1>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                ฟอร์มแจ้งขอจองห้อง
+                ฟอร์มแจ้งขอความช่วยเหลืออื่นๆ
             </div>
             <div class="panel-body">
                 <div class="form-horizontal">
@@ -27,7 +26,7 @@ $rooms = $compact['rooms'];
                                 <div class="col-lg-6">
                                     <input class="form-control disabled" value="{{$documentNumber}}" disabled/>
                                     <input type="hidden" name="requestNo" value="{{$documentNumber}}"/>
-                                    <input type="hidden" name="formType" value="7"/>
+                                    <input type="hidden" name="formType" value="9"/>
                                 </div>
                             </div>
                         </div>
@@ -68,23 +67,14 @@ $rooms = $compact['rooms'];
                             </div>      
                         </div>
                     </div>
+                </div>
+                <div class="form-horizontal">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label class="control-label col-lg-2">Request Topic : </label>
                                 <div class="col-lg-6">
                                     <input class="form-control" name="topic" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="control-label col-lg-2">Events : </label>
-                                <div class="col-lg-6">
-                                    <input class="form-control" name="events"/>
-                                    <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                         </div>
@@ -101,59 +91,13 @@ $rooms = $compact['rooms'];
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-6">Date of Event : </label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group">
-                                            <input class="form-control datepicker" name="eventDate" value="{{DateUtils::getDate()}}" required/>
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </span>
-                                        </div>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-6">Start time : </label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group">
-                                            <input class="form-control timepicker" name="startTime" required/>
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-clock-o"></i>
-                                            </span>
-                                        </div>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-6">Finish time : </label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group">
-                                            <input class="form-control timepicker" name="endTime" required/>
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-clock-o"></i>
-                                            </span>
-                                        </div>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-4">
                             <div class="form-group">
-                                <label class="control-label col-lg-2">Room : </label>
-                                <div class="col-lg-2">
-                                    <select class="form-control" name="roomId" required>
-                                        @foreach($rooms as $room)
-                                        <option value="{{$room['id']}}">{{$room['name']}}</option>
+                                <label class="control-label col-lg-6">Priority : </label>
+                                <div class="col-lg-6">
+                                    <select class="form-control" name="priority">
+                                        @foreach($priority as $tmp => $val)
+                                            <option value="{{$tmp}}">{{$val}}</option>
                                         @endforeach
                                     </select>
                                     <div class="help-block with-errors"></div>
@@ -161,8 +105,6 @@ $rooms = $compact['rooms'];
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-horizontal">
                     <div class="form-group">
                         <div class="col-lg-12">
                             <button type="submit" class="btn btn-primary pull-right">OK</button>

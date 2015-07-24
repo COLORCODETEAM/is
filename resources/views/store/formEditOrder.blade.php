@@ -165,6 +165,7 @@ $users_checked = $compact['users_checked'];
                                                 <option value="{{$user['id']}}" {{$user['selected']}}>{{$user['firstname']}} {{$user['lastname']}}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
                                 </div>

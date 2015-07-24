@@ -46,6 +46,7 @@ $users = $compact['users'];
                                     <label class="control-label col-lg-2">Events : </label>
                                     <div class="col-lg-6">
                                         <input class="form-control" name="events" value="{{$roomBooking['events']}}"/>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +56,7 @@ $users = $compact['users'];
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Purpose of use : </label>
                                     <div class="col-lg-6">
-                                        <textarea class="form-control" rows="3" name="purpose">{{$roomBooking['events']}}</textarea>
+                                        <textarea class="form-control" rows="3" name="purpose">{{$roomBooking['purpose']}}</textarea>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>

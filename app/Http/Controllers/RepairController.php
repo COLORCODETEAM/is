@@ -99,8 +99,8 @@ class RepairController extends Controller {
         $repairDeviceDetails = RepairDeviceDetail::where('flag', '=', '1')
                 ->where('repair_device_id', '=', $id)
                 ->get();
-        $users = Helper::get_user_list(User::all()->toArray(), $data['person']);
-        $users_received = Helper::get_user_list(User::all()->toArray(), $data['received_by']);
+        $users = Helper::get_selected_user_list(User::all()->toArray(), $data['person']);
+        $users_received = Helper::get_selected_user_list(User::all()->toArray(), $data['received_by']);
         
         return view('store.formEditRepair')->with('compact', compact('data', 'repairDeviceDetails', 'users', 'users_received'));
     }

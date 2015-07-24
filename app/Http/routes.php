@@ -120,7 +120,7 @@ Route::get('/viewFormRequestRepair', 'TaskController@createRequestRepair');
 Route::get('/viewFormRequestOther', 'TaskController@createRequestOther');
 Route::post('/addTask', 'TaskController@store');
 Route::get('/delTask/{id}', ['as' => 'delTask', 'uses' => 'TaskController@destroy']);
-Route::get('/editTask{id}', ['as' => 'editTask', 'uses' => 'TaskController@edit']);
+Route::get('/editTask/{id}', ['as' => 'editTask', 'uses' => 'TaskController@edit']);
 Route::any('/updateTask/{id}', ['as' => 'updateTask', 'uses' => 'TaskController@update']);
 
 Route::controllers([

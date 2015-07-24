@@ -101,7 +101,7 @@ class BringMaterialController extends Controller {
         $bringMaterialDetails = BringMaterialDetail::where('flag', '=', '1')
                 ->where('bring_material_id', '=', $id)
                 ->get();
-        $users = Helper::get_user_list(User::all()->toArray(), $data['withdraw_person']);
+        $users = Helper::get_selected_user_list(User::all()->toArray(), $data['withdraw_person']);
         
         return view('store.formEditBringMaterial')->with('compact', compact('data', 'bringMaterialDetails', 'users'));
     }

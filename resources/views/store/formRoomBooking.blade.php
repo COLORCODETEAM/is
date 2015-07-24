@@ -46,6 +46,7 @@ $rooms = $compact['rooms'];
                                     <label class="control-label col-lg-2">Events : </label>
                                     <div class="col-lg-6">
                                         <input class="form-control" name="events"/>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +146,7 @@ $rooms = $compact['rooms'];
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="control-label col-lg-3">Space needed (please select) : </label>
+                                    <label class="control-label col-lg-2">Room : </label>
                                     <div class="col-lg-2">
                                         <select class="form-control" name="roomId" required>
                                             @foreach($rooms as $room)

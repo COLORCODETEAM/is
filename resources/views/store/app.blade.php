@@ -107,7 +107,7 @@
                         <ul class="nav" id="side-menu">
                             @if(Helper::isAdmin() || Helper::isManager() || Helper::isSupport() || Helper::isUser())
                             <li><a href="{{ action('TaskController@index') }}"><i
-                                        class="fa fa-shopping-cart fa-fw"></i> รายการแจ้งงาน</a></li>
+                                        class="fa fa-edit fa-fw"></i> รายการแจ้งงาน</a></li>
                             @endif    
                                    
                             @if(Helper::isAdmin() || Helper::isManager())

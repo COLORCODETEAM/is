@@ -111,9 +111,9 @@ class OrderController extends Controller {
                 ->where('order_id', '=', $id)
                 ->get();
         
-        $users = Helper::get_user_list(User::all()->toArray(), $data['order_by']);
-        $users_received = Helper::get_user_list(User::all()->toArray(), $data['received_by']);
-        $users_checked = Helper::get_user_list(User::all()->toArray(), $data['checked_by']);
+        $users = Helper::get_selected_user_list(User::all()->toArray(), $data['order_by']);
+        $users_received = Helper::get_selected_user_list(User::all()->toArray(), $data['received_by']);
+        $users_checked = Helper::get_selected_user_list(User::all()->toArray(), $data['checked_by']);
         
         return view('store.formEditOrder')->with('compact', compact('data', 'orderDetails', 'users', 'users_received', 'users_checked'));
     }

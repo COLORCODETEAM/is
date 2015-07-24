@@ -1,5 +1,10 @@
 @extends('store.app')
 @section('content')
+<?php
+$tasks = $compact['data'];
+$priority = $compact['priority'];
+$taskType = $compact['taskType'];
+?>
 <form role="form">
     <div class="row">
         <div class="col-lg-12">
@@ -11,19 +16,11 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-1">
+                        <div class="col-lg-12">
                             <div class="form-group">
-                                <a href="{{ action('RepairController@createRequestRoom')}}" class="loadingButton btn btn-primary">แจ้งขอจองห้อง</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-1">
-                            <div class="form-group">
-                                <a href="{{ action('RepairController@createRequestRepair')}}" class="loadingButton btn btn-primary">แจ้งอุปกรณ์ขัดข้อง</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-1">
-                            <div class="form-group">
-                                <a href="{{ action('RepairController@createRequestOther')}}" class="loadingButton btn btn-primary">แจ้งขอความช่วยเหลืออื่นๆ</a>
+                                <a href="{{ action('TaskController@createRequestRoom')}}" class="loadingButton btn btn-primary">แจ้งขอจองห้อง</a>
+                                <a href="{{ action('TaskController@createRequestRepair')}}" class="loadingButton btn btn-primary">แจ้งอุปกรณ์ขัดข้อง</a>
+                                <a href="{{ action('TaskController@createRequestOther')}}" class="loadingButton btn btn-primary">แจ้งขอความช่วยเหลืออื่นๆ</a>
                             </div>
                         </div>
                     </div>
@@ -39,9 +36,10 @@
                                             <thead>
                                                 <tr>
                                                     <th></th>
+                                                    <th>Request</th>
                                                     <th>Request No.</th>
                                                     <th>Date</th>
-                                                    <th>Request Person</th>>
+                                                    <th>Request Person</th>
                                                     <th>Contact Person</th>
                                                     <th>Priority</th>
                                                 </tr>
@@ -59,11 +57,26 @@
                                                             </div>
                                                         </div>
                                                     </td>
+                                                    <td>
+                                                        @foreach($taskType as $tmp => $val)
+                                                            @if ($task['task_type']==$tmp)
+                                                                {{$val}}
+                                                            @endif
+                                                        @endforeach
+                                                    </td>
                                                     <td>{{$task['request_no']}}</td>
                                                     <td>{{date('d/m/Y', strtotime($task['create_date']))}}</td>
                                                     <td>{{$task->userRequest->firstname}} {{$task->userRequest->lastname}}</td>
-                                                    <td>{{$task->userContact->firstname}} {{$task->userContact->lastname}}</td>
-                                                    <td>{{$task['priority']}}</td>
+                                                    <td>@if (isset($task->userContact->firstname)) $task->userContact->firstname @endif
+                                                        @if (isset($task->userContact->lastname)) $task->userContact->lastname @endif
+                                                    </td>
+                                                    <td>
+                                                        @foreach($priority as $tmp => $val)
+                                                            @if ($task['priority']==$tmp)
+                                                                {{$val}}
+                                                            @endif
+                                                        @endforeach
+                                                    </td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

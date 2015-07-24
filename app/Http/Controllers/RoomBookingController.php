@@ -100,20 +100,12 @@ class RoomBookingController extends Controller {
      */
     public function edit($id) {
         $data = BookingRoom::find($id);
-        $rooms = Room::where('flag', '=', '1')->get();
+        $rooms_list = Room::where('flag', '=', '1')->get();
         $bookingRoomDetails = BookingRoomDetail::where('flag', '=', '1')
                 ->where('booking_room_id', '=', $id)
                 ->get();
-                
-        foreach ( $rooms as &$tmp ) {
-            if ($data['room_id']==$tmp['id']) {
-                $tmp['selected'] = 'selected';
-            } else {
-                $tmp['selected'] = '';
-            }
-        }
-        
-        $users = Helper::get_user_list(User::all()->toArray(), $data['contact_person']);
+        $rooms = get_selected_room_list($rooms_list, $data['room_id']);
+        $users = Helper::get_selected_user_list(User::all()->toArray(), $data['contact_person']);
         
         return view('store.formEditRoomBooking')->with('compact', compact('data', 'rooms', 'bookingRoomDetails', 'users'));
     }
