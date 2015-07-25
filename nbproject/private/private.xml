@@ -5,9 +5,11 @@
         <group>
             <file>file:/C:/xampp/htdocs/is/app/Http/Controllers/TaskController.php</file>
             <file>file:/C:/xampp/htdocs/is/database/backup/Task/Task.txt</file>
-            <file>file:/C:/xampp/htdocs/is/resources/views/store/formRequestRepair.blade.php</file>
-            <file>file:/C:/xampp/htdocs/is/storage/logs/laravel-2015-07-24.log</file>
-            <file>file:/C:/xampp/htdocs/is/app/Http/Controllers/RepairController.php</file>
+            <file>file:/C:/xampp/htdocs/is/resources/views/store/formEditRequestOther.blade.php</file>
+            <file>file:/C:/xampp/htdocs/is/storage/logs/laravel-2015-07-25.log</file>
+            <file>file:/C:/xampp/htdocs/is/resources/views/store/formEditRequestRoom.blade.php</file>
+            <file>file:/C:/xampp/htdocs/is/app/library/Helper.php</file>
+            <file>file:/C:/xampp/htdocs/is/resources/views/store/formEditRequestRepair.blade.php</file>
         </group>
     </open-files>
 </project-private>

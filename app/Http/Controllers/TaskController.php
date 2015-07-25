@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Request;
 use App\Task;
+use App\TaskDetail;
+use App\RepairDevice;
+use App\RepairDeviceDetail;
 use App\User;
 use App\Room;
 use DateUtils;
@@ -18,14 +21,19 @@ class TaskController extends Controller {
      * @return Response
      */
     public function index() {
-        // ผู้ร้องขอ
-        // ผู้มอบหมายงาน
-        // ผู้รับมอบหมายงาน
-        // 
-        // order by priority
-        //xxxx
-        $data = Task::where('flag', '=', '1')
-                        ->orderBy('create_date', 'desc')->get();
+        $data = array();
+        if (Helper::isAdmin() || Helper::isManager()) {
+            $data = Task::where('flag', '=', '1')
+                            ->orderBy('create_date', 'desc')->get();
+        } else if (Helper::isSupport()) {
+            $data = Task::where('flag', '=', '1')
+                            ->where('contact_person', '=', Helper::loginUser())
+                            ->orderBy('create_date', 'desc')->get();
+        } else if (Helper::isUser()) {
+            $data = Task::where('flag', '=', '1')
+                            ->where('create_user', '=', Helper::loginUser())
+                            ->orderBy('create_date', 'desc')->get();
+        }
         $priority = Helper::get_arr_priority();
         $taskType = array("7" => "แจ้งขอจองห้อง", "8" => "แจ้งอุปกรณ์ขัดข้อง", "9" => "แจ้งขอความช่วยเหลืออื่นๆ");
 
@@ -97,6 +105,25 @@ class TaskController extends Controller {
         $task->update_date = DateUtils::getDBDateTime();
         $task->flag = '1';
         $task->save();
+
+        if ($input['formType'] == '8') {
+            // Save task details
+            if (isset($input['hiddenDeviceId'])) {
+                $items = $input ['hiddenDeviceId'];
+                $i = 0;
+                foreach ($items as $item) {
+                    $detail = new TaskDetail();
+                    $detail->equipment_id = $item;
+                    $detail->symptom = $input ['symptom'][$i];
+                    $detail->flag = '1';
+
+                    $details[] = $detail;
+                    $i++;
+                }
+                $task->taskDetail()->saveMany($details);
+            }
+        }
+
         return redirect('viewManageTask');
     }
 
@@ -126,7 +153,13 @@ class TaskController extends Controller {
 
             return view('store.formEditRequestRoom')->with('compact', compact('data', 'rooms', 'users'));
         } else if ($data['task_type'] == '8') {
-            return view('store.formEditRequestRepair')->with('task', $data);
+            $users = Helper::get_selected_user_list(User::all()->toArray(), $data['contact_person']);
+            $task_details = TaskDetail::where('flag', '=', '1')
+                    ->where('task_id', '=', $data['id'])
+                    ->get();
+            $priority = Helper::get_arr_priority();
+
+            return view('store.formEditRequestRepair')->with('compact', compact('data', 'users', 'task_details', 'priority'));
         } else if ($data['task_type'] == '9') {
             $users = User::where('user_role_id', '=', '3')->get();
             $priority = Helper::get_arr_priority();
@@ -142,85 +175,93 @@ class TaskController extends Controller {
      * @return Response
      */
     public function update($id) {
-
-        // เช็ค hidden ว่ามาจากฟอร์มไหน
-        // สร้างเอกสาร bookingRoom, Reprair, Other
-//        xxxx
-
         $input = Request::all();
         $task = Task::find($id);
+
         if (isset($input ['contactPerson'])) {
             $task->contact_person = $input ['contactPerson'];
             $task->assign_person = Helper::loginUser();
         }
-        $task->topic = $input ['topic'];
-        $task->description = $input ['description'];
-        $task->priority = $input ['priority'];
+
+        if (Helper::loginUser() == $task->create_user) {
+            $task->topic = $input ['topic'];
+            $task->description = $input ['description'];
+            $task->priority = $input ['priority'];
+        }
         $task->update_user = Helper::loginUser();
         $task->update_date = DateUtils::getDBDateTime();
-        $task->flag = '1';
 
+        // Create real document & start work flow
         if ($input['formType'] == '7') {
-            // After assign task
             if (isset($task->assign_person)) {
-                if (is_null($task->task_job)) {
-                    $bookingRoom = new BookingRoom ();
-                    $bookingRoom->room_id = $input ['roomId'];
-                    $bookingRoom->booking_no = Helper::get_running_number("2", "6");
-                    $bookingRoom->events = $input ['events'];
-                    $bookingRoom->description = $input ['description'];
-                    $bookingRoom->contact_person = $task->assign_person;
-                    $bookingRoom->start_time = DateUtils::getConcatDBDateTime($input['eventDate'], $input ['startTime']);
-                    $bookingRoom->end_time = DateUtils::getConcatDBDateTime($input['eventDate'], $input ['endTime']);
-                    $bookingRoom->create_user = Helper::loginUser();
-                    $bookingRoom->create_date = DateUtils::getDBDateTime();
-                    $bookingRoom->update_user = Helper::loginUser();
-                    $bookingRoom->update_date = DateUtils::getDBDateTime();
-                    $bookingRoom->flag = '1';
-                    $bookingRoom->save();
+                $bookingRoom = new BookingRoom ();
+                $bookingRoom->room_id = $task->room;
+                $bookingRoom->booking_no = Helper::get_running_number("2", "6");
+                $bookingRoom->events = $task->events;
+                $bookingRoom->description = $task->descriptoin;
+                $bookingRoom->contact_person = $task->assign_person;
+                $bookingRoom->start_time = DateUtils::getDBDateTimeFromStr($task->start_time);
+                $bookingRoom->end_time = DateUtils::getDBDateTimeFromStr($task->end_time);
+                $bookingRoom->create_user = Helper::loginUser();
+                $bookingRoom->create_date = DateUtils::getDBDateTime();
+                $bookingRoom->update_user = Helper::loginUser();
+                $bookingRoom->update_date = DateUtils::getDBDateTime();
+                $bookingRoom->flag = '1';
+                $bookingRoom->save();
 
-                    $task->task_job = $bookingRoom->id;
-                } else {
-                    //xxx
-                }
+                $task->task_job = $bookingRoom->id;
             }
+            $task->save();
         } else if ($input['formType'] == '8') {
             if (isset($task->assign_person)) {
-                if (is_null($task->task_job)) {
-                    $repairDevice = new RepairDevice ();
-                    $repairDevice->repair_no = Helper::get_running_number("5", "6");
-                    $repairDevice->person = $input ['contactPerson'];
-                    $repairDevice->create_user = Helper::loginUser();
-                    $repairDevice->create_date = DateUtils::getDBDateTime();
-                    $repairDevice->update_user = Helper::loginUser();
-                    $repairDevice->update_date = DateUtils::getDBDateTime();
-                    $repairDevice->flag = '1';
-                    $repairDevice->save();
+                $repairDevice = new RepairDevice ();
+                $repairDevice->repair_no = Helper::get_running_number("5", "6");
+                $repairDevice->person = $task->contact_person;
+                $repairDevice->create_user = Helper::loginUser();
+                $repairDevice->create_date = DateUtils::getDBDateTime();
+                $repairDevice->update_user = Helper::loginUser();
+                $repairDevice->update_date = DateUtils::getDBDateTime();
+                $repairDevice->flag = '1';
+                $repairDevice->save();
 
-                    // save details
-                    if (isset($input['hiddenDeviceId'])) {
-                        $items = $input ['hiddenDeviceId'];
-                        $i = 0;
-                        foreach ($items as $item) {
-                            $detail = new RepairDeviceDetail();
-                            $detail->device_id = $item;
-                            $detail->symptom = $input ['symptom'][$i];
-                            $detail->flag = '1';
+                // Save Repair details
+                $task_details = TaskDetail::where('flag', '=', '1')
+                        ->where('task_id', '=', $task->id)
+                        ->get();
 
-                            $details[] = $detail;
-                            $i++;
-                        }
-                        $repairDevice->repairDeviceDetail()->saveMany($details);
-                    }
-                    
-                    $task->task_job = $repairDevice->id;
-                } else {
-                    //xxx
+                foreach ($task_details as $detail) {
+                    $detail = new RepairDeviceDetail();
+                    $detail->device_id = $detail->equipment_id;
+                    $detail->symptom = $detail->symptom;
+                    $detail->flag = '1';
+
+                    $details[] = $detail;
                 }
+                $repairDevice->repairDeviceDetail()->saveMany($details);
+
+                $task->task_job = $repairDevice->id;
             }
+            $task->save();
+
+            // Save Task details
+            if (isset($input['hiddenDeviceId'])) {
+                $items = $input ['hiddenDeviceId'];
+                $i = 0;
+                foreach ($items as $item) {
+                    $detail = new TaskDetail();
+                    $detail->equipment_id = $item;
+                    $detail->symptom = $input ['symptom'][$i];
+                    $detail->flag = '1';
+
+                    $details[] = $detail;
+                    $i++;
+                }
+                $task->taskDetail()->saveMany($details);
+            }
+        } else if ($input['formType'] == '9') {
+            $task->save();
         }
 
-        $task->save();
         return redirect('viewManageTask');
     }
 
@@ -231,10 +272,13 @@ class TaskController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-//        xxxx
         Task::where('id', '=', $id)->update(['flag' => '0'], ['update_user' => Helper::loginUser()], ['update_date' => DateUtils::getDBDateTime()]);
 
         return redirect('viewManageTask');
+    }
+
+    public function destroyDetail($id) {
+        TaskDetail::where('id', '=', $id)->update(['flag' => '0']);
     }
 
 }

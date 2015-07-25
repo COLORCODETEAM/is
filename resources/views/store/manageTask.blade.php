@@ -18,9 +18,9 @@ $taskType = $compact['taskType'];
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <a href="{{ action('TaskController@createRequestRoom')}}" class="loadingButton btn btn-primary">แจ้งขอจองห้อง</a>
-                                <a href="{{ action('TaskController@createRequestRepair')}}" class="loadingButton btn btn-primary">แจ้งอุปกรณ์ขัดข้อง</a>
-                                <a href="{{ action('TaskController@createRequestOther')}}" class="loadingButton btn btn-primary">แจ้งขอความช่วยเหลืออื่นๆ</a>
+                                <a href="{{ action('TaskController@createRequestRoom')}}" class="loadingButton btn btn-primary">{{$taskType['7']}}</a>
+                                <a href="{{ action('TaskController@createRequestRepair')}}" class="loadingButton btn btn-primary">{{$taskType['8']}}</a>
+                                <a href="{{ action('TaskController@createRequestOther')}}" class="loadingButton btn btn-primary">{{$taskType['9']}}</a>
                             </div>
                         </div>
                     </div>

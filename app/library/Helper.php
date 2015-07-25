@@ -80,16 +80,20 @@ class Helper {
         return asset('store/avatar/' . Auth::user()->avatar);
     }
 
-    public static function canEditDocument($userID) {
-        return Helper::checkNotDisabled(Helper::loginUser() == $userID ? true : false);
+    public static function canEditDocument($userId) {
+        return Helper::checkDisabledElement(Helper::loginUser() == $userId ? false : true);
     }
 
     public static function canAssignDocument() {
-        return Helper::checkNotDisabled(Helper::isManager());
+        return Helper::checkDisabledElement(!Helper::isManager());
     }
 
-    public static function checkNotDisabled($flag) {
-        return $flag ? '' : 'disabled';
+    public static function canOpenAsssignedDocument($contactPerson) {
+        return Helper::checkDisabledElement(!is_null($contactPerson) ? true : false);
+    }
+
+    public static function checkDisabledElement($flag) {
+        return $flag ? 'disabled' : '';
     }
 
     //===================================================================================

@@ -20,4 +20,8 @@ class Task extends Model {
     public function userAssign() {
         return $this->belongsTo('App\User', 'assign_person');
     }
+    
+    public function taskDetail() {
+        return $this->hasMany('App\TaskDetail');
+    }
 }

@@ -122,6 +122,7 @@ Route::post('/addTask', 'TaskController@store');
 Route::get('/delTask/{id}', ['as' => 'delTask', 'uses' => 'TaskController@destroy']);
 Route::get('/editTask/{id}', ['as' => 'editTask', 'uses' => 'TaskController@edit']);
 Route::any('/updateTask/{id}', ['as' => 'updateTask', 'uses' => 'TaskController@update']);
+Route::get('/delTaskDetail/{id}', ['as' => 'delTaskDetail', 'uses' => 'TaskController@destroyDetail']);
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

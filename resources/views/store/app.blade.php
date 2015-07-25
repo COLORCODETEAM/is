@@ -416,7 +416,7 @@ $(document).ready(function () {
                                     '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
                                     '<td class="col-lg-2">' +
                                     '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
-                                    '<a href-link="http://localhost/is/public/deviceInformation/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
+                                    '<a href-link="{{url("deviceInformation")}}/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
                                     '</div>' +
                                     '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
                                     '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
@@ -433,7 +433,7 @@ $(document).ready(function () {
                                     '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
                                     '<td class="col-lg-2">' +
                                     '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
-                                    '<a href-link="http://localhost/is/public/deviceInformation/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
+                                    '<a href-link="{{url("deviceInformation")}}/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
                                     '</div>' +
                                     '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
                                     '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
@@ -449,7 +449,7 @@ $(document).ready(function () {
                                     '<input type="hidden" flag="new" name="hiddenDeviceId[]" value="' + device_id + '">' +
                                     '<td class="col-lg-2">' +
                                     '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
-                                    '<a href-link="http://localhost/is/public/deviceInformation/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
+                                    '<a href-link="{{url("deviceInformation")}}/' + device_id + '" class="deviceItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
                                     '</div>' +
                                     '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
                                     '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +
@@ -525,7 +525,7 @@ $(document).ready(function () {
                                     '<input type="hidden" flag="new" name="hiddenMaterialId[]" value="' + material_id + '">' +
                                     '<td class="col-lg-2">' +
                                     '<div class="col-lg-8" style="padding:0 0 0 5px;">' +
-                                    '<a href-link="http://localhost/is/public/materialInformation/' + material_id + '" class="materialItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
+                                    '<a href-link="{{url("deviceInformation")}}/' + material_id + '" class="materialItemDetailPopup form-control btn btn-default">รายละเอียด</a>' +
                                     '</div>' +
                                     '<div class="col-lg-4" style="padding:0 0 0 5px;">' +
                                     '<a class="form-control btn btn-danger" data-confirm="table-items">ลบ</a>' +

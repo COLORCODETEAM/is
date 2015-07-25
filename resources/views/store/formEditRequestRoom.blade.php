@@ -164,7 +164,7 @@ $rooms = $compact['rooms'];
                     <div class="col-lg-12">
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary pull-right" style="margin-left:10px;">Update</button>
-                            <button type="button" class="btn btn-primary pull-right">Open Document</button>
+                            <button type="button" class="btn btn-primary pull-right" {{Helper::canOpenAsssignedDocument($requestRoom['contact_person'])}}>Open Document</button>
                         </div>
                     </div>
                 </div>
